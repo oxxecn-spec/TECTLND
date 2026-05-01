@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>MBORMC – 15+ Years Premium Insect Screen Manufacturer | OEM/ODM & Factory Direct</title>
+    <title>MBORMC – Industrial Insect Screen Manufacturer | 15+ Years OEM/ODM</title>
     <meta name="description" content="MBORMC – 15+ years manufacturer of custom insect screens & retractable systems. 6063-T5 aluminum, OEM/ODM services, factory direct pricing, worldwide shipping from Foshan, China. Trusted partner in 50+ countries.">
     <link rel="canonical" href="https://www.mbormc.com/">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ---------- RESET & GLOBAL BLUE INDUSTRIAL THEME ---------- */
         * {
             margin: 0;
             padding: 0;
@@ -17,20 +18,22 @@
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: #ffffff;
-            color: #1e2a3a;
+            color: #1e293b;
             line-height: 1.5;
             scroll-behavior: smooth;
         }
 
+        /* Industrial blue color scheme */
         :root {
-            --primary: #e3a018;
-            --primary-dark: #c68912;
-            --dark: #1e2a3a;
-            --gray-light: #f8fafc;
-            --gray-border: #e2e8f0;
-            --text-muted: #475569;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 8px 20px rgba(0,0,0,0.06);
+            --primary: #1e5a8a;      /* deep industrial blue */
+            --primary-dark: #0f3b5c; /* darker blue */
+            --primary-light: #3b82c4;
+            --dark: #0f2b3d;
+            --gray-light: #f0f4f9;
+            --gray-border: #dce5ec;
+            --text-muted: #4a627a;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.08);
             --radius: 1rem;
         }
 
@@ -40,7 +43,7 @@
             padding: 0 1.5rem;
         }
 
-        /* navbar */
+        /* ---------- NAVIGATION ---------- */
         .navbar {
             background: white;
             box-shadow: var(--shadow-sm);
@@ -81,7 +84,7 @@
             align-items: center;
             gap: 0.5rem;
             background: var(--primary);
-            color: #1e2a3a;
+            color: white;
             font-weight: 600;
             padding: 0.6rem 1.4rem;
             border-radius: 2.5rem;
@@ -93,28 +96,29 @@
         .btn-outline {
             background: transparent;
             border: 1.5px solid var(--primary);
-            color: var(--primary-dark);
+            color: var(--primary);
         }
         .btn-outline:hover {
             background: var(--primary);
-            color: #1e2a3a;
+            color: white;
         }
         .btn-dark {
             background: var(--dark);
             color: white;
         }
         .btn-dark:hover {
-            background: #2d3e50;
+            background: #1f4a6e;
             transform: translateY(-2px);
         }
         .btn:hover {
             transform: translateY(-2px);
             background: var(--primary-dark);
+            color: white;
         }
 
-        /* hero */
+        /* ---------- HERO SECTION ---------- */
         .hero {
-            background: linear-gradient(120deg, #fffaf2 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #eef4fc 0%, #ffffff 100%);
             padding: 4rem 0 3.5rem;
         }
         .hero-grid {
@@ -126,6 +130,7 @@
         .hero-badge {
             display: inline-block;
             background: var(--primary);
+            color: white;
             padding: 0.2rem 0.9rem;
             border-radius: 2rem;
             font-size: 0.8rem;
@@ -137,6 +142,7 @@
             line-height: 1.2;
             margin-bottom: 1rem;
             font-weight: 800;
+            color: #0a2a44;
         }
         .hero h1 em {
             color: var(--primary);
@@ -170,7 +176,6 @@
             width: 100%;
             border-radius: var(--radius);
             box-shadow: var(--shadow-md);
-            background: var(--gray-border);
         }
 
         @media (min-width: 769px) {
@@ -178,11 +183,9 @@
                 flex-wrap: nowrap;
                 justify-content: space-between;
             }
-            .stat {
-                flex: 1;
-            }
         }
 
+        /* Section headings */
         .section-head {
             text-align: center;
             margin-bottom: 3rem;
@@ -190,6 +193,7 @@
         .section-head h2 {
             font-size: 2rem;
             margin-bottom: 0.75rem;
+            color: #0a2a44;
         }
         .section-head p {
             color: var(--text-muted);
@@ -197,7 +201,7 @@
             margin: 0 auto;
         }
 
-        /* products */
+        /* ---------- PRODUCT CARDS (6 items, B2B focus) ---------- */
         .products-section {
             padding: 4rem 0;
             background: var(--gray-light);
@@ -218,6 +222,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+            border-bottom: 3px solid var(--primary);
         }
         .product-card:hover {
             transform: translateY(-6px);
@@ -226,7 +231,7 @@
         .product-img {
             position: relative;
             aspect-ratio: 4/3;
-            background: #f1f5f9;
+            background: #eef2f6;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -242,8 +247,8 @@
             position: absolute;
             bottom: 12px;
             left: 12px;
-            background: rgba(227, 160, 24, 0.9);
-            color: #1e2a3a;
+            background: rgba(30, 90, 138, 0.92);
+            color: white;
             font-size: 0.7rem;
             font-weight: 800;
             padding: 4px 10px;
@@ -262,11 +267,12 @@
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            color: #0f2b3d;
         }
         .feature-badge {
             display: inline-block;
-            background: #e6f7e6;
-            color: #2c6e2c;
+            background: #e1ecf5;
+            color: var(--primary-dark);
             font-size: 0.7rem;
             font-weight: 600;
             padding: 0.2rem 0.5rem;
@@ -282,7 +288,7 @@
         }
         .product-materials {
             font-size: 0.8rem;
-            color: var(--primary-dark);
+            color: var(--primary);
             font-weight: 600;
             margin-top: auto;
         }
@@ -292,9 +298,10 @@
             margin-top: 0.5rem;
         }
 
-        /* features & capabilities */
+        /* ---------- FEATURES SECTION (Why MBORMC) ---------- */
         .features-section {
             padding: 4rem 0;
+            background: white;
         }
         .features-grid {
             display: grid;
@@ -304,15 +311,20 @@
         .feature-card {
             text-align: center;
             padding: 1.5rem;
+            border-radius: 1rem;
+            background: #f8fafd;
+            transition: 0.2s;
         }
         .feature-icon {
             font-size: 2.2rem;
             margin-bottom: 1rem;
+            color: var(--primary);
         }
 
+        /* ---------- ABOUT + CAPABILITIES ---------- */
         .about-section {
             padding: 4rem 0;
-            background: white;
+            background: #ffffff;
         }
         .about-grid {
             display: grid;
@@ -332,7 +344,7 @@
             margin-top: 1.5rem;
         }
         .highlight-badge {
-            background: var(--gray-light);
+            background: #e6f0f9;
             padding: 0.3rem 0.8rem;
             border-radius: 2rem;
             font-size: 0.75rem;
@@ -355,10 +367,10 @@
             min-width: 2rem;
         }
 
-        /* keywords B2B */
+        /* ---------- B2B KEYWORDS SECTION ---------- */
         .keywords-section {
             padding: 4rem 0;
-            background: white;
+            background: var(--gray-light);
         }
         .keywords-grid {
             display: grid;
@@ -366,11 +378,12 @@
             gap: 1.5rem;
         }
         .keyword-item {
-            background: var(--gray-light);
+            background: white;
             padding: 1.2rem;
             border-radius: 1rem;
             transition: 0.2s;
             border-left: 4px solid var(--primary);
+            box-shadow: var(--shadow-sm);
         }
         .keyword-item strong {
             font-size: 1.1rem;
@@ -381,10 +394,9 @@
         .keyword-item p {
             font-size: 0.85rem;
             color: var(--text-muted);
-            margin: 0;
         }
 
-        /* inquiry form */
+        /* ---------- INQUIRY FORM ---------- */
         .inquiry-section {
             padding: 4rem 0;
             background: #ffffff;
@@ -416,9 +428,9 @@
             display: block;
             margin-bottom: 0.4rem;
             font-weight: 600;
-            color: #2c3e44;
+            color: #1e3a5f;
         }
-        input, textarea, select {
+        input, textarea {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 1px solid var(--gray-border);
@@ -429,12 +441,12 @@
         input:focus, textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(227,160,24,0.2);
+            box-shadow: 0 0 0 2px rgba(30,90,138,0.2);
         }
         .submit-btn {
             width: 100%;
             padding: 0.8rem;
-            background-color: var(--dark);
+            background-color: var(--primary);
             color: white;
             border: none;
             border-radius: 2rem;
@@ -448,6 +460,7 @@
             transform: translateY(-2px);
         }
 
+        /* Social icons */
         .social-icons {
             display: flex;
             justify-content: center;
@@ -470,8 +483,10 @@
         .social-icon.facebook:hover { background: #1877F2; color: white; }
         .social-icon.instagram:hover { background: #E4405F; color: white; }
         .social-icon.xiaohongshu:hover { background: #FE2C55; color: white; }
+
+        /* Contact bar */
         .contact-bar {
-            background: var(--gray-light);
+            background: #eef3fc;
             padding: 1.5rem 0;
             text-align: center;
             border-top: 1px solid var(--gray-border);
@@ -494,19 +509,25 @@
             color: var(--primary);
         }
 
+        /* Footer */
         .footer {
-            background: #0f172a;
-            color: #94a3b8;
+            background: #0a2a44;
+            color: #bdd4e7;
             padding: 2rem 0 1.5rem;
             text-align: center;
         }
         .footer a {
-            color: var(--primary);
+            color: #7ab3c8;
             text-decoration: none;
         }
+        .footer a:hover {
+            color: white;
+        }
+
+        /* FAQ Section (importer-focused) */
         .faq-section {
             padding: 4rem 0;
-            background: var(--gray-light);
+            background: white;
         }
         .faq-item {
             border-bottom: 1px solid var(--gray-border);
@@ -523,6 +544,7 @@
             display: flex;
             justify-content: space-between;
             font-size: 1rem;
+            color: var(--dark);
         }
         .faq-answer {
             display: none;
@@ -532,6 +554,8 @@
         .faq-answer.show {
             display: block;
         }
+
+        /* Mobile menu toggle */
         .menu-toggle {
             display: none;
             background: none;
@@ -539,6 +563,8 @@
             font-size: 1.6rem;
             cursor: pointer;
         }
+
+        /* Floating contact icons */
         .floating-contact {
             position: fixed;
             right: 20px;
@@ -562,11 +588,12 @@
             cursor: pointer;
             text-decoration: none;
             font-size: 1.6rem;
-            color: #1e2a3a;
+            color: #1e3b5c;
         }
         .contact-icon.whatsapp:hover { background: #25D366; color: white; }
         .contact-icon.wechat:hover { background: #07C160; color: white; }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .floating-contact { right: 10px; gap: 8px; }
             .contact-icon { width: 42px; height: 42px; font-size: 1.3rem; }
@@ -582,6 +609,7 @@
 </head>
 <body>
 
+<!-- Floating contact bar (WhatsApp + WeChat) -->
 <div class="floating-contact">
     <a href="https://wa.me/8613536600067" class="contact-icon whatsapp" target="_blank" rel="noopener" title="WhatsApp">
         <i class="fab fa-whatsapp"></i>
@@ -591,6 +619,7 @@
     </div>
 </div>
 
+<!-- Navigation -->
 <nav class="navbar">
     <div class="container nav-inner">
         <a href="https://www.mbormc.com/" class="logo">MBORMC</a>
@@ -606,18 +635,18 @@
     </div>
 </nav>
 
-<!-- Hero 区域 -->
+<!-- Hero Section -->
 <section id="home" class="hero">
     <div class="container hero-grid">
         <div>
-            <span class="hero-badge">15+ Years Manufacturer · OEM/ODM Specialist</span>
+            <span class="hero-badge">15+ Years Manufacturer · OEM/ODM · Foshan, China</span>
             <h1>Custom Insect Screens — <em>Global OEM/ODM & Retail</em></h1>
-            <p class="hero-desc">MBORMC: 15+ years factory direct experience. Premium 6063-T5 aluminium frames, retractable & folding insect screens. Trusted partner for importers, DIY chains and construction projects worldwide.</p>
+            <p class="hero-desc">MBORMC is a leading industrial manufacturer of custom‑made retractable insect screens, folding door systems, and window mesh solutions. Trusted by clients in over 50 countries. Factory direct, worldwide shipping.</p>
             <div class="hero-stats">
                 <div class="stat"><div class="stat-num">15+ yrs</div><div>Manufacturing</div></div>
                 <div class="stat"><div class="stat-num">50+</div><div>Countries served</div></div>
                 <div class="stat"><div class="stat-num">6063-T5</div><div>Premium Aluminium</div></div>
-                <div class="stat"><div class="stat-num">🚢</div><div>Sea freight icon</div></div>
+                <div class="stat"><div class="stat-num">🚢</div><div>Sea Freight Icon</div></div>
             </div>
             <div style="margin-top: 2rem;">
                 <a href="#inquiry" class="btn">Request a Quote →</a>
@@ -625,79 +654,79 @@
             </div>
         </div>
         <div class="hero-img">
-            <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/mborcc.jpg" alt="MBORMC factory and aluminum extrusion production">
+            <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/mborcc.jpg" alt="MBORMC factory and aluminum extrusion facility">
         </div>
     </div>
 </section>
 
-<!-- 产品展示：6个卡片，强调OEM/ODM & 批发询价 -->
+<!-- Products Section (6 cards, OEM/ODM & wholesale focus) -->
 <section id="products" class="products-section">
     <div class="container">
         <div class="section-head">
-            <h2>Our Premium Product Series</h2>
-            <p>OEM/ODM solutions | H Series window | F Series door | Bulk & retail ready</p>
+            <h2>Premium Product Series</h2>
+            <p>Roll-up screens · Folding doors · Magnetic nets · Solar blinds — All built for OEM/ODM & bulk supply</p>
         </div>
         <div class="product-grid">
-            <!-- 产品1 -->
+            <!-- Product 1: Retractable Roll-Up Screen -->
             <a href="#" class="product-card">
                 <div class="product-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h01.jpg" alt="H01 Retractable Roll-Up Screen">
+                    <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h01.jpg" alt="Retractable Roll-Up Window Screen">
                     <span class="img-keyword-tag">H Series · Window Screen</span>
                 </div>
                 <div class="product-body">
                     <div class="feature-badge">OEM/ODM Ready</div>
                     <div class="product-title">Retractable Roll-Up Screen (H01)</div>
-                    <div class="product-desc">PET / 304 mesh options, powder-coated aluminium cassette, spring-assisted retraction. Custom colors & sizing.</div>
+                    <div class="product-desc">PET or 304 stainless steel mesh, powder-coated aluminium cassette, smooth spring retraction. Custom colors & sizes.</div>
                     <div class="product-materials">Materials: 6063-T5 Aluminium + PET/SS mesh</div>
                     <div class="product-price">Wholesale / Retail inquiry</div>
                 </div>
             </a>
-            <!-- 产品2 -->
+            <!-- Product 2: Folding Screen Door -->
             <a href="#" class="product-card">
                 <div class="product-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h02.jpg" alt="Folding Screen Door FD02">
+                    <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h02.jpg" alt="Folding Screen Door">
                     <span class="img-keyword-tag">F Series · Door System</span>
                 </div>
                 <div class="product-body">
                     <div class="feature-badge">Pet‑resistant / OEM</div>
                     <div class="product-title">Folding Screen Door (FD02)</div>
-                    <div class="product-desc">304 stainless steel concertina mesh, sliding & folding system. Suitable for French doors, wide openings.</div>
+                    <div class="product-desc">304 stainless steel concertina mesh, sliding & folding design. Ideal for French doors and wide openings.</div>
                     <div class="product-materials">304 SS / Crystal panel + Aluminium frame</div>
                     <div class="product-price">Custom quote for bulk</div>
                 </div>
             </a>
-            <!-- 产品3 -->
+            <!-- Product 3: Roll-up + Folding 2-in-1 -->
             <a href="#" class="product-card">
                 <div class="product-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h03.jpg" alt="2-in-1 Roll up+Folding">
+                    <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h03.jpg" alt="2-in-1 Roll-up+Folding Screen">
                     <span class="img-keyword-tag">2-in-1 Hybrid System</span>
                 </div>
                 <div class="product-body">
                     <div class="feature-badge">Versatile Design</div>
                     <div class="product-title">Roll-up + Folding Screen (H03)</div>
-                    <div class="product-desc">Combination set: retractable main screen + additional folding layer. Strong OEM branding support.</div>
+                    <div class="product-desc">Combines retractable main screen with an additional folding layer. Full OEM branding support.</div>
                     <div class="product-materials">Aluminium + PET / 304 mesh</div>
                     <div class="product-price">Inquiry for bulk order</div>
                 </div>
             </a>
-            <!-- 产品4 -->
+            <!-- Product 4: Self-Adhesive Velcro Screen -->
             <a href="#" class="product-card">
                 <div class="product-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h04.jpg" alt="Self-Adhesive Velcro Screen">
                     <span class="img-keyword-tag">Tool‑free installation</span>
                 </div>
                 <div class="product-body">
-                    <div class="feature-badge">DIY friendly / OEM packing</div>
+                    <div class="feature-badge">DIY / OEM packing</div>
                     <div class="product-title">Self-Adhesive Velcro Screen (FD04)</div>
-                    <div class="product-desc">No frame needed, hook-and-loop tape, 304 stainless steel mesh. Economical and removable.</div>
+                    <div class="product-desc">No frame needed, hook-and-loop tape, 304 stainless steel mesh. Removable and economical.</div>
                     <div class="product-materials">304 SS mesh + high-bond adhesive</div>
                     <div class="product-price">Wholesale available</div>
                 </div>
             </a>
-            <!-- 产品5 -->
+            <!-- Product 5: Solar Roller Blinds -->
             <a href="#" class="product-card">
                 <div class="product-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h07.jpg" alt="Solar Roller Blinds">
+                    <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h07.jpg" alt="External Solar Roller Blinds">
                     <span class="img-keyword-tag">Solar protection</span>
                 </div>
                 <div class="product-body">
@@ -708,7 +737,7 @@
                     <div class="product-price">Factory direct price</div>
                 </div>
             </a>
-            <!-- 产品6 -->
+            <!-- Product 6: Magnetic Mosquito Curtain -->
             <a href="#" class="product-card">
                 <div class="product-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h05.jpg" alt="Magnetic Mosquito Curtain">
@@ -723,11 +752,11 @@
                 </div>
             </a>
         </div>
-        <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">All series support complete OEM/ODM — ask for sample & wholesale price list <a href="#inquiry" style="color: var(--primary);">Request now</a></p>
+        <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">All series support complete OEM/ODM — ask for sample & wholesale price list <a href="#inquiry" style="color: var(--primary);">Request a quote</a></p>
     </div>
 </section>
 
-<!-- 公司介绍 + Our Capabilities -->
+<!-- About + Capabilities -->
 <section id="about" class="about-section">
     <div class="container">
         <div class="section-head">
@@ -736,7 +765,7 @@
         </div>
         <div class="about-grid">
             <div class="about-text">
-                <p><strong>MBORMC</strong> is a leading manufacturer with <strong>15+ years of aluminium extrusion and precision engineering</strong>, specialized in retractable insect screens, folding door systems, and window meshes. Serving over <strong>50 countries</strong>, our products are trusted by global importers, hardware retailers, and construction firms who demand high quality & factory direct pricing.</p>
+                <p><strong>MBORMC</strong> is a professional manufacturer with <strong>15+ years of aluminium extrusion and precision engineering</strong>, specializing in retractable insect screens, folding door systems, and window mesh solutions. Serving over <strong>50 countries</strong>, our products are trusted by global importers, hardware retailers, and construction firms who demand high quality & factory direct pricing.</p>
                 <p>All products are built with premium <strong>6063‑T5 aluminum alloy</strong> – offering superior corrosion resistance and durability. We provide full <strong>OEM/ODM services</strong> from frame color, mesh type to custom packaging & logo printing.</p>
                 <div class="about-highlights">
                     <span class="highlight-badge">15+ years expertise</span>
@@ -759,19 +788,20 @@
     </div>
 </section>
 
+<!-- Why Choose MBORMC (Features) -->
 <section id="why" class="features-section">
     <div class="container">
-        <div class="section-head"><h2>Why Global Partners Choose MBORMC</h2><p>Reliable quality · agile production · transparent communication</p></div>
+        <div class="section-head"><h2>Why Global Clients Choose MBORMC</h2><p>Reliable quality · agile production · transparent communication</p></div>
         <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon">📏</div><h3>Custom sizing & RAL colors</h3><p>Any size, any color, any mesh density. We adapt to local market needs.</p></div>
-            <div class="feature-card"><div class="feature-icon">✈️</div><h3>Fast international shipping</h3><p>Dispatch within 7–15 days, flexible sea/air shipping with full tracking.</p></div>
-            <div class="feature-card"><div class="feature-icon">💰</div><h3>Factory direct pricing</h3><p>No middleman, competitive volume discounts for distributors and retailers.</p></div>
-            <div class="feature-card"><div class="feature-icon">🦟</div><h3>Proven quality materials</h3><p>PET, 304 stainless steel, UV resistant, rust-proof, fire-retardant options.</p></div>
+            <div class="feature-card"><div class="feature-icon">📏</div><h3>Custom Sizing & Colors</h3><p>Any size, any RAL colour, any mesh density. We adapt to local market needs.</p></div>
+            <div class="feature-card"><div class="feature-icon">✈️</div><h3>Fast International Shipping</h3><p>Dispatch within 7–15 days, flexible sea/air shipping with full tracking.</p></div>
+            <div class="feature-card"><div class="feature-icon">💰</div><h3>Factory Direct Pricing</h3><p>No middleman, competitive volume discounts for distributors and retailers.</p></div>
+            <div class="feature-card"><div class="feature-icon">🦟</div><h3>Proven Quality Materials</h3><p>PET, 304 stainless steel, UV resistant, rust-proof, fire-retardant options.</p></div>
         </div>
     </div>
 </section>
 
-<!-- FAQ 针对进口商/合作伙伴 -->
+<!-- FAQ for Importers & Partners -->
 <section class="faq-section">
     <div class="container">
         <div class="section-head"><h2>FAQ for Importers & Partners</h2><p>Clear answers about MOQ, branding, delivery & samples</p></div>
@@ -784,12 +814,12 @@
     </div>
 </section>
 
-<!-- B2B 关键词模块 -->
+<!-- B2B Keywords Section (Specialized solutions) -->
 <section class="keywords-section">
     <div class="container">
         <div class="section-head">
             <h2>Specialized B2B Solutions</h2>
-            <p>Custom mosquito screens | Retractable fly screens | Folding screen doors | Pet‑proof mesh</p>
+            <p>Custom mosquito screens · Retractable fly screens · Folding screen doors · Pet‑proof mesh</p>
         </div>
         <div class="keywords-grid">
             <div class="keyword-item"><strong>Custom Mosquito Screen</strong><p>Made-to-measure for any window/door. PET, fiberglass, 304SS mesh. OEM/ODM accepted.</p></div>
@@ -802,11 +832,11 @@
     </div>
 </section>
 
-<!-- 询价表单（含 Company Name 字段） -->
+<!-- Inquiry Form (with Company Name field) -->
 <section id="inquiry" class="inquiry-section">
     <div class="inquiry-container">
         <h2>Request a Quote</h2>
-        <div class="form-sub">Tell your product type, quantity, and OEM requirements – we reply within 24h</div>
+        <div class="form-sub">Tell us your product type, quantity, and OEM requirements – we reply within 24h</div>
         <form action="https://formsubmit.co/bb260e713201e3ded72c5866bab8d659" method="POST">
             <input type="text" name="_honey" style="display:none">
             <input type="hidden" name="_captcha" value="false">
@@ -841,17 +871,19 @@
     </div>
 </section>
 
+<!-- Contact Bar -->
 <div class="contact-bar">
     <div class="container">
         <div class="contact-links">
             <a href="https://wa.me/8613536600067" target="_blank">📱 WhatsApp: +86 135 3660 0067</a>
             <a href="#" id="wechatCopyBtn" style="cursor: pointer;">💬 WeChat: FSMBOR (click to copy)</a>
             <a href="mailto:info@mbormc.com">✉️ info@mbormc.com</a>
-            <span>📍 MBORMC Base, Dali Town, Nanhai, Foshan, Guangdong, China</span>
+            <span>📍 MBORMC Production Base, Dali Town, Nanhai District, Foshan, Guangdong, China</span>
         </div>
     </div>
 </div>
 
+<!-- Footer -->
 <footer class="footer">
     <div class="container">
         <p>© 2025 MBORMC® — Professional Insect Screen Manufacturer | OEM/ODM | Factory Direct</p>
@@ -859,10 +891,15 @@
     </div>
 </footer>
 
+<!-- JavaScript for mobile menu, FAQ accordion, WeChat copy -->
 <script>
+    // Mobile menu toggle
     const menuToggle = document.getElementById('mobileMenuBtn');
     const navList = document.getElementById('navLinks');
-    if(menuToggle) menuToggle.addEventListener('click', () => navList.classList.toggle('show'));
+    if(menuToggle) {
+        menuToggle.addEventListener('click', () => navList.classList.toggle('show'));
+    }
+    // FAQ accordion
     document.querySelectorAll('.faq-question').forEach(btn => {
         btn.addEventListener('click', () => {
             const ans = btn.nextElementSibling;
@@ -871,8 +908,13 @@
             if (span) span.innerText = ans.classList.contains('show') ? '−' : '+';
         });
     });
+    // Copy WeChat ID function
     function copyWechat() {
-        navigator.clipboard.writeText('FSMBOR').then(() => alert('WeChat ID "FSMBOR" copied')).catch(() => prompt('Press Ctrl+C to copy:', 'FSMBOR'));
+        navigator.clipboard.writeText('FSMBOR').then(() => {
+            alert('WeChat ID "FSMBOR" copied to clipboard');
+        }).catch(() => {
+            prompt('Press Ctrl+C to copy WeChat ID:', 'FSMBOR');
+        });
     }
     const wechatBtn = document.getElementById('wechatCopyBtn');
     if(wechatBtn) wechatBtn.addEventListener('click', (e) => { e.preventDefault(); copyWechat(); });

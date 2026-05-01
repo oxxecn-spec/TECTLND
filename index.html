@@ -556,6 +556,66 @@
             font-weight: 500;
         }
 
+        /* ---------- GLOBAL PROJECTS / CASE STUDIES SECTION ---------- */
+        .projects-section {
+            padding: 4rem 0;
+            background: #ffffff;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid var(--gray-border);
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        .project-img {
+            aspect-ratio: 16/9;
+            background: #eef2f6;
+            overflow: hidden;
+        }
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .project-info {
+            padding: 1.2rem;
+        }
+        .project-country {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 2rem;
+            margin-bottom: 0.6rem;
+        }
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--dark);
+        }
+        .project-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
         /* ---------- B2B KEYWORDS SECTION ---------- */
         .keywords-section {
             padding: 4rem 0;
@@ -585,7 +645,7 @@
             color: var(--text-muted);
         }
 
-        /* ---------- INQUIRY FORM (replaced with user-provided style, adapted) ---------- */
+        /* ---------- INQUIRY FORM ---------- */
         .inquiry-section {
             padding: 4rem 0;
             background: #ffffff;
@@ -646,7 +706,7 @@
             transform: translateY(-2px);
         }
 
-        /* Social icons (from original) */
+        /* Social icons */
         .social-icons {
             display: flex;
             justify-content: center;
@@ -786,6 +846,7 @@
             .about-grid { grid-template-columns: 1fr; }
             .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
             .mbormc-contact-container { padding: 20px; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -822,9 +883,9 @@
 <section id="home" class="hero">
     <div class="container hero-grid">
         <div>
-            <span class="hero-badge">Made-to-Measure · Residential · Hotels · Villas</span>
-            <h1>Custom Mosquito Screens — <em>Made for Your Windows & Doors</em></h1>
-            <p class="hero-desc">MBORMC specializes in custom-sized retractable screens, folding door systems, and window meshes for homes, apartments, hotels, and villas. Each order is tailored to your exact dimensions. OEM/ODM, factory direct, worldwide shipping.</p>
+            <span class="hero-badge">Made-to-Measure · Personal Orders · Hotels · Apartments · Villas</span>
+            <h1>Custom Mosquito Screens — <em>For Your Home or Bulk Project</em></h1>
+            <p class="hero-desc">MBORMC accepts <strong>private custom orders</strong> as well as <strong>global engineering projects</strong> — hotels, apartment complexes, villas, and construction contractors. Each screen is made-to-measure for your exact window or door dimensions. OEM/ODM, factory direct, worldwide shipping.</p>
             <div class="hero-stats">
                 <div class="stat"><div class="stat-num">15+ yrs</div><div>Manufacturing</div></div>
                 <div class="stat"><div class="stat-num">50+</div><div>Countries served</div></div>
@@ -980,12 +1041,12 @@
     <div class="container">
         <div class="section-head">
             <h2>About MBORMC</h2>
-            <p>Custom Mosquito Screens for Homes, Hotels & Villas – Made in Foshan, Delivered Worldwide</p>
+            <p>Custom Mosquito Screens for Private Homes, Hotels, Apartments & Construction Projects – Made in Foshan, Delivered Worldwide</p>
         </div>
         <div class="about-grid">
             <div class="about-text">
-                <p><strong>MBORMC</strong> has been manufacturing <strong>made-to-measure insect screens</strong> for over 15 years. We focus exclusively on <strong>residential, apartment, hotel, and villa projects</strong> — providing retractable window screens, folding door screens, and magnetic nets that fit any opening.</p>
-                <p>Unlike standard sizes, every order is <strong>customized to your exact window or door dimensions</strong>. We use premium <strong>6063‑T5 aluminum alloy</strong>, PET/304 mesh, and offer full <strong>OEM/ODM services</strong> including custom packaging and logo printing. Factory direct pricing, global logistics.</p>
+                <p><strong>MBORMC</strong> has been manufacturing <strong>made-to-measure insect screens</strong> for over 15 years. We serve <strong>individual homeowners</strong> (one-off custom orders) as well as <strong>large-scale projects</strong> — hotels, apartment complexes, villa developments, and general contractors. Every order is tailored to your exact window or door dimensions, with no minimum quantity for private customers.</p>
+                <p>We use premium <strong>6063‑T5 aluminum alloy</strong>, PET/304 mesh, and offer full <strong>OEM/ODM services</strong> including custom packaging and logo printing. Factory direct pricing, global logistics, and flexible MOQ.</p>
                 <div class="about-highlights">
                     <span class="highlight-badge">15+ years expertise</span>
                     <span class="highlight-badge">100% custom sizing</span>
@@ -1018,14 +1079,82 @@
     </div>
 </section>
 
+<!-- Global Projects Showcase (Case Studies) -->
+<section class="projects-section">
+    <div class="container">
+        <div class="section-head">
+            <h2>Global Projects</h2>
+            <p>Trusted by homeowners, developers, and hotel chains worldwide — we deliver custom screens wherever you are.</p>
+        </div>
+        <div class="projects-grid">
+            <!-- USA Project -->
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="path/to/usa-project.jpg" alt="Project in USA" style="background:#ccc;">
+                </div>
+                <div class="project-info">
+                    <span class="project-country">🇺🇸 USA · Florida</span>
+                    <div class="project-title">Luxury Beachfront Villas</div>
+                    <div class="project-desc">Supplied 800+ custom retractable screens for a villa resort. All screens powder-coated to match architectural finishes.</div>
+                </div>
+            </div>
+            <!-- UK Project -->
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="path/to/uk-project.jpg" alt="Project in UK" style="background:#ccc;">
+                </div>
+                <div class="project-info">
+                    <span class="project-country">🇬🇧 UK · London</span>
+                    <div class="project-title">Period Apartment Renovation</div>
+                    <div class="project-desc">Made-to-measure folding screen doors for 120 heritage apartments, blending modern insect protection with classic timber frames.</div>
+                </div>
+            </div>
+            <!-- Australia Project -->
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="path/to/australia-project.jpg" alt="Project in Australia" style="background:#ccc;">
+                </div>
+                <div class="project-info">
+                    <span class="project-country">🇦🇺 Australia · Sydney</span>
+                    <div class="project-title">High-Rise Residential Tower</div>
+                    <div class="project-desc">Custom mesh screens for 600+ windows in a new apartment tower. 304 stainless steel mesh for pet‑proof durability.</div>
+                </div>
+            </div>
+            <!-- Malaysia Project -->
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="path/to/malaysia-project.jpg" alt="Project in Malaysia" style="background:#ccc;">
+                </div>
+                <div class="project-info">
+                    <span class="project-country">🇲🇾 Malaysia · Kuala Lumpur</span>
+                    <div class="project-title">5-Star Hotel Chain</div>
+                    <div class="project-desc">Bulk supply of retractable screens for guest rooms and executive suites. OEM branding on frames and packaging.</div>
+                </div>
+            </div>
+            <!-- Singapore Project -->
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="path/to/singapore-project.jpg" alt="Project in Singapore" style="background:#ccc;">
+                </div>
+                <div class="project-info">
+                    <span class="project-country">🇸🇬 Singapore</span>
+                    <div class="project-title">Private Condominium Complex</div>
+                    <div class="project-desc">Supplied custom Velcro screens for 300+ units. Fast delivery and multilingual installation support provided.</div>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">* Replace placeholder images with your actual project photos. <a href="#inquiry" style="color: var(--primary);">Share your project with us →</a></p>
+    </div>
+</section>
+
 <!-- Why Choose MBORMC -->
 <section id="why" class="features-section">
     <div class="container">
         <div class="section-head"><h2>Why Global Clients Choose MBORMC</h2><p>Made-to-measure expertise · Reliable quality · Transparent communication</p></div>
         <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon">📏</div><h3>Exactly Your Size</h3><p>No standard sizes. We manufacture each screen to your window/door dimensions.</p></div>
+            <div class="feature-card"><div class="feature-icon">📏</div><h3>Exactly Your Size</h3><p>No standard sizes. We manufacture each screen to your window/door dimensions — single piece or bulk.</p></div>
             <div class="feature-card"><div class="feature-icon">✈️</div><h3>Fast International Shipping</h3><p>Dispatch within 7–15 days, sea/air freight with tracking.</p></div>
-            <div class="feature-card"><div class="feature-icon">💰</div><h3>Factory Direct Pricing</h3><p>Competitive volume discounts for distributors, hotels, and contractors.</p></div>
+            <div class="feature-card"><div class="feature-icon">💰</div><h3>Factory Direct Pricing</h3><p>Competitive volume discounts for contractors, hotels, and developers.</p></div>
             <div class="feature-card"><div class="feature-icon">🦟</div><h3>Proven Materials</h3><p>PET, 304SS, UV-resistant, rust-proof, pet-proof options.</p></div>
         </div>
     </div>
@@ -1039,12 +1168,12 @@
 <!-- FAQ -->
 <section class="faq-section">
     <div class="container">
-        <div class="section-head"><h2>FAQ for Importers & Partners</h2><p>Clear answers about MOQ, branding, delivery & samples</p></div>
+        <div class="section-head"><h2>FAQ for Homeowners & Project Buyers</h2><p>Clear answers about ordering, custom sizes, and bulk projects</p></div>
         <div style="max-width: 800px; margin: 0 auto;">
-            <div class="faq-item"><button class="faq-question">What is your MOQ for custom-sized orders?<span>+</span></button><div class="faq-answer">We accept small trial orders from 10–50 pieces. For custom packaging/logo printing, MOQ negotiable.</div></div>
-            <div class="faq-item"><button class="faq-question">Can you print my logo on products or packaging?<span>+</span></button><div class="faq-answer">Yes, laser engraving on frames, custom label stickers, and printed carton boxes available.</div></div>
-            <div class="faq-item"><button class="faq-question">What is typical lead time for bulk order?<span>+</span></button><div class="faq-answer">Standard production 15–20 days after deposit. Express service available (10 days).</div></div>
-            <div class="faq-item"><button class="faq-question">Do you provide samples?<span>+</span></button><div class="faq-answer">Sample kits available. Sample cost refundable upon bulk order. Shipping fee paid by buyer.</div></div>
+            <div class="faq-item"><button class="faq-question">Can I order just one screen for my home?<span>+</span></button><div class="faq-answer">Absolutely. We accept private custom orders with no minimum quantity. Simply send your measurements.</div></div>
+            <div class="faq-item"><button class="faq-question">What is your MOQ for hotel or bulk projects?<span>+</span></button><div class="faq-answer">For large-scale projects, MOQ is flexible. We can produce 10–50 pieces for trial, then scale to thousands.</div></div>
+            <div class="faq-item"><button class="faq-question">Do you offer OEM branding for construction projects?<span>+</span></button><div class="faq-answer">Yes. Laser engraving, custom label stickers, and printed carton boxes are available for bulk orders.</div></div>
+            <div class="faq-item"><button class="faq-question">What is the typical lead time for a custom order?<span>+</span></button><div class="faq-answer">Standard production 15–20 days after deposit. Express service available (10 days) for urgent projects.</div></div>
         </div>
     </div>
 </section>

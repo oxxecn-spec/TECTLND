@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>MBORMC – Mosquito Screen, Fly Screen & Insect Screen | Window & Door Mosquito Mesh, Anti Mosquito, Insect Protection | Global OEM/ODM</title>
-    <meta name="description" content="MBORMC: mosquito screen, fly screen, insect screen, mosquito net screen, window/door mosquito screen, insect protection, anti mosquito, mosquito mesh, fly mesh. OEM/ODM manufacturer, global shipping..">
+    <title>MBORMC – Made-to-Measure Mosquito Screens for Homes, Hotels & Villas | Global OEM/ODM</title>
+    <meta name="description" content="MBORMC: custom mosquito screen, fly screen, insect screen for windows and doors. Made-to-measure for residential, apartment, hotel, villa projects. OEM/ODM, worldwide shipping from Foshan.">
     <meta name="keywords" content="insect screen manufacturer, OEM window screens, retractable fly screen, folding screen door, aluminum mosquito net, wholesale insect screens">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.mbormc.com/">
@@ -61,7 +61,7 @@
                 "@type": "Product",
                 "position": 1,
                 "name": "Retractable Roll-Up Screen (H01)",
-                "description": "PET or 304 stainless steel mesh, powder-coated aluminium cassette, smooth spring retraction. OEM/ODM ready.",
+                "description": "Custom-sized retractable window screen. PET or 304 mesh, powder-coated aluminium cassette.",
                 "brand": { "@type": "Brand", "name": "MBORMC" },
                 "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "0", "availability": "https://schema.org/InStock" }
             },
@@ -69,7 +69,7 @@
                 "@type": "Product",
                 "position": 2,
                 "name": "Folding Screen Door (FD02)",
-                "description": "304 stainless steel concertina mesh, sliding & folding design. Ideal for French doors.",
+                "description": "Custom-sized folding door screen. 304 stainless steel concertina mesh, ideal for French doors.",
                 "brand": { "@type": "Brand", "name": "MBORMC" }
             },
             {
@@ -83,7 +83,7 @@
                 "@type": "Product",
                 "position": 4,
                 "name": "Self-Adhesive Velcro Screen (FD04)",
-                "description": "No frame needed, 304 stainless steel mesh with hook-and-loop tape.",
+                "description": "Tool-free installation, 304 stainless steel mesh with hook-and-loop tape.",
                 "brand": { "@type": "Brand", "name": "MBORMC" }
             },
             {
@@ -121,8 +121,8 @@
 
         /* Industrial blue color scheme */
         :root {
-            --primary: #1e5a8a;      /* deep industrial blue */
-            --primary-dark: #0f3b5c; /* darker blue */
+            --primary: #1e5a8a;
+            --primary-dark: #0f3b5c;
             --primary-light: #3b82c4;
             --dark: #0f2b3d;
             --gray-light: #f0f4f9;
@@ -393,6 +393,12 @@
             font-weight: 700;
             margin-top: 0.5rem;
         }
+        .custom-note {
+            font-size: 0.75rem;
+            color: var(--primary);
+            margin-top: 0.4rem;
+            font-weight: 500;
+        }
 
         /* ---------- FEATURES SECTION (Why MBORMC) ---------- */
         .features-section {
@@ -417,7 +423,55 @@
             color: var(--primary);
         }
 
-        /* ---------- ABOUT + CAPABILITIES (DELETED THE ISO LINE) ---------- */
+        /* ---------- HOW IT WORKS (Customization steps) ---------- */
+        .steps-section {
+            padding: 4rem 0;
+            background: var(--gray-light);
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        .step-card {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+        }
+        .step-card h3 {
+            margin-bottom: 0.75rem;
+        }
+        .step-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .step-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .step-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------- ABOUT + CAPABILITIES ---------- */
         .about-section {
             padding: 4rem 0;
             background: #ffffff;
@@ -461,6 +515,45 @@
             font-weight: 700;
             color: var(--primary);
             min-width: 2rem;
+        }
+
+        /* ---------- GLOBAL SUPPORT TRUST BAR ---------- */
+        .global-support {
+            background: white;
+            padding: 2rem 0;
+            border-top: 1px solid var(--gray-border);
+            border-bottom: 1px solid var(--gray-border);
+        }
+        .support-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 1.5rem;
+            text-align: center;
+        }
+        .support-item {
+            flex: 1;
+            min-width: 150px;
+        }
+        .support-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .support-item p {
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* warranty banner */
+        .warranty-banner {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         /* ---------- B2B KEYWORDS SECTION ---------- */
@@ -556,7 +649,6 @@
             transform: translateY(-2px);
         }
 
-        /* Social icons */
         .social-icons {
             display: flex;
             justify-content: center;
@@ -580,7 +672,6 @@
         .social-icon.instagram:hover { background: #E4405F; color: white; }
         .social-icon.xiaohongshu:hover { background: #FE2C55; color: white; }
 
-        /* Contact bar */
         .contact-bar {
             background: #eef3fc;
             padding: 1.5rem 0;
@@ -605,7 +696,6 @@
             color: var(--primary);
         }
 
-        /* Footer */
         .footer {
             background: #0a2a44;
             color: #bdd4e7;
@@ -620,7 +710,6 @@
             color: white;
         }
 
-        /* FAQ Section (importer-focused) */
         .faq-section {
             padding: 4rem 0;
             background: white;
@@ -651,7 +740,6 @@
             display: block;
         }
 
-        /* Mobile menu toggle */
         .menu-toggle {
             display: none;
             background: none;
@@ -660,7 +748,6 @@
             cursor: pointer;
         }
 
-        /* Floating contact icons */
         .floating-contact {
             position: fixed;
             right: 20px;
@@ -689,7 +776,6 @@
         .contact-icon.whatsapp:hover { background: #25D366; color: white; }
         .contact-icon.wechat:hover { background: #07C160; color: white; }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .floating-contact { right: 10px; gap: 8px; }
             .contact-icon { width: 42px; height: 42px; font-size: 1.3rem; }
@@ -700,6 +786,7 @@
             .hero h1 { font-size: 2rem; }
             .keywords-grid { grid-template-columns: 1fr; }
             .about-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
         }
     </style>
 </head>
@@ -735,32 +822,32 @@
 <section id="home" class="hero">
     <div class="container hero-grid">
         <div>
-            <span class="hero-badge">15+ Years Manufacturer · OEM/ODM · Foshan, China</span>
-            <h1>Custom Insect Screens — <em>Global OEM/ODM & Retail</em></h1>
-            <p class="hero-desc">MBORMC is a leading industrial manufacturer of custom‑made retractable insect screens, folding door systems, and window mesh solutions. Trusted by clients in over 50 countries. Factory direct, worldwide shipping.</p>
+            <span class="hero-badge">Made-to-Measure · Residential · Hotels · Villas</span>
+            <h1>Custom Mosquito Screens — <em>Made for Your Windows & Doors</em></h1>
+            <p class="hero-desc">MBORMC specializes in custom-sized retractable screens, folding door systems, and window meshes for homes, apartments, hotels, and villas. Each order is tailored to your exact dimensions. OEM/ODM, factory direct, worldwide shipping.</p>
             <div class="hero-stats">
                 <div class="stat"><div class="stat-num">15+ yrs</div><div>Manufacturing</div></div>
                 <div class="stat"><div class="stat-num">50+</div><div>Countries served</div></div>
                 <div class="stat"><div class="stat-num">6063-T5</div><div>Premium Aluminium</div></div>
-                <div class="stat"><div class="stat-num">🚢</div><div>Sea Freight Icon</div></div>
+                <div class="stat"><div class="stat-num">🚢</div><div>Global Delivery</div></div>
             </div>
             <div style="margin-top: 2rem;">
-                <a href="#inquiry" class="btn">Request a Quote →</a>
+                <a href="#inquiry" class="btn">Request a Free Quote →</a>
                 <a href="#products" class="btn btn-outline" style="margin-left: 1rem;">Explore Products</a>
             </div>
         </div>
         <div class="hero-img">
-            <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/mborcc.jpg" alt="MBORMC factory and aluminum extrusion facility">
+            <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/mborcc.jpg" alt="MBORMC custom mosquito screens for homes and hotels">
         </div>
     </div>
 </section>
 
-<!-- Products Section (6 cards, OEM/ODM & wholesale focus) -->
+<!-- Products Section (6 cards, each emphasizes customization) -->
 <section id="products" class="products-section">
     <div class="container">
         <div class="section-head">
             <h2>Premium Product Series</h2>
-            <p>Roll-up screens · Folding doors · Magnetic nets · Solar blinds — All built for OEM/ODM & bulk supply</p>
+            <p>Roll-up screens · Folding doors · Magnetic nets · Solar blinds — All custom-made to your size</p>
         </div>
         <div class="product-grid">
             <!-- Product 1: Retractable Roll-Up Screen -->
@@ -770,11 +857,12 @@
                     <span class="img-keyword-tag">H Series · Window Screen</span>
                 </div>
                 <div class="product-body">
-                    <div class="feature-badge">OEM/ODM Ready</div>
+                    <div class="feature-badge">OEM/ODM | Custom size</div>
                     <div class="product-title">Retractable Roll-Up Screen (H01)</div>
-                    <div class="product-desc">PET or 304 stainless steel mesh, powder-coated aluminium cassette, smooth spring retraction. Custom colors & sizes.</div>
-                    <div class="product-materials">Materials: 6063-T5 Aluminium + PET/SS mesh</div>
+                    <div class="product-desc">PET or 304 stainless steel mesh, powder-coated aluminium cassette, smooth spring retraction. Available in any width/height.</div>
+                    <div class="product-materials">6063-T5 Aluminium + PET/SS mesh</div>
                     <div class="product-price">Wholesale / Retail inquiry</div>
+                    <div class="custom-note">📏 Customized to your window size</div>
                 </div>
             </a>
             <!-- Product 2: Folding Screen Door -->
@@ -784,11 +872,12 @@
                     <span class="img-keyword-tag">F Series · Door System</span>
                 </div>
                 <div class="product-body">
-                    <div class="feature-badge">Pet‑resistant / OEM</div>
+                    <div class="feature-badge">Pet‑resistant | Custom size</div>
                     <div class="product-title">Folding Screen Door (FD02)</div>
-                    <div class="product-desc">304 stainless steel concertina mesh, sliding & folding design. Ideal for French doors and wide openings.</div>
+                    <div class="product-desc">304 stainless steel concertina mesh, sliding & folding design. Perfect for French doors, patios, and wide openings.</div>
                     <div class="product-materials">304 SS / Crystal panel + Aluminium frame</div>
                     <div class="product-price">Custom quote for bulk</div>
+                    <div class="custom-note">📏 Fits any door width</div>
                 </div>
             </a>
             <!-- Product 3: Roll-up + Folding 2-in-1 -->
@@ -798,11 +887,12 @@
                     <span class="img-keyword-tag">2-in-1 Hybrid System</span>
                 </div>
                 <div class="product-body">
-                    <div class="feature-badge">Versatile Design</div>
+                    <div class="feature-badge">Versatile | Custom made</div>
                     <div class="product-title">Roll-up + Folding Screen (H03)</div>
                     <div class="product-desc">Combines retractable main screen with an additional folding layer. Full OEM branding support.</div>
                     <div class="product-materials">Aluminium + PET / 304 mesh</div>
                     <div class="product-price">Inquiry for bulk order</div>
+                    <div class="custom-note">📏 Tailored dimensions</div>
                 </div>
             </a>
             <!-- Product 4: Self-Adhesive Velcro Screen -->
@@ -812,11 +902,12 @@
                     <span class="img-keyword-tag">Tool‑free installation</span>
                 </div>
                 <div class="product-body">
-                    <div class="feature-badge">DIY / OEM packing</div>
+                    <div class="feature-badge">DIY friendly | Cut-to-size</div>
                     <div class="product-title">Self-Adhesive Velcro Screen (FD04)</div>
                     <div class="product-desc">No frame needed, hook-and-loop tape, 304 stainless steel mesh. Removable and economical.</div>
                     <div class="product-materials">304 SS mesh + high-bond adhesive</div>
                     <div class="product-price">Wholesale available</div>
+                    <div class="custom-note">📏 Easy trim to fit</div>
                 </div>
             </a>
             <!-- Product 5: Solar Roller Blinds -->
@@ -826,11 +917,12 @@
                     <span class="img-keyword-tag">Solar protection</span>
                 </div>
                 <div class="product-body">
-                    <div class="feature-badge">UV Block + Mosquito</div>
+                    <div class="feature-badge">UV Block + Mosquito | Custom size</div>
                     <div class="product-title">External Roller Blinds (Solar Shading)</div>
-                    <div class="product-desc">Aluminium cassette with UV‑block fabric, reduces heat and glare. Custom dimension & brand labeling.</div>
+                    <div class="product-desc">Aluminium cassette with UV‑block fabric, reduces heat and glare.</div>
                     <div class="product-materials">Aluminium + Solar fabric</div>
                     <div class="product-price">Factory direct price</div>
+                    <div class="custom-note">📏 Made to order</div>
                 </div>
             </a>
             <!-- Product 6: Magnetic Mosquito Curtain -->
@@ -840,46 +932,88 @@
                     <span class="img-keyword-tag">Walk‑through</span>
                 </div>
                 <div class="product-body">
-                    <div class="feature-badge">Magnetic closure / B2B</div>
+                    <div class="feature-badge">Magnetic closure | Custom size</div>
                     <div class="product-title">Magnetic Mosquito Curtain</div>
                     <div class="product-desc">Fine fibreglass mesh with magnetic split strip, ideal for high traffic doors. Private label supported.</div>
                     <div class="product-materials">Fibreglass mesh + magnetic strip</div>
                     <div class="product-price">Inquiry for bulk</div>
+                    <div class="custom-note">📏 Size to your door frame</div>
                 </div>
             </a>
         </div>
-        <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">All series support complete OEM/ODM — ask for sample & wholesale price list <a href="#inquiry" style="color: var(--primary);">Request a quote</a></p>
+        <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">All products are made-to-measure. Tell us your dimensions — we will quote within 24h. <a href="#inquiry" style="color: var(--primary);">Request a custom quote →</a></p>
     </div>
 </section>
 
-<!-- About + Capabilities (ISO line removed as requested) -->
+<!-- How It Works (Customization steps) -->
+<section class="steps-section">
+    <div class="container">
+        <div class="section-head">
+            <h2>How to Get Your Custom Screens</h2>
+            <p>Simple 3-step process — from measurement to installation</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Measure</h3>
+                <p>Download our free measuring guide. Measure your window or door width/height in minutes.</p>
+                <a href="#" class="step-link">Download PDF Guide →</a>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Submit</h3>
+                <p>Send your measurements, mesh type, frame color, and quantity via our quote form.</p>
+                <a href="#inquiry" class="step-link">Request a Quote →</a>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Install</h3>
+                <p>Receive your custom screens with video tutorials and multilingual installation guides.</p>
+                <a href="#" class="step-link">Watch tutorial →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About + Capabilities (refined for residential/hotel focus) -->
 <section id="about" class="about-section">
     <div class="container">
         <div class="section-head">
             <h2>About MBORMC</h2>
-            <p>Engineering Excellence from Foshan, China – Delivered Worldwide</p>
+            <p>Custom Mosquito Screens for Homes, Hotels & Villas – Made in Foshan, Delivered Worldwide</p>
         </div>
         <div class="about-grid">
             <div class="about-text">
-                <p><strong>MBORMC</strong> is a professional manufacturer with <strong>15+ years of aluminium extrusion and precision engineering</strong>, specializing in retractable insect screens, folding door systems, and window mesh solutions. Serving over <strong>50 countries</strong>, our products are trusted by global importers, hardware retailers, and construction firms who demand high quality & factory direct pricing.</p>
-                <p>All products are built with premium <strong>6063‑T5 aluminum alloy</strong> – offering superior corrosion resistance and durability. We provide full <strong>OEM/ODM services</strong> from frame color, mesh type to custom packaging & logo printing.</p>
+                <p><strong>MBORMC</strong> has been manufacturing <strong>made-to-measure insect screens</strong> for over 15 years. We focus exclusively on <strong>residential, apartment, hotel, and villa projects</strong> — providing retractable window screens, folding door screens, and magnetic nets that fit any opening.</p>
+                <p>Unlike standard sizes, every order is <strong>customized to your exact window or door dimensions</strong>. We use premium <strong>6063‑T5 aluminum alloy</strong>, PET/304 mesh, and offer full <strong>OEM/ODM services</strong> including custom packaging and logo printing. Factory direct pricing, global logistics.</p>
                 <div class="about-highlights">
                     <span class="highlight-badge">15+ years expertise</span>
-                    <span class="highlight-badge">6063-T5 certified</span>
-                    <span class="highlight-badge">50+ countries</span>
+                    <span class="highlight-badge">100% custom sizing</span>
+                    <span class="highlight-badge">50+ countries shipped</span>
                     <span class="highlight-badge">OEM/ODM ready</span>
                 </div>
             </div>
             <div>
                 <h3 style="margin-bottom: 1rem; font-size: 1.3rem;">🏭 Our Capabilities</h3>
                 <ul class="capabilities-list">
-                    <li><span class="cap-icon">⚙️</span> <strong>In‑house extrusion & powder coating</strong><br>Full quality control, custom RAL colors, fast lead time.</li>
-                    <li><span class="cap-icon">📦</span> <strong>Custom packaging & branding</strong><br>Print your logo on boxes, labels, or laser engraving on frames.</li>
-                    <li><span class="cap-icon">🚢</span> <strong>Global logistics network</strong><br>Sea freight, air freight, wooden crate packing, worldwide delivery.</li>
-                    <li><span class="cap-icon">🛠️</span> <strong>Technical support & training</strong><br>Installation guides, video tutorials, multilingual after-sales.</li>
+                    <li><span class="cap-icon">⚙️</span> <strong>In‑house extrusion & powder coating</strong><br>Fast turnaround for custom RAL colors.</li>
+                    <li><span class="cap-icon">📦</span> <strong>Custom packaging & branding</strong><br>Logo on boxes, labels, or laser engraving.</li>
+                    <li><span class="cap-icon">🚢</span> <strong>Global logistics network</strong><br>Sea freight, air freight, wooden crate protection.</li>
+                    <li><span class="cap-icon">🛠️</span> <strong>Multilingual support</strong><br>Installation guides and video tutorials in EN/FR/DE/ES.</li>
                 </ul>
-                <!-- The line "✔️ ISO9001 certified factory | Quick response | Competitive MOQ" has been fully removed -->
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Global Support Trust Bar -->
+<section class="global-support">
+    <div class="container">
+        <div class="support-grid">
+            <div class="support-item"><div class="support-icon">🌍</div><p>Shipped to 50+ countries</p></div>
+            <div class="support-item"><div class="support-icon">📦</div><p>Custom wooden crate / carton packing</p></div>
+            <div class="support-item"><div class="support-icon">📘</div><p>Multilingual installation guides</p></div>
+            <div class="support-item"><div class="support-icon">📸</div><p>Free tech support via WhatsApp</p></div>
         </div>
     </div>
 </section>
@@ -887,34 +1021,39 @@
 <!-- Why Choose MBORMC (Features) -->
 <section id="why" class="features-section">
     <div class="container">
-        <div class="section-head"><h2>Why Global Clients Choose MBORMC</h2><p>Reliable quality · agile production · transparent communication</p></div>
+        <div class="section-head"><h2>Why Global Clients Choose MBORMC</h2><p>Made-to-measure expertise · Reliable quality · Transparent communication</p></div>
         <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon">📏</div><h3>Custom Sizing & Colors</h3><p>Any size, any RAL colour, any mesh density. We adapt to local market needs.</p></div>
-            <div class="feature-card"><div class="feature-icon">✈️</div><h3>Fast International Shipping</h3><p>Dispatch within 7–15 days, flexible sea/air shipping with full tracking.</p></div>
-            <div class="feature-card"><div class="feature-icon">💰</div><h3>Factory Direct Pricing</h3><p>No middleman, competitive volume discounts for distributors and retailers.</p></div>
-            <div class="feature-card"><div class="feature-icon">🦟</div><h3>Proven Quality Materials</h3><p>PET, 304 stainless steel, UV resistant, rust-proof, fire-retardant options.</p></div>
+            <div class="feature-card"><div class="feature-icon">📏</div><h3>Exactly Your Size</h3><p>No standard sizes. We manufacture each screen to your window/door dimensions.</p></div>
+            <div class="feature-card"><div class="feature-icon">✈️</div><h3>Fast International Shipping</h3><p>Dispatch within 7–15 days, sea/air freight with tracking.</p></div>
+            <div class="feature-card"><div class="feature-icon">💰</div><h3>Factory Direct Pricing</h3><p>Competitive volume discounts for distributors, hotels, and contractors.</p></div>
+            <div class="feature-card"><div class="feature-icon">🦟</div><h3>Proven Materials</h3><p>PET, 304SS, UV-resistant, rust-proof, pet-proof options.</p></div>
         </div>
     </div>
 </section>
+
+<!-- Warranty Banner -->
+<div class="warranty-banner">
+    🔧 2-Year Warranty on all retractable mechanisms & frames | Free replacement for manufacturing defects
+</div>
 
 <!-- FAQ for Importers & Partners -->
 <section class="faq-section">
     <div class="container">
         <div class="section-head"><h2>FAQ for Importers & Partners</h2><p>Clear answers about MOQ, branding, delivery & samples</p></div>
         <div style="max-width: 800px; margin: 0 auto;">
-            <div class="faq-item"><button class="faq-question">What is your MOQ for OEM / custom orders?<span>+</span></button><div class="faq-answer">We accept low MOQ from 10–50 pieces for test orders. For custom packaging/logo printing, MOQ negotiable. Contact us for trial order policy.</div></div>
-            <div class="faq-item"><button class="faq-question">Can you print my logo on products or packaging?<span>+</span></button><div class="faq-answer">Yes, we offer laser engraving on aluminium frames, custom label stickers, and printed carton boxes with your brand.</div></div>
-            <div class="faq-item"><button class="faq-question">What is typical lead time for bulk order?<span>+</span></button><div class="faq-answer">Standard production 15–20 days after deposit. Express service available for urgent projects (10 days).</div></div>
-            <div class="faq-item"><button class="faq-question">Do you provide samples? Sample policy?<span>+</span></button><div class="faq-answer">Sample kits are available. Sample cost is refundable upon bulk order. Shipping fee paid by buyer.</div></div>
+            <div class="faq-item"><button class="faq-question">What is your MOQ for custom-sized orders?<span>+</span></button><div class="faq-answer">We accept small trial orders from 10–50 pieces. For custom packaging/logo printing, MOQ negotiable.</div></div>
+            <div class="faq-item"><button class="faq-question">Can you print my logo on products or packaging?<span>+</span></button><div class="faq-answer">Yes, laser engraving on frames, custom label stickers, and printed carton boxes available.</div></div>
+            <div class="faq-item"><button class="faq-question">What is typical lead time for bulk order?<span>+</span></button><div class="faq-answer">Standard production 15–20 days after deposit. Express service available (10 days).</div></div>
+            <div class="faq-item"><button class="faq-question">Do you provide samples?<span>+</span></button><div class="faq-answer">Sample kits available. Sample cost refundable upon bulk order. Shipping fee paid by buyer.</div></div>
         </div>
     </div>
 </section>
 
-<!-- B2B Keywords Section (Specialized solutions) -->
+<!-- B2B Keywords Section -->
 <section class="keywords-section">
     <div class="container">
         <div class="section-head">
-            <h2>Specialized B2B Solutions</h2>
+            <h2>Specialized Solutions</h2>
             <p>Custom mosquito screens · Retractable fly screens · Folding screen doors · Pet‑proof mesh</p>
         </div>
         <div class="keywords-grid">
@@ -928,11 +1067,11 @@
     </div>
 </section>
 
-<!-- Inquiry Form (with Company Name field) -->
+<!-- Inquiry Form -->
 <section id="inquiry" class="inquiry-section">
     <div class="inquiry-container">
-        <h2>Request a Quote</h2>
-        <div class="form-sub">Tell us your product type, quantity, and OEM requirements – we reply within 24h</div>
+        <h2>Request a Custom Quote</h2>
+        <div class="form-sub">Tell us your window/door sizes, product type, quantity, and OEM requirements – reply within 24h</div>
         <form action="https://formsubmit.co/bb260e713201e3ded72c5866bab8d659" method="POST">
             <input type="text" name="_honey" style="display:none">
             <input type="hidden" name="_captcha" value="false">
@@ -954,8 +1093,8 @@
                 <input type="text" name="country" placeholder="e.g. USA, Australia, UK, Germany" required>
             </div>
             <div class="form-group">
-                <label>Inquiry Details (Product series, quantity, size, OEM needs)</label>
-                <textarea name="message" rows="4" placeholder="Example: Need 500 sets of H01 retractable screen, custom RAL9010, 304 mesh, with logo on frame. MOQ for private label?" required></textarea>
+                <label>Inquiry Details (window/door sizes, product series, quantity, OEM needs)</label>
+                <textarea name="message" rows="4" placeholder="Example: Need 500 sets of H01 retractable screen for casement windows. Width 80cm, height 120cm. Custom RAL9010 frame, 304 mesh, with logo on cassette. Please quote MOQ for private label." required></textarea>
             </div>
             <button type="submit" class="submit-btn">Send Inquiry →</button>
         </form>
@@ -982,12 +1121,11 @@
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
-        <p>© 2026 MBORMC®-Professional Insect Screen Manufacturer | OEM/ODM | Factory Direct</p>
+        <p>© 2026 MBORMC® — Custom Mosquito Screens Manufacturer | Made-to-Measure | OEM/ODM</p>
         <p><a href="#home">Home</a> | <a href="#products">Products</a> | <a href="#inquiry">Contact</a> | <a href="https://www.mbormc.com/sitemap.xml">Sitemap</a></p>
     </div>
 </footer>
 
-<!-- JavaScript for mobile menu, FAQ accordion, WeChat copy -->
 <script>
     // Mobile menu toggle
     const menuToggle = document.getElementById('mobileMenuBtn');

@@ -297,7 +297,7 @@
             margin: 0 auto;
         }
 
-        /* ---------- PRODUCT CARDS (6 items, B2B focus) ---------- */
+        /* ---------- PRODUCT CARDS ---------- */
         .products-section {
             padding: 4rem 0;
             background: var(--gray-light);
@@ -400,7 +400,7 @@
             font-weight: 500;
         }
 
-        /* ---------- FEATURES SECTION (Why MBORMC) ---------- */
+        /* ---------- FEATURES SECTION ---------- */
         .features-section {
             padding: 4rem 0;
             background: white;
@@ -423,7 +423,7 @@
             color: var(--primary);
         }
 
-        /* ---------- HOW IT WORKS (Customization steps) ---------- */
+        /* ---------- HOW IT WORKS ---------- */
         .steps-section {
             padding: 4rem 0;
             background: var(--gray-light);
@@ -585,41 +585,37 @@
             color: var(--text-muted);
         }
 
-        /* ---------- INQUIRY FORM ---------- */
+        /* ---------- INQUIRY FORM (replaced with user-provided style, adapted) ---------- */
         .inquiry-section {
             padding: 4rem 0;
             background: #ffffff;
         }
-        .inquiry-container {
-            max-width: 680px;
+        .mbormc-contact-container {
+            max-width: 600px;
             margin: 0 auto;
-            padding: 2rem;
-            border: 1px solid var(--gray-border);
-            border-radius: 1rem;
-            box-shadow: var(--shadow-md);
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
             background: white;
+            box-shadow: var(--shadow-md);
         }
-        .inquiry-container h2 {
+        .mbormc-contact-container h2 {
             text-align: center;
             color: var(--dark);
-            margin-bottom: 0.5rem;
+            margin-bottom: 25px;
             font-size: 1.8rem;
         }
-        .form-sub {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-        }
-        .form-group {
+        .form-field {
             margin-bottom: 1.2rem;
         }
-        label {
+        .form-field label {
             display: block;
             margin-bottom: 0.4rem;
             font-weight: 600;
             color: #1e3a5f;
         }
-        input, textarea {
+        .form-field input,
+        .form-field textarea {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 1px solid var(--gray-border);
@@ -627,7 +623,8 @@
             font-family: inherit;
             transition: 0.2s;
         }
-        input:focus, textarea:focus {
+        .form-field input:focus,
+        .form-field textarea:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 2px rgba(30,90,138,0.2);
@@ -649,6 +646,7 @@
             transform: translateY(-2px);
         }
 
+        /* Social icons (from original) */
         .social-icons {
             display: flex;
             justify-content: center;
@@ -787,6 +785,7 @@
             .keywords-grid { grid-template-columns: 1fr; }
             .about-grid { grid-template-columns: 1fr; }
             .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .mbormc-contact-container { padding: 20px; }
         }
     </style>
 </head>
@@ -842,7 +841,7 @@
     </div>
 </section>
 
-<!-- Products Section (6 cards, each emphasizes customization) -->
+<!-- Products Section -->
 <section id="products" class="products-section">
     <div class="container">
         <div class="section-head">
@@ -850,7 +849,7 @@
             <p>Roll-up screens · Folding doors · Magnetic nets · Solar blinds — All custom-made to your size</p>
         </div>
         <div class="product-grid">
-            <!-- Product 1: Retractable Roll-Up Screen -->
+            <!-- Product 1 -->
             <a href="#" class="product-card">
                 <div class="product-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h01.jpg" alt="Retractable Roll-Up Window Screen">
@@ -865,7 +864,7 @@
                     <div class="custom-note">📏 Customized to your window size</div>
                 </div>
             </a>
-            <!-- Product 2: Folding Screen Door -->
+            <!-- Product 2 -->
             <a href="#" class="product-card">
                 <div class="product-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h02.jpg" alt="Folding Screen Door">
@@ -880,7 +879,7 @@
                     <div class="custom-note">📏 Fits any door width</div>
                 </div>
             </a>
-            <!-- Product 3: Roll-up + Folding 2-in-1 -->
+            <!-- Product 3 -->
             <a href="#" class="product-card">
                 <div class="product-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h03.jpg" alt="2-in-1 Roll-up+Folding Screen">
@@ -895,7 +894,7 @@
                     <div class="custom-note">📏 Tailored dimensions</div>
                 </div>
             </a>
-            <!-- Product 4: Self-Adhesive Velcro Screen -->
+            <!-- Product 4 -->
             <a href="#" class="product-card">
                 <div class="product-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h04.jpg" alt="Self-Adhesive Velcro Screen">
@@ -910,7 +909,7 @@
                     <div class="custom-note">📏 Easy trim to fit</div>
                 </div>
             </a>
-            <!-- Product 5: Solar Roller Blinds -->
+            <!-- Product 5 -->
             <a href="#" class="product-card">
                 <div class="product-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h07.jpg" alt="External Solar Roller Blinds">
@@ -925,7 +924,7 @@
                     <div class="custom-note">📏 Made to order</div>
                 </div>
             </a>
-            <!-- Product 6: Magnetic Mosquito Curtain -->
+            <!-- Product 6 -->
             <a href="#" class="product-card">
                 <div class="product-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h05.jpg" alt="Magnetic Mosquito Curtain">
@@ -945,7 +944,7 @@
     </div>
 </section>
 
-<!-- How It Works (Customization steps) -->
+<!-- How It Works -->
 <section class="steps-section">
     <div class="container">
         <div class="section-head">
@@ -975,7 +974,7 @@
     </div>
 </section>
 
-<!-- About + Capabilities (refined for residential/hotel focus) -->
+<!-- About + Capabilities -->
 <section id="about" class="about-section">
     <div class="container">
         <div class="section-head">
@@ -1018,7 +1017,7 @@
     </div>
 </section>
 
-<!-- Why Choose MBORMC (Features) -->
+<!-- Why Choose MBORMC -->
 <section id="why" class="features-section">
     <div class="container">
         <div class="section-head"><h2>Why Global Clients Choose MBORMC</h2><p>Made-to-measure expertise · Reliable quality · Transparent communication</p></div>
@@ -1036,7 +1035,7 @@
     🔧 2-Year Warranty on all retractable mechanisms & frames | Free replacement for manufacturing defects
 </div>
 
-<!-- FAQ for Importers & Partners -->
+<!-- FAQ -->
 <section class="faq-section">
     <div class="container">
         <div class="section-head"><h2>FAQ for Importers & Partners</h2><p>Clear answers about MOQ, branding, delivery & samples</p></div>
@@ -1067,37 +1066,43 @@
     </div>
 </section>
 
-<!-- Inquiry Form -->
+<!-- Inquiry Form (replaced with user-provided structure, keeping Company Name field for B2B) -->
 <section id="inquiry" class="inquiry-section">
-    <div class="inquiry-container">
-        <h2>Request a Custom Quote</h2>
-        <div class="form-sub">Tell us your window/door sizes, product type, quantity, and OEM requirements – reply within 24h</div>
+    <div class="mbormc-contact-container">
+        <h2>Send an Inquiry</h2>
         <form action="https://formsubmit.co/bb260e713201e3ded72c5866bab8d659" method="POST">
             <input type="text" name="_honey" style="display:none">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
-            <div class="form-group">
-                <label>Company Name *</label>
-                <input type="text" name="company" placeholder="Your company / brand name" required>
+
+            <div class="form-field">
+                <label>Company Name (optional)</label>
+                <input type="text" name="company" placeholder="Your company name">
             </div>
-            <div class="form-group">
-                <label>Contact Person</label>
-                <input type="text" name="name" placeholder="Full name" required>
+
+            <div class="form-field">
+                <label>Full Name *</label>
+                <input type="text" name="name" placeholder="John Doe" required>
             </div>
-            <div class="form-group">
-                <label>Email *</label>
-                <input type="email" name="email" placeholder="example@company.com" required>
+
+            <div class="form-field">
+                <label>Email Address *</label>
+                <input type="email" name="email" placeholder="example@mail.com" required>
             </div>
-            <div class="form-group">
-                <label>Country / Region *</label>
-                <input type="text" name="country" placeholder="e.g. USA, Australia, UK, Germany" required>
+
+            <div class="form-field">
+                <label>Country *</label>
+                <input type="text" name="country" placeholder="Your Country" required>
             </div>
-            <div class="form-group">
-                <label>Inquiry Details (window/door sizes, product series, quantity, OEM needs)</label>
-                <textarea name="message" rows="4" placeholder="Example: Need 500 sets of H01 retractable screen for casement windows. Width 80cm, height 120cm. Custom RAL9010 frame, 304 mesh, with logo on cassette. Please quote MOQ for private label." required></textarea>
+
+            <div class="form-field">
+                <label>Inquiry Content *</label>
+                <textarea name="message" rows="5" placeholder="Please let us know your requirements, window/door sizes, or the models you are interested in (e.g., H01, FD02)..." required></textarea>
             </div>
-            <button type="submit" class="submit-btn">Send Inquiry →</button>
+
+            <button type="submit" class="submit-btn">SUBMIT NOW</button>
         </form>
+
         <div class="social-icons">
             <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
             <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank">📕</a>

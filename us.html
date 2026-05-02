@@ -402,7 +402,7 @@
             font-weight: 500;
         }
 
-        /* ---------- FEATURES SECTION (Why Choose US) ---------- */
+        /* ---------- FEATURES SECTION ---------- */
         .features-section {
             padding: 4rem 0;
             background: white;
@@ -735,6 +735,46 @@
         .social-icon.instagram:hover { background: #E4405F; color: white; }
         .social-icon.xiaohongshu:hover { background: #FE2C55; color: white; }
 
+        /* ---------- GLOBAL SITES SECTION (12 countries) ---------- */
+        .global-sites {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-border);
+            text-align: center;
+        }
+        .global-sites h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .country-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem 1.2rem;
+        }
+        .country-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.2rem 0.4rem;
+            border-radius: 2rem;
+            transition: all 0.2s;
+        }
+        .country-links a:hover {
+            color: var(--primary);
+            background: #eef4fc;
+            transform: translateY(-2px);
+        }
+        .country-links a span {
+            font-size: 1rem;
+        }
+
         .contact-bar {
             background: #eef3fc;
             padding: 1.5rem 0;
@@ -865,6 +905,7 @@
             .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
             .mbormc-contact-container { padding: 20px; }
             .projects-grid { grid-template-columns: 1fr; }
+            .country-links { gap: 0.6rem; }
         }
     </style>
 </head>
@@ -1221,7 +1262,7 @@
     </div>
 </section>
 
-<!-- Inquiry Form (added inquiry box for US site) -->
+<!-- Inquiry Form (added inquiry box plus global sites) -->
 <section id="inquiry" class="inquiry-section">
     <div class="mbormc-contact-container">
         <h2>Send an Inquiry</h2>
@@ -1258,6 +1299,25 @@
             <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank" aria-label="Xiaohongshu">📕</a>
             <a href="https://www.threads.com/@mbormcnn" class="social-icon instagram" target="_blank" aria-label="Threads/Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- 12个国家站点链接区域 -->
+        <div class="global-sites">
+            <h3>🌐 MBORMC Global Sites</h3>
+            <div class="country-links">
+                <a href="us.html"><span>🇺🇸</span> USA</a>
+                <a href="au.html"><span>🇦🇺</span> Australia</a>
+                <a href="jp.html"><span>🇯🇵</span> Japan</a>
+                <a href="uk.html"><span>🇬🇧</span> United Kingdom</a>
+                <a href="de.html"><span>🇩🇪</span> Germany</a>
+                <a href="fr.html"><span>🇫🇷</span> France</a>
+                <a href="sg.html"><span>🇸🇬</span> Singapore</a>
+                <a href="my.html"><span>🇲🇾</span> Malaysia</a>
+                <a href="ar.html"><span>🇦🇷</span> Argentina</a>
+                <a href="ca.html"><span>🇨🇦</span> Canada</a>
+                <a href="it.html"><span>🇮🇹</span> Italy</a>
+                <a href="es.html"><span>🇪🇸</span> Spain</a>
+            </div>
         </div>
     </div>
 </section>

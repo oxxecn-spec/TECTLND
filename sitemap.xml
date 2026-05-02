@@ -9,7 +9,63 @@
 
 <url>
   <loc>https://www.mbormc.com/</loc>
-  <lastmod>2026-05-01T20:12:51+00:00</lastmod>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/news/news</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/h01</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/fd05</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/h03</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/fd02</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/globalstation.html</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/products.html</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/about.html</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/contact.html</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/global-projects</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.mbormc.com/global</loc>
+  <lastmod>2026-05-02T05:24:14+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 
 

@@ -9,7 +9,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.mbormc.com/products/h01.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- JSON-LD Structured Data (same as homepage schema, adapted for product) -->
+    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -21,7 +21,7 @@
     }
     </script>
     <style>
-        /* ===== 完全复用首页样式 (不做任何改动，保证设计一致) ===== */
+        /* ===== 完全复用首页样式 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -128,7 +128,7 @@
             color: white;
         }
 
-        /* Page Hero (产品页专用) */
+        /* Page Hero */
         .page-hero {
             background: linear-gradient(135deg, #eef4fc 0%, #ffffff 100%);
             padding: 3rem 0 2rem;
@@ -145,7 +145,7 @@
             margin: 0 auto;
         }
 
-        /* 产品详情区域 (左右两列) */
+        /* 产品详情区域 */
         .product-detail {
             padding: 3rem 0;
             border-bottom: 1px solid var(--gray-border);
@@ -218,93 +218,29 @@
             background: #e6f0f9;
         }
 
-        /* 询价区域 (与首页相同的表单容器) */
-        .inquiry-section {
-            padding: 4rem 0;
-            background: #ffffff;
-        }
-        .mbormc-contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            background: white;
-            box-shadow: var(--shadow-md);
-        }
-        .mbormc-contact-container h2 {
+        /* 信任区域 */
+        .trust-bar {
+            background: var(--gray-light);
+            padding: 2rem 0;
             text-align: center;
-            color: var(--dark);
-            margin-bottom: 25px;
-            font-size: 1.8rem;
         }
-        .form-field {
-            margin-bottom: 1.2rem;
-        }
-        .form-field label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-            color: #1e3a5f;
-        }
-        .form-field input,
-        .form-field textarea,
-        .form-field select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gray-border);
-            border-radius: 0.75rem;
-            font-family: inherit;
-            transition: 0.2s;
-        }
-        .form-field input:focus,
-        .form-field textarea:focus,
-        .form-field select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(30,90,138,0.2);
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 2rem;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .submit-btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Social icons & contact bar (完全复用) */
-        .social-icons {
+        .trust-items {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 1.8rem;
-            margin-top: 2rem;
+            gap: 2rem;
         }
-        .social-icon {
-            width: 48px;
-            height: 48px;
-            background: #f1f5f9;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.6rem;
-            color: var(--dark);
-            transition: all 0.2s;
+        .trust-item {
+            text-align: center;
         }
-        .social-icon.facebook:hover { background: #1877F2; color: white; }
-        .social-icon.instagram:hover { background: #E4405F; color: white; }
-        .social-icon.xiaohongshu:hover { background: #FE2C55; color: white; }
+        .trust-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
 
+        /* Contact Bar & Footer */
         .contact-bar {
             background: #eef3fc;
             padding: 1.5rem 0;
@@ -388,7 +324,6 @@
             .menu-toggle { display: block; }
             .product-grid-2cols { grid-template-columns: 1fr; gap: 1.5rem; }
             .page-hero h1 { font-size: 1.8rem; }
-            .mbormc-contact-container { padding: 20px; }
         }
     </style>
 </head>
@@ -445,7 +380,7 @@
                 <tr><td>Colour Options</td><td>White, Black, Grey</td></tr>
                 <tr><td>Installation</td><td>DIY – 3M adhesive tape</td></tr>
             </table>
-            <a href="#inquiry" class="btn">Get a Custom Quote →</a>
+            <a href="#contact" class="btn">Get a Custom Quote →</a>
         </div>
     </div>
 </section>
@@ -475,85 +410,22 @@
                 <tr><td>Compatible Windows</td><td>UK sash, US sliding, Australian casement, inward/outward opening</td></tr>
                 <tr><td>Warranty</td><td>2 years against manufacturing defects</td></tr>
             </table>
-            <a href="#inquiry" class="btn">Request a Quote →</a>
+            <a href="#contact" class="btn">Request a Quote →</a>
         </div>
     </div>
 </section>
 
-<!-- 额外信任区域 (与首页风格一致) -->
-<div style="background: var(--gray-light); padding: 2rem 0; text-align: center;">
+<!-- 信任区域 (无表单) -->
+<div class="trust-bar">
     <div class="container">
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
-            <div><i class="fas fa-ruler-combined" style="font-size: 2rem; color: var(--primary);"></i><br>Made‑to‑measure</div>
-            <div><i class="fas fa-shipping-fast" style="font-size: 2rem; color: var(--primary);"></i><br>Global shipping + wooden crate</div>
-            <div><i class="fas fa-tools" style="font-size: 2rem; color: var(--primary);"></i><br>Tool‑free DIY installation</div>
-            <div><i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--primary);"></i><br>2‑year warranty</div>
+        <div class="trust-items">
+            <div class="trust-item"><i class="fas fa-ruler-combined"></i><br>Made‑to‑measure</div>
+            <div class="trust-item"><i class="fas fa-shipping-fast"></i><br>Global shipping + wooden crate</div>
+            <div class="trust-item"><i class="fas fa-tools"></i><br>Tool‑free DIY installation</div>
+            <div class="trust-item"><i class="fas fa-shield-alt"></i><br>2‑year warranty</div>
         </div>
     </div>
 </div>
-
-<!-- 询价表单 (与首页完全相同的结构) -->
-<section id="inquiry" class="inquiry-section">
-    <div class="mbormc-contact-container">
-        <h2>Send an Inquiry for H01 Series</h2>
-        <form action="https://formsubmit.co/bb260e713201e3ded72c5866bab8d659" method="POST">
-            <input type="text" name="_honey" style="display:none">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-
-            <div class="form-field">
-                <label>Company Name (optional)</label>
-                <input type="text" name="company" placeholder="Your company name">
-            </div>
-
-            <div class="form-field">
-                <label>Full Name *</label>
-                <input type="text" name="name" placeholder="John Doe" required>
-            </div>
-
-            <div class="form-field">
-                <label>Email Address *</label>
-                <input type="email" name="email" placeholder="example@mail.com" required>
-            </div>
-
-            <div class="form-field">
-                <label>Country *</label>
-                <input type="text" name="country" placeholder="Your Country" required>
-            </div>
-
-            <div class="form-field">
-                <label>Product Model</label>
-                <select name="product">
-                    <option value="H01 Magnetic DIY">H01 Magnetic DIY Screen</option>
-                    <option value="H01 Retractable Roll-Up">H01 Retractable Roll‑Up Screen</option>
-                </select>
-            </div>
-
-            <div class="form-field">
-                <label>Window Dimensions (Width x Height, in cm or inches)</label>
-                <input type="text" name="dimensions" placeholder="e.g. 120x150 cm">
-            </div>
-
-            <div class="form-field">
-                <label>Quantity</label>
-                <input type="number" name="quantity" value="1">
-            </div>
-
-            <div class="form-field">
-                <label>Additional Details (mesh type, colour, etc.)</label>
-                <textarea name="message" rows="4" placeholder="Please specify mesh type (PET / 304 SS), frame colour, or any special requirements."></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">SUBMIT NOW</button>
-        </form>
-
-        <div class="social-icons">
-            <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank">📕</a>
-            <a href="https://www.threads.com/@mbormcnn" class="social-icon instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-        </div>
-    </div>
-</section>
 
 <!-- Contact Bar -->
 <div class="contact-bar">
@@ -582,7 +454,7 @@
     if(menuToggle) {
         menuToggle.addEventListener('click', () => navList.classList.toggle('show'));
     }
-    // WhatsApp/WeChat 复制功能
+    // WeChat 复制
     function copyWechat() {
         navigator.clipboard.writeText('FSMBOR').then(() => {
             alert('WeChat ID "FSMBOR" copied to clipboard');

@@ -1,24 +1,21 @@
-About MBORMC®(曼伯欧罗门窗）: Global Innovation in Home Protection
-Welcome to www.mbormc.com, the official global gateway for the MBORMC® brand. We are a premier international manufacturer and innovator dedicated to transforming the way people protect their living spaces. By combining precision engineering, high-performance materials, and a sophisticated DIY (Do-It-Yourself) philosophy, MBORMC® delivers insect protection solutions that are both invisible and invincible.
+MBORMC is a professional manufacturer of custom‑made insect screens, based in Foshan, Guangdong, China – a global hub for hardware and building materials. With over 15 years of experience in aluminium extrusion, precision engineering, and mesh technology, we specialize in retractable window screens, folding door screens, magnetic nets, and solar shading systems.
 
-Our Vision & Mission
-At MBORMC®, we believe that natural ventilation is essential for a healthy lifestyle, but it shouldn’t come at the cost of battling pests or using chemical insecticides. Our mission is to provide freedom and security through magnetic screen systems that anyone can install—without the need for complex tools or permanent damage to the property.
+Unlike mass‑produced products, every screen we make is made‑to‑measure. Whether you need a single screen for your home, or thousands for a hotel, apartment complex, or villa development, we tailor each order to your exact window and door dimensions. Our flexibility allows us to serve both private homeowners and global contractors with equal dedication.
 
-The MBORMC® Quality Standard
-What sets MBORMC® apart from conventional solutions is our commitment to industrial-grade quality:
+We use premium 6063‑T5 aluminium alloy, PET or 304 stainless steel mesh, and offer full OEM/ODM services – from custom RAL colours and logo printing to branded packaging. With factory‑direct pricing and a logistics network covering over 50 countries, we deliver high‑quality insect protection solutions worldwide.
 
-360° Magnetic Technology: A continuous, airtight seal that withstands strong winds and daily use.
-3M™ Industrial Adhesives: Guaranteed bonding on aluminum, PVC, or wood surfaces, resilient to extreme temperature fluctuations.
-Premium Fiberglass Mesh: Our screens are fire-resistant, UV-stabilized, and built to last, maintaining maximum visibility and airflow.
-A Global Brand Presence
-Operating under the official domain mbor.cc, MBORMC® has established a strong presence across Europe (Spain and Netherlands), Latin America (Brazil), and other international markets. We are the #1 choice for those seeking a professional, long-lasting alternative to traditional window screens.
+Why MBORMC?
+✔ 15+ years of manufacturing expertise
+✔ 100% custom sizing – no minimum for private orders
+✔ Trusted by clients in 50+ countries
+✔ OEM/ODM ready with fast turnaround
+✔ 2‑year warranty on all mechanisms
 
-Whether in a modern apartment in Madrid, a coastal villa in Brazil, or a classic residence in the Netherlands, the MBORMC® system adapts perfectly, preserving architectural aesthetics and resident comfort.
+Your size, your mesh, your brand – we make it happen.
 
-Sustainable Innovation
-By creating products designed to last 5 to 10 years, MBORMC® challenges the “single-season disposable” culture. Durability is our way of respecting both the environment and our customers’ investment.
-
-MBORMC® Global Smart Solutions. Professional Protection. DIY Simplicity. Official 
-Site: www.MBORMC.com
-www.MBORMC.cn
-www.MBOR.cc
+MBORMC
+📍 Dali Town, Nanhai District, Foshan, Guangdong, China
+🌐 www.mbormc.com
+www.mbormc.cn
+www.mbor.cc
+📧 info@mbormc.com

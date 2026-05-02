@@ -645,7 +645,7 @@
             color: var(--text-muted);
         }
 
-        /* ---------- INQUIRY FORM ---------- */
+        /* ---------- INQUIRY FORM (替换为新表单) ---------- */
         .inquiry-section {
             padding: 4rem 0;
             background: #ffffff;
@@ -665,17 +665,18 @@
             margin-bottom: 25px;
             font-size: 1.8rem;
         }
-        .form-field {
+        /* 简单表单字段样式 */
+        .simple-form-group {
             margin-bottom: 1.2rem;
         }
-        .form-field label {
+        .simple-form-group label {
             display: block;
             margin-bottom: 0.4rem;
             font-weight: 600;
             color: #1e3a5f;
         }
-        .form-field input,
-        .form-field textarea {
+        .simple-form-group input,
+        .simple-form-group textarea {
             width: 100%;
             padding: 0.75rem 1rem;
             border: 1px solid var(--gray-border);
@@ -683,8 +684,8 @@
             font-family: inherit;
             transition: 0.2s;
         }
-        .form-field input:focus,
-        .form-field textarea:focus {
+        .simple-form-group input:focus,
+        .simple-form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 2px rgba(30,90,138,0.2);
@@ -842,6 +843,20 @@
             .menu-toggle { display: block; }
             .hero-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2rem; }
+            /* 手机版按钮修复：垂直排列，宽度100% */
+            .hero-grid div:first-child {
+                text-align: center;
+            }
+            .hero-grid .btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-left: 0 !important;
+                margin-top: 0.8rem;
+            }
+            .hero-grid .btn:first-child {
+                margin-top: 0;
+            }
             .keywords-grid { grid-template-columns: 1fr; }
             .about-grid { grid-template-columns: 1fr; }
             .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
@@ -875,7 +890,10 @@
             <li><a href="https://www.mbormc.com/news/news.html">News</a></li>
             <li><a href="#inquiry">Contact</a></li>
         </ul>
-        <a href="https://wa.me/8613536600067" class="btn btn-dark" target="_blank" rel="noopener">📱 WhatsApp</a>
+        <!-- 与产品页一致的 WhatsApp 按钮（图标+文字） -->
+        <a href="https://wa.me/8613536600067" class="btn btn-dark" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
     </div>
 </nav>
 
@@ -1079,7 +1097,7 @@
     </div>
 </section>
 
-<!-- Global Projects Showcase (Case Studies) - 6 projects: USA, UK, Australia, Malaysia, Singapore, Canada -->
+<!-- Global Projects Showcase (Case Studies) -->
 <section class="projects-section">
     <div class="container">
         <div class="section-head">
@@ -1087,7 +1105,6 @@
             <p>Trusted by homeowners, developers, and hotel chains worldwide — we deliver custom screens wherever you are.</p>
         </div>
         <div class="projects-grid">
-            <!-- USA Project -->
             <div class="project-card">
                 <div class="project-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m1.jpg" alt="Project in USA" style="background:#ccc;">
@@ -1098,7 +1115,6 @@
                     <div class="project-desc">Supplied 800+ custom retractable screens for a villa resort. All screens powder-coated to match architectural finishes.</div>
                 </div>
             </div>
-            <!-- UK Project -->
             <div class="project-card">
                 <div class="project-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/2.jpg" alt="Project in UK" style="background:#ccc;">
@@ -1109,7 +1125,6 @@
                     <div class="project-desc">Made-to-measure folding screen doors for 120 heritage apartments, blending modern insect protection with classic timber frames.</div>
                 </div>
             </div>
-            <!-- Australia Project -->
             <div class="project-card">
                 <div class="project-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m3.jpg" alt="Project in Australia" style="background:#ccc;">
@@ -1120,7 +1135,6 @@
                     <div class="project-desc">Custom mesh screens for 600+ windows in a new apartment tower. 304 stainless steel mesh for pet‑proof durability.</div>
                 </div>
             </div>
-            <!-- Malaysia Project -->
             <div class="project-card">
                 <div class="project-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m4.jpg" alt="Project in Malaysia" style="background:#ccc;">
@@ -1131,7 +1145,6 @@
                     <div class="project-desc">Bulk supply of retractable screens for guest rooms and executive suites. OEM branding on frames and packaging.</div>
                 </div>
             </div>
-            <!-- Singapore Project -->
             <div class="project-card">
                 <div class="project-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m55.jpg" alt="Project in Singapore" style="background:#ccc;">
@@ -1142,7 +1155,6 @@
                     <div class="project-desc">Supplied custom Velcro screens for 300+ units. Fast delivery and multilingual installation support provided.</div>
                 </div>
             </div>
-            <!-- Canada Project (新增第六个项目) -->
             <div class="project-card">
                 <div class="project-img">
                     <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m6.jpg" alt="Project in Canada" style="background:#ccc;">
@@ -1207,7 +1219,7 @@
     </div>
 </section>
 
-<!-- Inquiry Form -->
+<!-- Inquiry Form (完全替换为用户提供的简洁表单) -->
 <section id="inquiry" class="inquiry-section">
     <div class="mbormc-contact-container">
         <h2>Send an Inquiry</h2>
@@ -1216,29 +1228,24 @@
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
 
-            <div class="form-field">
-                <label>Company Name (optional)</label>
-                <input type="text" name="company" placeholder="Your company name">
-            </div>
-
-            <div class="form-field">
-                <label>Full Name *</label>
+            <div class="simple-form-group">
+                <label>Full Name</label>
                 <input type="text" name="name" placeholder="John Doe" required>
             </div>
 
-            <div class="form-field">
-                <label>Email Address *</label>
+            <div class="simple-form-group">
+                <label>Email Address</label>
                 <input type="email" name="email" placeholder="example@mail.com" required>
             </div>
 
-            <div class="form-field">
-                <label>Country *</label>
+            <div class="simple-form-group">
+                <label>Country</label>
                 <input type="text" name="country" placeholder="Your Country" required>
             </div>
 
-            <div class="form-field">
-                <label>Inquiry Content *</label>
-                <textarea name="message" rows="5" placeholder="Please let us know your requirements, window/door sizes, or the models you are interested in (e.g., H01, FD02)..." required></textarea>
+            <div class="simple-form-group">
+                <label>Inquiry Content</label>
+                <textarea name="message" rows="5" placeholder="Please let us know your requirements or the models you are interested in (e.g., H01, FD02)..." required></textarea>
             </div>
 
             <button type="submit" class="submit-btn">SUBMIT NOW</button>

@@ -402,6 +402,29 @@
             font-weight: 500;
         }
 
+        /* ---------- FEATURES SECTION (Why Choose US) - Ensuring grid layout works correctly ---------- */
+        .features-section {
+            padding: 4rem 0;
+            background: white;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+        .feature-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: #f8fafd;
+            transition: 0.2s;
+        }
+        .feature-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
         /* ---------- HOW IT WORKS ---------- */
         .steps-section {
             padding: 4rem 0;
@@ -1060,7 +1083,7 @@
     </div>
 </section>
 
-<!-- Why Choose MBORMC (fixed layout) -->
+<!-- Why Choose MBORMC - Fixed Layout (4 cards) -->
 <section id="why" class="features-section">
     <div class="container">
         <div class="section-head"><h2>Why US Clients Choose MBORMC</h2><p>Made-to-measure expertise · Reliable quality · Transparent communication</p></div>

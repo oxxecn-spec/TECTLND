@@ -52,57 +52,6 @@
         }
     }
     </script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "itemListElement": [
-            {
-                "@type": "Product",
-                "position": 1,
-                "name": "Retractable Roll-Up Screen (H01)",
-                "description": "Custom-sized retractable window screen. PET or 304 mesh, powder-coated aluminium cassette.",
-                "brand": { "@type": "Brand", "name": "MBORMC" },
-                "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "0", "availability": "https://schema.org/InStock" }
-            },
-            {
-                "@type": "Product",
-                "position": 2,
-                "name": "Folding Screen Door (FD02)",
-                "description": "Custom-sized folding door screen. 304 stainless steel concertina mesh, ideal for French doors.",
-                "brand": { "@type": "Brand", "name": "MBORMC" }
-            },
-            {
-                "@type": "Product",
-                "position": 3,
-                "name": "Roll-up + Folding Screen (H03)",
-                "description": "2-in-1 hybrid retractable and folding screen. Full OEM branding support.",
-                "brand": { "@type": "Brand", "name": "MBORMC" }
-            },
-            {
-                "@type": "Product",
-                "position": 4,
-                "name": "Self-Adhesive Velcro Screen (FD04)",
-                "description": "Tool-free installation, 304 stainless steel mesh with hook-and-loop tape.",
-                "brand": { "@type": "Brand", "name": "MBORMC" }
-            },
-            {
-                "@type": "Product",
-                "position": 5,
-                "name": "External Roller Blinds (Solar Shading)",
-                "description": "Aluminium cassette with UV-block fabric, reduces heat and glare.",
-                "brand": { "@type": "Brand", "name": "MBORMC" }
-            },
-            {
-                "@type": "Product",
-                "position": 6,
-                "name": "Magnetic Mosquito Curtain",
-                "description": "Fibreglass mesh with magnetic split strip, ideal for high traffic doors.",
-                "brand": { "@type": "Brand", "name": "MBORMC" }
-            }
-        ]
-    }
-    </script>
     <style>
         /* ---------- RESET & GLOBAL BLUE INDUSTRIAL THEME ---------- */
         * {
@@ -119,7 +68,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Industrial blue color scheme */
         :root {
             --primary: #1e5a8a;
             --primary-dark: #0f3b5c;
@@ -139,7 +87,7 @@
             padding: 0 1.5rem;
         }
 
-        /* ---------- NAVIGATION ---------- */
+        /* navigation */
         .navbar {
             background: white;
             box-shadow: var(--shadow-sm);
@@ -212,7 +160,7 @@
             color: white;
         }
 
-        /* ---------- HERO SECTION ---------- */
+        /* hero */
         .hero {
             background: linear-gradient(135deg, #eef4fc 0%, #ffffff 100%);
             padding: 4rem 0 3.5rem;
@@ -281,7 +229,6 @@
             }
         }
 
-        /* Section headings */
         .section-head {
             text-align: center;
             margin-bottom: 3rem;
@@ -297,7 +244,7 @@
             margin: 0 auto;
         }
 
-        /* ---------- PRODUCT CARDS ---------- */
+        /* products grid */
         .products-section {
             padding: 4rem 0;
             background: var(--gray-light);
@@ -400,7 +347,7 @@
             font-weight: 500;
         }
 
-        /* ---------- FEATURES SECTION ---------- */
+        /* features */
         .features-section {
             padding: 4rem 0;
             background: white;
@@ -423,7 +370,7 @@
             color: var(--primary);
         }
 
-        /* ---------- HOW IT WORKS ---------- */
+        /* how it works */
         .steps-section {
             padding: 4rem 0;
             background: var(--gray-light);
@@ -460,18 +407,8 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        .step-link {
-            display: inline-block;
-            margin-top: 1rem;
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .step-link:hover {
-            text-decoration: underline;
-        }
 
-        /* ---------- ABOUT + CAPABILITIES ---------- */
+        /* about */
         .about-section {
             padding: 4rem 0;
             background: #ffffff;
@@ -517,7 +454,7 @@
             min-width: 2rem;
         }
 
-        /* ---------- GLOBAL SUPPORT TRUST BAR ---------- */
+        /* global support */
         .global-support {
             background: white;
             padding: 2rem 0;
@@ -546,17 +483,7 @@
             color: var(--text-muted);
         }
 
-        /* warranty banner */
-        .warranty-banner {
-            background: var(--primary-dark);
-            color: white;
-            text-align: center;
-            padding: 0.75rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        /* ---------- GLOBAL PROJECTS / CASE STUDIES SECTION ---------- */
+        /* projects */
         .projects-section {
             padding: 4rem 0;
             background: #ffffff;
@@ -616,7 +543,7 @@
             line-height: 1.4;
         }
 
-        /* ---------- B2B KEYWORDS SECTION ---------- */
+        /* keywords */
         .keywords-section {
             padding: 4rem 0;
             background: var(--gray-light);
@@ -645,7 +572,17 @@
             color: var(--text-muted);
         }
 
-        /* ---------- INQUIRY FORM (替换为新表单) ---------- */
+        /* warranty banner */
+        .warranty-banner {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* inquiry form */
         .inquiry-section {
             padding: 4rem 0;
             background: #ffffff;
@@ -665,7 +602,6 @@
             margin-bottom: 25px;
             font-size: 1.8rem;
         }
-        /* 简单表单字段样式 */
         .simple-form-group {
             margin-bottom: 1.2rem;
         }
@@ -707,7 +643,7 @@
             transform: translateY(-2px);
         }
 
-        /* Social icons */
+        /* social icons */
         .social-icons {
             display: flex;
             justify-content: center;
@@ -731,7 +667,7 @@
         .social-icon.instagram:hover { background: #E4405F; color: white; }
         .social-icon.xiaohongshu:hover { background: #FE2C55; color: white; }
 
-        /* ---------- 全球站点区域 (12个国家) ---------- */
+        /* global sites */
         .global-sites {
             margin-top: 2rem;
             padding-top: 1.5rem;
@@ -767,10 +703,8 @@
             background: #eef4fc;
             transform: translateY(-2px);
         }
-        .country-links a span {
-            font-size: 1rem;
-        }
 
+        /* contact bar */
         .contact-bar {
             background: #eef3fc;
             padding: 1.5rem 0;
@@ -795,6 +729,7 @@
             color: var(--primary);
         }
 
+        /* footer */
         .footer {
             background: #0a2a44;
             color: #bdd4e7;
@@ -809,6 +744,7 @@
             color: white;
         }
 
+        /* faq */
         .faq-section {
             padding: 4rem 0;
             background: white;
@@ -875,6 +811,7 @@
         .contact-icon.whatsapp:hover { background: #25D366; color: white; }
         .contact-icon.wechat:hover { background: #07C160; color: white; }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .floating-contact { right: 10px; gap: 8px; }
             .contact-icon { width: 42px; height: 42px; font-size: 1.3rem; }
@@ -883,26 +820,20 @@
             .menu-toggle { display: block; }
             .hero-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2rem; }
-            /* 手机版按钮修复：垂直排列，宽度100% */
-            .hero-grid div:first-child {
-                text-align: center;
-            }
-            .hero-grid .btn {
-                display: block;
-                width: 100%;
-                text-align: center;
-                margin-left: 0 !important;
-                margin-top: 0.8rem;
-            }
-            .hero-grid .btn:first-child {
-                margin-top: 0;
-            }
+            .hero-grid .btn { display: block; width: 100%; text-align: center; margin-left: 0 !important; margin-top: 0.8rem; }
+            .hero-grid .btn:first-child { margin-top: 0; }
             .keywords-grid { grid-template-columns: 1fr; }
             .about-grid { grid-template-columns: 1fr; }
             .steps-grid { grid-template-columns: 1fr; gap: 1rem; }
             .mbormc-contact-container { padding: 20px; }
             .projects-grid { grid-template-columns: 1fr; }
             .country-links { gap: 0.6rem; }
+        }
+
+        /* 新增：最新文章模块样式 */
+        .latest-articles-section {
+            padding: 3rem 0 2rem 0;
+            background: #ffffff;
         }
     </style>
 </head>
@@ -928,10 +859,9 @@
             <li><a href="#products">Products</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#why">Why MBORMC</a></li>
-            <li><a href="https://www.mbormc.com/news/news.html">News</a></li>
+            <li><a href="/news/news.html">News</a></li>
             <li><a href="#inquiry">Contact</a></li>
         </ul>
-        <!-- 与产品页一致的 WhatsApp 按钮（图标+文字） -->
         <a href="https://wa.me/8613536600067" class="btn btn-dark" target="_blank" rel="noopener">
             <i class="fab fa-whatsapp"></i> WhatsApp
         </a>
@@ -1138,7 +1068,7 @@
     </div>
 </section>
 
-<!-- Global Projects Showcase (Case Studies) -->
+<!-- Global Projects Showcase -->
 <section class="projects-section">
     <div class="container">
         <div class="section-head">
@@ -1147,9 +1077,7 @@
         </div>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m1.jpg" alt="Project in USA" style="background:#ccc;">
-                </div>
+                <div class="project-img"><img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m1.jpg" alt="USA project"></div>
                 <div class="project-info">
                     <span class="project-country">🇺🇸 USA · Florida</span>
                     <div class="project-title">Luxury Beachfront Villas</div>
@@ -1157,53 +1085,19 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/2.jpg" alt="Project in UK" style="background:#ccc;">
-                </div>
+                <div class="project-img"><img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/2.jpg" alt="UK project"></div>
                 <div class="project-info">
                     <span class="project-country">🇬🇧 UK · London</span>
                     <div class="project-title">Period Apartment Renovation</div>
-                    <div class="project-desc">Made-to-measure folding screen doors for 120 heritage apartments, blending modern insect protection with classic timber frames.</div>
+                    <div class="project-desc">Made-to-measure folding screen doors for 120 heritage apartments.</div>
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m3.jpg" alt="Project in Australia" style="background:#ccc;">
-                </div>
+                <div class="project-img"><img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m3.jpg" alt="Australia project"></div>
                 <div class="project-info">
                     <span class="project-country">🇦🇺 Australia · Sydney</span>
                     <div class="project-title">High-Rise Residential Tower</div>
-                    <div class="project-desc">Custom mesh screens for 600+ windows in a new apartment tower. 304 stainless steel mesh for pet‑proof durability.</div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m4.jpg" alt="Project in Malaysia" style="background:#ccc;">
-                </div>
-                <div class="project-info">
-                    <span class="project-country">🇲🇾 Malaysia · Kuala Lumpur</span>
-                    <div class="project-title">5-Star Hotel Chain</div>
-                    <div class="project-desc">Bulk supply of retractable screens for guest rooms and executive suites. OEM branding on frames and packaging.</div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m55.jpg" alt="Project in Singapore" style="background:#ccc;">
-                </div>
-                <div class="project-info">
-                    <span class="project-country">🇸🇬 Singapore</span>
-                    <div class="project-title">Private Condominium Complex</div>
-                    <div class="project-desc">Supplied custom Velcro screens for 300+ units. Fast delivery and multilingual installation support provided.</div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-img">
-                    <img src="https://raw.githubusercontent.com/oxxecn-spec/TECTLND/refs/heads/main/jpg/m6.jpg" alt="Project in Canada" style="background:#ccc;">
-                </div>
-                <div class="project-info">
-                    <span class="project-country">🇨🇦 Canada · Toronto</span>
-                    <div class="project-title">Mixed-Use Development</div>
-                    <div class="project-desc">Supplied custom retractable screens for 450+ windows in a mixed-use tower. Cold-resistant mechanisms and custom RAL finish.</div>
+                    <div class="project-desc">Custom mesh screens for 600+ windows. 304 stainless steel mesh for pet‑proof durability.</div>
                 </div>
             </div>
         </div>
@@ -1260,7 +1154,24 @@
     </div>
 </section>
 
-<!-- Inquiry Form + 全球站点链接 -->
+<!-- ========= 最新文章模块（显示3篇最新文章，位于询价表单上方） ========= -->
+<section class="latest-articles-section">
+    <div class="container">
+        <div class="section-head">
+            <h2>📝 Latest News & DIY Tips</h2>
+            <p>Stay updated with our latest guides, product news, and mosquito protection insights</p>
+        </div>
+        <div id="home-latest-articles" class="product-grid">
+            <div class="loading-placeholder" style="text-align: center; grid-column: 1/-1; padding: 2rem;">Loading latest articles...</div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="/news/news.html" class="btn btn-outline">📖 View all articles →</a>
+        </div>
+    </div>
+</section>
+<!-- ========= 最新文章模块结束 ========= -->
+
+<!-- Inquiry Form + Global Sites -->
 <section id="inquiry" class="inquiry-section">
     <div class="mbormc-contact-container">
         <h2>Send an Inquiry</h2>
@@ -1268,43 +1179,29 @@
             <input type="text" name="_honey" style="display:none">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
-
             <div class="simple-form-group">
                 <label>Full Name</label>
                 <input type="text" name="name" placeholder="John Doe" required>
             </div>
-
             <div class="simple-form-group">
                 <label>Email Address</label>
                 <input type="email" name="email" placeholder="example@mail.com" required>
             </div>
-
             <div class="simple-form-group">
                 <label>Country</label>
                 <input type="text" name="country" placeholder="Your Country" required>
             </div>
-
             <div class="simple-form-group">
                 <label>Inquiry Content</label>
                 <textarea name="message" rows="5" placeholder="Please let us know your requirements or the models you are interested in (e.g., H01, FD02)..." required></textarea>
             </div>
-
             <button type="submit" class="submit-btn">SUBMIT NOW</button>
         </form>
-
         <div class="social-icons">
-            <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank" aria-label="Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank" aria-label="Xiaohongshu">
-                📕
-            </a>
-            <a href="https://www.threads.com/@mbormcnn" class="social-icon instagram" target="_blank" aria-label="Threads / Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
+            <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank">📕</a>
+            <a href="https://www.threads.com/@mbormcnn" class="social-icon instagram" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
-
-        <!-- 12个国家站点链接区域 -->
         <div class="global-sites">
             <h3>🌐 MBORMC Global Sites</h3>
             <div class="country-links">
@@ -1341,7 +1238,7 @@
 <footer class="footer">
     <div class="container">
         <p>© 2026 MBORMC Custom Mosquito Screens Manufacturer | Made-to-Measure | OEM/ODM</p>
-        <p><a href="#home">Home</a> | <a href="#products">Products</a> | <a href="#inquiry">Contact</a> | <a href="https://www.mbormc.com/sitemap.xml">Sitemap</a> | <a href="https://www.mbormc.com/globalstation.html">Global</a> </p>
+        <p><a href="#home">Home</a> | <a href="#products">Products</a> | <a href="#inquiry">Contact</a> | <a href="/sitemap.xml">Sitemap</a> | <a href="/globalstation.html">Global</a> </p>
     </div>
 </footer>
 
@@ -1373,6 +1270,54 @@
     if(wechatBtn) wechatBtn.addEventListener('click', (e) => { e.preventDefault(); copyWechat(); });
     const wechatFloat = document.getElementById('wechatFloatingBtn');
     if(wechatFloat) wechatFloat.addEventListener('click', copyWechat);
+
+    // 加载最新3篇文章（删除描述中的"custom"单词）
+    fetch('/articles.json')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(articles => {
+            const container = document.getElementById('home-latest-articles');
+            if (!container) return;
+            if (!articles || articles.length === 0) {
+                container.innerHTML = '<div style="grid-column:1/-1; text-align:center;">No articles yet. Check back soon.</div>';
+                return;
+            }
+            // 按日期倒序排序并取前3篇
+            const sorted = [...articles].sort((a, b) => (a.date < b.date ? 1 : -1));
+            const latest3 = sorted.slice(0, 3);
+            container.innerHTML = latest3.map(article => {
+                let desc = article.description || 'Click to read full article';
+                // 删除所有 "custom" 单词（不区分大小写），清理多余空格
+                desc = desc.replace(/custom\s*/gi, '').replace(/\s{2,}/g, ' ').trim();
+                if (desc === '') desc = 'Click to read full article';
+                return `
+                    <a href="${article.link}" class="product-card" style="display: flex; flex-direction: column; text-decoration: none; padding: 1.2rem;">
+                        <h3 style="color: var(--primary-dark, #0f3b5c); margin-bottom: 0.5rem; font-size: 1.2rem;">${escapeHtml(article.title)}</h3>
+                        <p style="color: var(--text-muted, #4a627a); font-size: 0.9rem; margin-bottom: 1rem;">${escapeHtml(desc)}</p>
+                        <div style="margin-top: auto; font-size: 0.8rem; color: #7a8e9f;">
+                            <i class="far fa-calendar-alt"></i> ${article.date}
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        })
+        .catch(error => {
+            console.error('加载最新文章失败:', error);
+            const container = document.getElementById('home-latest-articles');
+            if (container) container.innerHTML = '<div style="grid-column:1/-1; text-align:center;">Unable to load articles. Please refresh.</div>';
+        });
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
 </script>
 </body>
 </html>

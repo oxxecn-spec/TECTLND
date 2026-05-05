@@ -1,4 +1,4 @@
-name: Auto Generate Articles JSON from /news/
+name: Auto Generate Articles JSON
 
 on:
   push:
@@ -7,30 +7,34 @@ on:
   workflow_dispatch:
 
 jobs:
-  scan-and-generate:
+  generate:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Extract titles & descriptions from HTML files in /news/
-        run: >
-          node -e "
+
+      - name: Run Node script to extract article data
+        run: |
+          cat > generate.js << 'EOF'
           const fs = require('fs');
           const path = require('path');
+
           const newsDir = './news';
           if (!fs.existsSync(newsDir)) {
             fs.writeFileSync('./articles.json', '[]');
             process.exit(0);
           }
+
           const files = fs.readdirSync(newsDir).filter(f => f.endsWith('.html') && f !== 'news.html');
           const articles = [];
+
           for (const file of files) {
             const content = fs.readFileSync(path.join(newsDir, file), 'utf8');
             const titleMatch = content.match(/<title>(.*?)<\/title>/i);
-            const descMatch = content.match(/<meta\s+name=['\"]description['\"]\s+content=['\"]?(.*?)['\"]?[\s>]/i);
-            const dateMatch = content.match(/<meta\s+name=['\"]date['\"]\s+content=['\"]?(.*?)['\"]?[\s>]/i);
+            const descMatch = content.match(/<meta\s+name=["']description["']\s+content=["']?(.*?)["']?[\s>]/i);
+            const dateMatch = content.match(/<meta\s+name=["']date["']\s+content=["']?(.*?)["']?[\s>]/i);
+
             let articleDate = '';
             if (dateMatch && dateMatch[1]) {
               articleDate = dateMatch[1].trim();
@@ -38,6 +42,7 @@ jobs:
               const stats = fs.statSync(path.join(newsDir, file));
               articleDate = stats.mtime.toISOString().slice(0, 10);
             }
+
             articles.push({
               title: titleMatch ? titleMatch[1].trim() : file.replace('.html', ''),
               description: descMatch ? descMatch[1].trim() : '',
@@ -45,14 +50,18 @@ jobs:
               date: articleDate
             });
           }
-          articles.sort((a,b) => (a.date < b.date ? 1 : -1));
+
+          articles.sort((a, b) => (a.date < b.date ? 1 : -1));
           fs.writeFileSync('./articles.json', JSON.stringify(articles, null, 2));
-          "
+          console.log(`Generated ${articles.length} articles`);
+          EOF
+
+          node generate.js
 
       - name: Commit and push articles.json
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add articles.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto update articles.json from /news/"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto update articles.json"
           git push

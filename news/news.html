@@ -1,119 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>MBORMC News & Articles | Mosquito Screens Guides & Insights</title>
-    <meta name="description" content="Latest articles, guides, and insights about mosquito screens, insect protection, and custom window and door solutions for homes and businesses worldwide.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.mbormc.com/news.html">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; background: #fff; color: #1e293b; line-height: 1.5; }
-        :root { --primary: #1e5a8a; --primary-dark: #0f3b5c; --gray-light: #f0f4f9; --gray-border: #dce5ec; --text-muted: #4a627a; --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow-md: 0 8px 20px rgba(0,0,0,0.08); --radius: 1rem; --dark: #0f2b3d; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-        .navbar { background: white; box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100; }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; }
-        .logo { font-size: 1.6rem; font-weight: 800; text-decoration: none; color: var(--dark); }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { text-decoration: none; font-weight: 500; color: var(--dark); transition: color 0.2s; }
-        .nav-links a:hover { color: var(--primary); }
-        .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary); color: white; font-weight: 600; padding: 0.6rem 1.2rem; border-radius: 2.5rem; text-decoration: none; transition: all 0.2s; }
-        .btn-dark { background: var(--dark); }
-        .btn-dark:hover { background: #1f4a6e; transform: translateY(-2px); }
-        .page-header { background: linear-gradient(135deg, #eef4fc 0%, #ffffff 100%); padding: 3rem 0 2rem; text-align: center; border-bottom: 1px solid var(--gray-border); }
-        .page-header h1 { font-size: 2.2rem; color: #0a2a44; margin-bottom: 0.5rem; }
-        .page-header p { color: var(--text-muted); max-width: 700px; margin: 0 auto; }
-        .articles-section { padding: 3rem 0; }
-        .category { margin-bottom: 3rem; }
-        .category h2 { font-size: 1.8rem; color: var(--primary-dark); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); display: inline-block; }
-        .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
-        .article-card { background: white; border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--gray-border); text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-        .article-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-        .article-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--dark); line-height: 1.4; }
-        .article-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.8rem; display: flex; gap: 1rem; }
-        .article-meta i { margin-right: 0.2rem; }
-        .article-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; flex-grow: 1; }
-        .read-more { font-size: 0.8rem; color: var(--primary); font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem; }
-        .read-more:hover { text-decoration: underline; }
-        .contact-bar { background: #eef3fc; padding: 1.5rem 0; text-align: center; border-top: 1px solid var(--gray-border); }
-        .contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-        .contact-links a, .contact-links span { text-decoration: none; font-weight: 600; color: var(--dark); display: inline-flex; align-items: center; gap: 0.4rem; }
-        .footer { background: #0a2a44; color: #bdd4e7; padding: 2rem 0 1.5rem; text-align: center; }
-        .footer a { color: #7ab3c8; text-decoration: none; }
-        .floating-contact { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 1000; display: flex; flex-direction: column; gap: 12px; }
-        .contact-icon { width: 50px; height: 50px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.2s ease; text-decoration: none; font-size: 1.6rem; color: #1e3b5c; }
-        .contact-icon.whatsapp:hover { background: #25D366; color: white; }
-        .contact-icon.wechat:hover { background: #07C160; color: white; }
-        .menu-toggle { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; }
-        @media (max-width: 768px) {
-            .floating-contact { right: 10px; gap: 8px; }
-            .contact-icon { width: 42px; height: 42px; font-size: 1.3rem; }
-            .nav-links { display: none; flex-direction: column; gap: 1rem; padding: 1rem 0; width: 100%; }
-            .nav-links.show { display: flex; }
-            .menu-toggle { display: block; }
-            .page-header h1 { font-size: 1.6rem; }
-            .articles-grid { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-<body>
-<div class="floating-contact"><a href="https://wa.me/8613536600067" class="contact-icon whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a><div class="contact-icon wechat" id="wechatFloatingBtn"><i class="fab fa-weixin"></i></div></div>
-<nav class="navbar"><div class="container nav-inner"><a href="/" class="logo">MBORMC</a><button class="menu-toggle" id="mobileMenuBtn">☰</button><ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#products">Products</a></li><li><a href="/#about">About</a></li><li><a href="/#why">Why MBORMC</a></li><li><a href="/news.html">News</a></li><li><a href="/#inquiry">Contact</a></li></ul><a href="https://wa.me/8613536600067" class="btn btn-dark" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div></nav>
-<section class="page-header"><div class="container"><h1>MBORMC News & Articles</h1><p>Expert insights, product guides, and mosquito screen advice for homeowners, businesses, and installers worldwide.</p></div></section>
-<section class="articles-section"><div class="container">
-    
-    <!-- 🌍 通用指南 -->
-    <div class="category"><h2>🌍 General Guides</h2><div class="articles-grid">
-        <a href="/news/mosquito-screen-guide-applications.html" class="article-card"><div class="article-title">The Ultimate Guide to Mosquito Screens</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 8 min read</span></div><div class="article-desc">Applications for every space – from private villas to hotels, apartments, and commercial buildings.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/fly-screen-vs-insect-screen.html" class="article-card"><div class="article-title">Fly Screen vs Insect Screen: Which Do You Need?</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 16, 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div><div class="article-desc">Compare mesh sizes, materials, and decide which screen protects your home best.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/mosquito-screen-by-room-guide.html" class="article-card"><div class="article-title">How to Choose Mosquito Screens by Room Type</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 17, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">Bedrooms, kitchens, living rooms – tailored advice for each space in your home.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/pet-proof-mosquito-screen-guide.html" class="article-card"><div class="article-title">The Complete Guide to Pet‑Proof Mosquito Screens</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 18, 2026</span><span><i class="far fa-clock"></i> 8 min read</span></div><div class="article-desc">304 stainless steel mesh vs fibreglass – which survives your dog or cat?</div><span class="read-more">Read more →</span></a>
-        <a href="/news/mosquito-net-screen-guide.html" class="article-card"><div class="article-title">Mosquito Net Screen – Complete Guide</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 8 min read</span></div><div class="article-desc">All you need to know about choosing the right mesh for your home.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/anti-mosquito-screen-smart-guide.html" class="article-card"><div class="article-title">Anti Mosquito Screen – The Smart Way to Repel Insects</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">Chemical‑free, physical barrier for 24/7 insect protection.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/mosquito-mesh-screen-guide.html" class="article-card"><div class="article-title">Mosquito Mesh Screen – Durable Protection</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">Compare PET, fibreglass, and stainless steel meshes.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/door-mosquito-screen-complete-guide.html" class="article-card"><div class="article-title">Door Mosquito Screen – Complete Guide</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 8 min read</span></div><div class="article-desc">Everything for patio, French, and single doors.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/sliding-mosquito-screen-guide.html" class="article-card"><div class="article-title">Sliding Mosquito Screen – Solutions for Modern Sliding Doors & Windows</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">Complete guide to protecting sliding windows and patio doors.</div><span class="read-more">Read more →</span></a>
-    </div></div>
+name: Auto Generate Articles JSON from /news/
 
-    <!-- 🇺🇸 美国市场 -->
-    <div class="category"><h2>🇺🇸 United States</h2><div class="articles-grid">
-        <a href="/news/mosquito-screens-usa-guide.html" class="article-card"><div class="article-title">The Ultimate Guide to Mosquito Screens for American Homes</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 8 min read</span></div><div class="article-desc">Complete resource for US homeowners – double‑hung windows, sliding doors, pet‑proof options.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/fly-screen-vs-insect-screen-usa.html" class="article-card"><div class="article-title">Fly Screens vs Insect Screens for US Homeowners</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div><div class="article-desc">Compare mesh types, climates, and insect pressure across US regions.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/retractable-sliding-patio-screens.html" class="article-card"><div class="article-title">Best Retractable Mosquito Screens for Sliding Patio Doors</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div><div class="article-desc">Solutions for California, Florida, Texas – folding, hanging, and retractable options.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/pet-proof-mosquito-screens-usa.html" class="article-card"><div class="article-title">Pet‑Proof Mosquito Screens for American Dog & Cat Owners</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div><div class="article-desc">304 stainless steel mesh vs polyester – which lasts longer with pets?</div><span class="read-more">Read more →</span></a>
-        <a href="/news/window-type-screen-guide-usa.html" class="article-card"><div class="article-title">Choose Mosquito Screens for Different US Window Types</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">Double‑hung, sliding, casement, awning – specific advice for each window style.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/energy-saving-mosquito-screens.html" class="article-card"><div class="article-title">Energy Savings with Mosquito Screens: Reduce AC Costs</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">Solar screens block UV and reduce cooling costs by 15‑30%.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/magnetic-mosquito-nets-rentals.html" class="article-card"><div class="article-title">Magnetic Mosquito Nets for Apartments & Rentals</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div><div class="article-desc">No‑drill, no‑damage – perfect for tenants in NYC, Chicago, LA.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/304-stainless-vs-polyester-mesh.html" class="article-card"><div class="article-title">304 Stainless Steel Mesh vs Polyester: Which Lasts Longer?</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">Durability, cost, rust resistance, pet‑proofing – side by side.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/diy-mosquito-screen-installation.html" class="article-card"><div class="article-title">DIY Installation: Step‑by‑Step for Fixed & Adhesive Screens</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 8 min read</span></div><div class="article-desc">Measure, cut, install – no pro needed. Tool tips and common mistakes.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/commercial-mosquito-screens-usa.html" class="article-card"><div class="article-title">Commercial Mosquito Screens for US Restaurants & Hotels</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">OEM branding, heavy‑duty materials, bulk pricing for hospitality.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/sliding-window-mosquito-screen-guide.html" class="article-card"><div class="article-title">Sliding Window Mosquito Screen Guide</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div><div class="article-desc">Retractable, fixed, and adhesive options for common US sliding windows.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/insect-protection-screen-benefits.html" class="article-card"><div class="article-title">Top 10 Benefits of Insect Protection Screens</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 7 min read</span></div><div class="article-desc">Health, energy savings, pet safety, allergy relief – and more.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/french-door-mosquito-screens-guide.html" class="article-card"><div class="article-title">French Door Mosquito Screens – Bi‑Parting Solutions</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div><div class="article-desc">Bi‑parting folding screens for US French doors – no centre post.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/summer-mosquito-prevention-screens.html" class="article-card"><div class="article-title">Summer Mosquito Prevention: Why Screens Are Your Best Defense</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 6 min read</span></div><div class="article-desc">Prepare for mosquito season – keep windows open without bugs.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/casement-window-mosquito-screen-guide.html" class="article-card"><div class="article-title">Casement Window Mosquito Screen Guide</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Adhesive, retractable, and fixed options that work with crank handles.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/mosquito-screen-maintenance-cleaning.html" class="article-card"><div class="article-title">How to Clean & Maintain Your Mosquito Screens</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Proper care extends life – simple cleaning routines and seasonal storage.</div><span class="read-more">Read more →</span></a>
-    </div></div>
+on:
+  push:
+    paths:
+      - 'news/*.html'           # 当 news 文件夹下任何 .html 文件变化时触发
+  workflow_dispatch:            # 允许手动触发
 
-    <!-- 🇬🇧 英国市场 -->
-    <div class="category"><h2>🇬🇧 United Kingdom</h2><div class="articles-grid">
-        <a href="/news/uk-mosquito-screens-guide.html" class="article-card"><div class="article-title">Mosquito Screens for UK Homes – Complete Guide</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Sash windows, casement, French doors – solutions for British properties.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/sash-window-mosquito-screens-uk.html" class="article-card"><div class="article-title">Sash Window Mosquito Screens for Period UK Homes</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Retractable, half‑height, and no‑drill options for heritage windows.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/uk-magnetic-mosquito-nets.html" class="article-card"><div class="article-title">Magnetic Mosquito Nets for UK Rentals</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">No‑drill, no‑damage – perfect for tenants in London, Manchester, Edinburgh.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/uk-pet-proof-screens.html" class="article-card"><div class="article-title">Pet‑Proof Mosquito Screens for British Homes</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">304 stainless steel mesh for cats and dogs – lasts 15‑20 years.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/uk-french-door-screens.html" class="article-card"><div class="article-title">French Door Mosquito Screens – Bi‑Parting Solutions for UK Homes</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Bi‑parting folding screens for French doors – no centre post.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/london-mosquito-screens.html" class="article-card"><div class="article-title">Mosquito Screens for London – Apartments & Townhouses</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">No‑drill options for renters and conservation‑friendly solutions for period homes.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/manchester-mosquito-screens.html" class="article-card"><div class="article-title">Mosquito Screens for Manchester – Terraced Houses & Canalside</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Red‑brick terraces, Salford Quays apartments, and canal‑side living.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/edinburgh-mosquito-screens.html" class="article-card"><div class="article-title">Edinburgh & the Lothians – Midge‑Proof Screens</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Fine mesh (22‑24 holes/inch) to block tiny biting midges.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/birmingham-mosquito-screens.html" class="article-card"><div class="article-title">Birmingham Mosquito Screens – Canalside & Terraced Homes</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Brindleyplace apartments, Edgbaston terraces, and modern estates.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/bristol-mosquito-screens.html" class="article-card"><div class="article-title">Bristol Mosquito Screens – Conservation Areas & High‑Humidity</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Georgian and Victorian homes, Clifton, planning‑friendly internal screens.</div><span class="read-more">Read more →</span></a>
-        <a href="/news/glasgow-mosquito-screens.html" class="article-card"><div class="article-title">Glasgow Mosquito Screens – Tenements & Modern Flats</div><div class="article-meta"><span><i class="far fa-calendar-alt"></i> May 2, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div><div class="article-desc">Sandstone tenements, river Clyde apartments, and high‑humidity solutions.</div><span class="read-more">Read more →</span></a>
-    </div></div>
-</div></section>
-<div class="contact-bar"><div class="container"><div class="contact-links"><a href="https://wa.me/8613536600067" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +86 135 3660 0067</a><a href="#" id="wechatCopyBtn"><i class="fab fa-weixin"></i> WeChat: FSMBOR (click to copy)</a><a href="mailto:info@mbormc.com"><i class="fas fa-envelope"></i> info@mbormc.com</a><span><i class="fas fa-map-marker-alt"></i> MBORMC, Dali Town, Nanhai, Foshan, China</span></div></div></div>
-<footer class="footer"><div class="container"><p>© 2026 MBORMC — Custom Mosquito Screens Manufacturer | Made-to-Measure | OEM/ODM | Shipped Worldwide</p><p><a href="/">Home</a> | <a href="/#products">Products</a> | <a href="/#inquiry">Contact</a> | <a href="/sitemap.xml">Sitemap</a> | <a href="/global">Global</a></p></div></footer>
-<script>const menuToggle=document.getElementById('mobileMenuBtn');const navList=document.getElementById('navLinks');if(menuToggle)menuToggle.addEventListener('click',()=>navList.classList.toggle('show'));function copyWechat(){navigator.clipboard.writeText('FSMBOR').then(()=>alert('WeChat ID "FSMBOR" copied')).catch(()=>prompt('Copy WeChat ID:','FSMBOR'));}document.getElementById('wechatCopyBtn')?.addEventListener('click',(e)=>{e.preventDefault();copyWechat();});document.getElementById('wechatFloatingBtn')?.addEventListener('click',copyWechat);</script>
-</body>
-</html>
+jobs:
+  scan-and-generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Extract titles & descriptions from HTML files in /news/
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const newsDir = './news';
+          if (!fs.existsSync(newsDir)) {
+            fs.writeFileSync('./articles.json', '[]');
+            process.exit(0);
+          }
+          const files = fs.readdirSync(newsDir).filter(f => f.endsWith('.html') && f !== 'news.html');
+          const articles = [];
+          for (const file of files) {
+            const content = fs.readFileSync(path.join(newsDir, file), 'utf8');
+            const titleMatch = content.match(/<title>(.*?)<\/title>/i);
+            const descMatch = content.match(/<meta\s+name=['\"]description['\"]\s+content=['\"]?(.*?)['\"]?[\s>]/i);
+            // 可选：自定义日期 meta
+            const dateMatch = content.match(/<meta\s+name=['\"]date['\"]\s+content=['\"]?(.*?)['\"]?[\s>]/i);
+            let articleDate = '';
+            if (dateMatch && dateMatch[1]) {
+              articleDate = dateMatch[1].trim();
+            } else {
+              // 使用文件修改时间作为默认日期
+              const stats = fs.statSync(path.join(newsDir, file));
+              articleDate = stats.mtime.toISOString().slice(0, 10);
+            }
+            articles.push({
+              title: titleMatch ? titleMatch[1].trim() : file.replace('.html', ''),
+              description: descMatch ? descMatch[1].trim() : '',
+              link: '/news/' + file,
+              date: articleDate
+            });
+          }
+          // 按日期倒序排序
+          articles.sort((a,b) => (a.date < b.date ? 1 : -1));
+          fs.writeFileSync('./articles.json', JSON.stringify(articles, null, 2));
+          "
+      - name: Commit and push articles.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add articles.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto update articles.json from /news/"
+          git push

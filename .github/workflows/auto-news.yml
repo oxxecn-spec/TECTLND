@@ -1,53 +1,58 @@
-<script>
-    // ... 菜单切换和微信复制代码保持不变 ...
+name: Auto Generate Articles JSON from /news/
 
-    // 加载文章列表
-    const container = document.getElementById('articles-grid-container');
-    if (!container) {
-        console.error('Container #articles-grid-container not found');
-    } else {
-        fetch('/articles.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                return response.json();
-            })
-            .then(articles => {
-                if (!articles || articles.length === 0) {
-                    container.innerHTML = '<div class="loading-placeholder">📭 No articles yet. Check back soon.</div>';
-                    return;
-                }
-                // 按日期倒序排序
-                const sorted = [...articles].sort((a, b) => (a.date < b.date ? 1 : -1));
-                container.innerHTML = sorted.map(article => `
-                    <a href="${article.link}" class="article-card">
-                        <div class="article-body">
-                            <div class="article-meta">
-                                <span><i class="far fa-calendar-alt"></i> ${article.date || 'Upcoming'}</span>
-                            </div>
-                            <h3 class="article-title">${escapeHtml(article.title)}</h3>
-                            <p class="article-description">${escapeHtml(article.description || 'Click to read full article.')}</p>
-                            <div class="read-more">
-                                Read full article <i class="fas fa-arrow-right"></i>
-                            </div>
-                        </div>
-                    </a>
-                `).join('');
-            })
-            .catch(error => {
-                console.error('Fetch failed:', error);
-                container.innerHTML = `<div class="loading-placeholder" style="color: #c00;">⚠️ Failed to load articles: ${error.message}. Please refresh or contact support.</div>`;
+on:
+  push:
+    paths:
+      - 'news/*.html'
+  workflow_dispatch:
+
+jobs:
+  scan-and-generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Extract titles & descriptions from HTML files in /news/
+        run: >
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const newsDir = './news';
+          if (!fs.existsSync(newsDir)) {
+            fs.writeFileSync('./articles.json', '[]');
+            process.exit(0);
+          }
+          const files = fs.readdirSync(newsDir).filter(f => f.endsWith('.html') && f !== 'news.html');
+          const articles = [];
+          for (const file of files) {
+            const content = fs.readFileSync(path.join(newsDir, file), 'utf8');
+            const titleMatch = content.match(/<title>(.*?)<\/title>/i);
+            const descMatch = content.match(/<meta\s+name=['\"]description['\"]\s+content=['\"]?(.*?)['\"]?[\s>]/i);
+            const dateMatch = content.match(/<meta\s+name=['\"]date['\"]\s+content=['\"]?(.*?)['\"]?[\s>]/i);
+            let articleDate = '';
+            if (dateMatch && dateMatch[1]) {
+              articleDate = dateMatch[1].trim();
+            } else {
+              const stats = fs.statSync(path.join(newsDir, file));
+              articleDate = stats.mtime.toISOString().slice(0, 10);
+            }
+            articles.push({
+              title: titleMatch ? titleMatch[1].trim() : file.replace('.html', ''),
+              description: descMatch ? descMatch[1].trim() : '',
+              link: '/news/' + file,
+              date: articleDate
             });
-    }
+          }
+          articles.sort((a,b) => (a.date < b.date ? 1 : -1));
+          fs.writeFileSync('./articles.json', JSON.stringify(articles, null, 2));
+          "
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-</script>
+      - name: Commit and push articles.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add articles.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto update articles.json from /news/"
+          git push

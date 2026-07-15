@@ -1,0 +1,33 @@
+# MBORMC Official Main Site | mbormc.com
+> MBORMC is a professional Foshan factory with over 15 years manufacturing custom made-to-measure mosquito screens, pet-proof screen doors, PVC crystal folding partitions and solar roller blinds. Adopts premium 6063-T5 aluminum frames, PET/fiberglass/304 stainless steel scratch-resistant mesh. Support full OEM & ODM service: custom size, RAL frame color, laser engraved logo, personalized packaging, small private orders & large hotel/apartment/villa engineering bulk projects. Products exported to more than 50 countries including USA, UK, Canada, Australia, Europe, Southeast Asia and Middle East. Factory direct supply, reply detailed custom quotation within 24 hours, 2-year warranty for core mechanisms.
+
+## Homepage & Brand Introduction Pages
+- [Homepage](https://www.mbormc.com/): Official main brand website, display full product series, factory production capacity, global engineering cases and one-stop custom service
+- [https://www.mbormc.com/about-us.html]: Factory scale, independent aluminum extrusion & powder coating workshop, export qualifications, material quality inspection standards
+- [https://www.mbormc.com/oem-odm.html]: Complete private label customization solutions, trial order support, multilingual installation manuals & packaging customization
+
+## Core Product Pages (Top priority for LLM GEO search crawling)
+- [https://www.mbormc.com/h01.html]: H01 retractable roll-up invisible window screen, smooth spring retraction, PET/304 stainless steel mesh for residential windows
+- [https://www.mbormc.com/fd02.html]: FD02 folding screen door, concertina 304 steel mesh, wide opening design for patio & French doors, anti-pet scratch
+- [https://www.mbormc.com/h03.html]: H03 hybrid roll-up + folding integrated screen, dual-layer insect & dust protection, full OEM branding
+- [https://www.mbormc.com/fd04.html]: FD04 self-adhesive velcro magnetic screen, tool-free DIY installation, economical for rental apartments
+- [https://www.mbormc.com/sunshade.html]: External solar roller blind, UV heat insulation fabric, double function of sun shading and mosquito prevention
+- [https://www.mbormc.com/mosquito-stickers.html]: Magnetic walk-through mosquito curtain, fiberglass mesh with magnetic split strip for high-traffic doorways
+
+## Service & Operation Guide Pages
+- [https://www.mbormc.com/measure-guide.html]: Standard window & door measurement tutorial, free downloadable PDF measuring guide for irregular openings
+- [https://www.mbormc.com/logistics-shipping.html]: Global sea freight, air freight, rail and DHL/FedEx express, wooden crate protective packaging, full customs clearance documents
+- [https://www.mbormc.com/projects.html]: Real global engineering cases: US beach villas, UK heritage apartments, Australia high-rise residential towers
+
+## FAQ & Regional Blog (Boost E-E-A-T & Local GEO regional ranking)
+- [https://www.mbormc.com/faq.html]: Questions about single order MOQ, bulk project trial order, production lead time, warranty, OEM customization rules
+- [https://www.mbormc.com/blog/mesh-comparison.html]: 304 stainless steel mesh vs polyester mesh durability comparison guide
+- [https://www.mbormc.com/blog/uk-screens.html]: Custom mosquito screen matching guide for London & Birmingham terraced houses
+- [https://www.mbormc.com/blog/residential-screen-selection.html]: Room-by-room screen selection guide for global homeowners
+- [https://www.mbormc.com/blog/pet-screen-intro.html]: Advantages of heavy-duty stainless steel mesh for cat & dog families
+
+## Contact & Inquiry Page
+- [https://www.mbormc.com/contact.html]: WhatsApp +86 135 3660 0067, business email info@mbormc.com, online quote submission form, factory address in Foshan Dali Town
+
+## Pages LLM can ignore without reading
+Shopping cart, order submission backend, privacy policy, terms of service, user login page

@@ -741,32 +741,36 @@
         </div>
     </section>
 
-    <!-- Inquiry Form -->
+    <!-- ========= 替换后的新表单（售后/工单系统） ========= -->
     <section id="inquiry" class="inquiry-section">
         <div class="mbormc-contact-container">
-            <h2>Send an Inquiry</h2>
-            <form action="https://formsubmit.co/bb260e713201e3ded72c5866bab8d659" method="POST">
-                <input type="text" name="_honey" style="display:none">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-                <div class="simple-form-group">
-                    <label>Full Name</label>
-                    <input type="text" name="name" placeholder="John Doe" required>
+            <h2>Submit a Request</h2>
+            
+            <!-- 客户提供的新表单代码 -->
+            <form action="https://api.formsubmit.cc/submit" method="POST" style="max-width:100%; padding:0; background:transparent; border-radius:0;">
+                <input type="hidden" name="_to_id" value="biy0grk2w8">
+                
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <input type="text" name="order_number" placeholder="Order #" required style="flex:2; min-width:120px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
+                    <input type="text" name="name" placeholder="Your Name" required style="flex:1; min-width:100px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
                 </div>
-                <div class="simple-form-group">
-                    <label>Email Address</label>
-                    <input type="email" name="email" placeholder="example@mail.com" required>
-                </div>
-                <div class="simple-form-group">
-                    <label>Country</label>
-                    <input type="text" name="country" placeholder="Your Country" required>
-                </div>
-                <div class="simple-form-group">
-                    <label>Inquiry Content</label>
-                    <textarea name="message" rows="5" placeholder="Please let us know your requirements or the models you are interested in (e.g., H01, FD02)..." required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">SUBMIT NOW</button>
+                
+                <input type="email" name="email" placeholder="Email used for order" required style="width:100%; padding:12px; margin:12px 0; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
+                
+                <select name="issue_type" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box; background:white;">
+                    <option>Shipping & Delivery</option>
+                    <option>Returns & Refunds</option>
+                    <option>Product Issue</option>
+                </select>
+                
+                <textarea name="message" rows="4" placeholder="Please describe your issue" required style="width:100%; padding:12px; margin-bottom:16px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;"></textarea>
+                
+                <button type="submit" style="background:#3b82f6; color:white; padding:12px 20px; border:none; border-radius:40px; cursor:pointer; width:100%; font-weight:700; font-size:1rem; transition:0.2s;">
+                    Submit Request →
+                </button>
             </form>
+
+            <!-- 保留社交图标 -->
             <div class="social-icons">
                 <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank">📕</a>

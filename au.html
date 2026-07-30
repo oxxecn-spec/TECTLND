@@ -106,7 +106,7 @@
     }
     </script>
     <style>
-        /* ===== 完全复用首页样式 - 所有样式与US版本相同 (因仅文案不同，样式无需修改) ===== */
+        /* ===== 完全复用首页样式 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -667,50 +667,10 @@
             margin-bottom: 0.5rem;
             font-size: 1.8rem;
         }
-        .form-sub {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-        }
-        .form-field {
-            margin-bottom: 1.2rem;
-        }
-        .form-field label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-            color: #1e3a5f;
-        }
-        .form-field input,
-        .form-field textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gray-border);
-            border-radius: 0.75rem;
+        .mbormc-contact-container form input,
+        .mbormc-contact-container form select,
+        .mbormc-contact-container form textarea {
             font-family: inherit;
-            transition: 0.2s;
-        }
-        .form-field input:focus,
-        .form-field textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(30,90,138,0.2);
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 2rem;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .submit-btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
         }
         .social-icons {
             display: flex;
@@ -735,7 +695,7 @@
         .social-icon.instagram:hover { background: #E4405F; color: white; }
         .social-icon.xiaohongshu:hover { background: #FE2C55; color: white; }
 
-        /* ---------- GLOBAL SITES SECTION (12 countries) ---------- */
+        /* ---------- GLOBAL SITES SECTION ---------- */
         .global-sites {
             margin-top: 2rem;
             padding-top: 1.5rem;
@@ -964,7 +924,7 @@
     </div>
 </section>
 
-<!-- Products Section (6 cards) - Australian window types & insects -->
+<!-- Products Section (6 cards) -->
 <section id="products" class="products-section">
     <div class="container">
         <div class="section-head">
@@ -1140,7 +1100,7 @@
     </div>
 </section>
 
-<!-- Global Projects Showcase (Case Studies) - Australia project added -->
+<!-- Global Projects Showcase -->
 <section class="projects-section">
     <div class="container">
         <div class="section-head">
@@ -1213,7 +1173,7 @@
     </div>
 </section>
 
-<!-- Why Choose MBORMC - Australian version -->
+<!-- Why Choose MBORMC -->
 <section id="why" class="features-section">
     <div class="container">
         <div class="section-head"><h2>Why Australian Clients Choose MBORMC</h2><p>Made-to-measure expertise · Reliable quality · Transparent communication</p></div>
@@ -1244,7 +1204,7 @@
     </div>
 </section>
 
-<!-- B2B Keywords Section - Australian market -->
+<!-- B2B Keywords Section -->
 <section class="keywords-section">
     <div class="container">
         <div class="section-head">
@@ -1262,46 +1222,40 @@
     </div>
 </section>
 
-<!-- Inquiry Form (added inquiry box plus global sites) -->
+<!-- Inquiry Form (新表单) -->
 <section id="inquiry" class="inquiry-section">
     <div class="mbormc-contact-container">
-        <h2>Send an Inquiry</h2>
-        <div class="form-sub">Tell us your window/door sizes, product preferences, and quantity – we reply within 24h</div>
-        <form action="https://formsubmit.co/bb260e713201e3ded72c5866bab8d659" method="POST">
-            <input type="text" name="_honey" style="display:none">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
+        <h2>Submit a Request</h2>
 
-            <div class="form-field">
-                <label>Full Name *</label>
-                <input type="text" name="name" placeholder="John Doe" required>
+        <form action="https://api.formsubmit.cc/submit" method="POST" style="max-width:100%; padding:0; background:transparent; border-radius:0;">
+            <input type="hidden" name="_to_id" value="biy0grk2w8">
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <input type="text" name="order_number" placeholder="Order #" required style="flex:2; min-width:120px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
+                <input type="text" name="name" placeholder="Your Name" required style="flex:1; min-width:100px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
             </div>
 
-            <div class="form-field">
-                <label>Email Address *</label>
-                <input type="email" name="email" placeholder="example@mail.com" required>
-            </div>
+            <input type="email" name="email" placeholder="Email used for order" required style="width:100%; padding:12px; margin:12px 0; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
 
-            <div class="form-field">
-                <label>Country *</label>
-                <input type="text" name="country" placeholder="Australia" required>
-            </div>
+            <select name="issue_type" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box; background:white;">
+                <option>Shipping & Delivery</option>
+                <option>Returns & Refunds</option>
+                <option>Product Issue</option>
+            </select>
 
-            <div class="form-field">
-                <label>Inquiry Content *</label>
-                <textarea name="message" rows="5" placeholder="Example: Need H01 screens for 10 double‑hung windows in Sydney. Sizes: 1200x1500mm. Please quote shipping to NSW 2000." required></textarea>
-            </div>
+            <textarea name="message" rows="4" placeholder="Please describe your issue" required style="width:100%; padding:12px; margin-bottom:16px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;"></textarea>
 
-            <button type="submit" class="submit-btn">SUBMIT NOW</button>
+            <button type="submit" style="background:#3b82f6; color:white; padding:12px 20px; border:none; border-radius:40px; cursor:pointer; width:100%; font-weight:700; font-size:1rem; transition:0.2s;">
+                Submit Request →
+            </button>
         </form>
 
         <div class="social-icons">
-            <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank" aria-label="Xiaohongshu">📕</a>
-            <a href="https://www.threads.com/@mbormcnn" class="social-icon instagram" target="_blank" aria-label="Threads/Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank">📕</a>
+            <a href="https://www.threads.com/@mbormcnn" class="social-icon instagram" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
 
-        <!-- 12个国家站点链接区域 -->
         <div class="global-sites">
             <h3>🌐 MBORMC Global Sites</h3>
             <div class="country-links">
@@ -1322,13 +1276,13 @@
     </div>
 </section>
 
-<!-- Contact Bar (additional contact info) -->
+<!-- Contact Bar (邮箱已改为 dporo@qq.com) -->
 <div class="contact-bar">
     <div class="container">
         <div class="contact-links">
             <a href="https://wa.me/8613536600067" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +86 135 3660 0067</a>
             <a href="#" id="wechatCopyBtn" style="cursor: pointer;"><i class="fab fa-weixin"></i> WeChat: FSMBOR (click to copy)</a>
-            <a href="mailto:info@mbormc.com"><i class="fas fa-envelope"></i> info@mbormc.com</a>
+            <a href="mailto:dporo@qq.com"><i class="fas fa-envelope"></i> dporo@qq.com</a>
             <span><i class="fas fa-map-marker-alt"></i> MBORMC, Dali Town, Nanhai, Foshan, Guangdong, China</span>
         </div>
         <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">📩 Prefer email? Use the form above – we respond within 24 hours.</p>

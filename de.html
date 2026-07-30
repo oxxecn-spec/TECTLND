@@ -667,50 +667,11 @@
             margin-bottom: 0.5rem;
             font-size: 1.8rem;
         }
-        .form-sub {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-        }
-        .form-field {
-            margin-bottom: 1.2rem;
-        }
-        .form-field label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-            color: #1e3a5f;
-        }
-        .form-field input,
-        .form-field textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gray-border);
-            border-radius: 0.75rem;
+        /* 新表单内联样式已自带，容器内元素自适应 */
+        .mbormc-contact-container form input,
+        .mbormc-contact-container form select,
+        .mbormc-contact-container form textarea {
             font-family: inherit;
-            transition: 0.2s;
-        }
-        .form-field input:focus,
-        .form-field textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(30,90,138,0.2);
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 2rem;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .submit-btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
         }
         .social-icons {
             display: flex;
@@ -1262,37 +1223,33 @@
     </div>
 </section>
 
-<!-- Inquiry Form -->
+<!-- ========= 德国站：在线表单已替换为新表单（售后/工单） ========= -->
 <section id="inquiry" class="inquiry-section">
     <div class="mbormc-contact-container">
-        <h2>Angebot anfordern</h2>
-        <div class="form-sub">Teilen Sie uns Ihre Fenster-/Türmaße, Produktwünsche und Stückzahl mit – wir antworten innerhalb von 24 Stunden.</div>
-        <form action="https://formsubmit.co/bb260e713201e3ded72c5866bab8d659" method="POST">
-            <input type="text" name="_honey" style="display:none">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
+        <h2>Anfrage senden</h2>
 
-            <div class="form-field">
-                <label>Vollständiger Name *</label>
-                <input type="text" name="name" placeholder="Max Mustermann" required>
+        <!-- 新表单（与所有其他站点一致） -->
+        <form action="https://api.formsubmit.cc/submit" method="POST" style="max-width:100%; padding:0; background:transparent; border-radius:0;">
+            <input type="hidden" name="_to_id" value="biy0grk2w8">
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <input type="text" name="order_number" placeholder="Bestellnummer" required style="flex:2; min-width:120px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
+                <input type="text" name="name" placeholder="Ihr Name" required style="flex:1; min-width:100px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
             </div>
 
-            <div class="form-field">
-                <label>E-Mail Adresse *</label>
-                <input type="email" name="email" placeholder="example@mail.de" required>
-            </div>
+            <input type="email" name="email" placeholder="E-Mail für die Bestellung" required style="width:100%; padding:12px; margin:12px 0; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
 
-            <div class="form-field">
-                <label>Land *</label>
-                <input type="text" name="country" placeholder="Deutschland" required>
-            </div>
+            <select name="issue_type" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box; background:white;">
+                <option>Versand & Lieferung</option>
+                <option>Retouren & Rückerstattungen</option>
+                <option>Produktproblem</option>
+            </select>
 
-            <div class="form-field">
-                <label>Ihre Anfrage (Maße, Produkte, Menge) *</label>
-                <textarea name="message" rows="5" placeholder="Beispiel: Benötige H01 Gitter für 10 Dreh-Kipp-Fenster in Berlin. Maße: 1200x1500 mm. Bitte Angebot mit Versand nach 10115." required></textarea>
-            </div>
+            <textarea name="message" rows="4" placeholder="Bitte beschreiben Sie Ihr Anliegen" required style="width:100%; padding:12px; margin-bottom:16px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;"></textarea>
 
-            <button type="submit" class="submit-btn">Anfrage absenden</button>
+            <button type="submit" style="background:#3b82f6; color:white; padding:12px 20px; border:none; border-radius:40px; cursor:pointer; width:100%; font-weight:700; font-size:1rem; transition:0.2s;">
+                Anfrage absenden →
+            </button>
         </form>
 
         <div class="social-icons">
@@ -1322,13 +1279,13 @@
     </div>
 </section>
 
-<!-- Contact Bar (additional contact info) -->
+<!-- Contact Bar（邮箱已改为 dporo@qq.com） -->
 <div class="contact-bar">
     <div class="container">
         <div class="contact-links">
             <a href="https://wa.me/8613536600067" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +86 135 3660 0067</a>
             <a href="#" id="wechatCopyBtn" style="cursor: pointer;"><i class="fab fa-weixin"></i> WeChat: FSMBOR (click to copy)</a>
-            <a href="mailto:info@mbormc.com"><i class="fas fa-envelope"></i> info@mbormc.com</a>
+            <a href="mailto:dporo@qq.com"><i class="fas fa-envelope"></i> dporo@qq.com</a>
             <span><i class="fas fa-map-marker-alt"></i> MBORMC, Dali Town, Nanhai, Foshan, Guangdong, China</span>
         </div>
         <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">📩 Bevorzugen Sie E‑Mail? Nutzen Sie das obige Formular – wir antworten innerhalb von 24 Stunden.</p>

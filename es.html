@@ -207,13 +207,12 @@
         .inquiry-section { padding: 4rem 0; background: #ffffff; }
         .mbormc-contact-container { max-width: 600px; margin: 0 auto; padding: 30px; border: 1px solid var(--gray-border); border-radius: var(--radius); background: white; box-shadow: var(--shadow-md); }
         .mbormc-contact-container h2 { text-align: center; color: var(--dark); margin-bottom: 0.5rem; font-size: 1.8rem; }
-        .form-sub { text-align: center; margin-bottom: 1.5rem; color: var(--text-muted); }
-        .form-field { margin-bottom: 1.2rem; }
-        .form-field label { display: block; margin-bottom: 0.4rem; font-weight: 600; color: #1e3a5f; }
-        .form-field input, .form-field textarea { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--gray-border); border-radius: 0.75rem; font-family: inherit; transition: 0.2s; }
-        .form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(30,90,138,0.2); }
-        .submit-btn { width: 100%; padding: 0.8rem; background-color: var(--primary); color: white; border: none; border-radius: 2rem; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; }
-        .submit-btn:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+        /* 新表单内联样式已自带，容器内元素自适应 */
+        .mbormc-contact-container form input,
+        .mbormc-contact-container form select,
+        .mbormc-contact-container form textarea {
+            font-family: inherit;
+        }
         .social-icons { display: flex; justify-content: center; gap: 1.8rem; margin-top: 2rem; }
         .social-icon { width: 48px; height: 48px; background: #f1f5f9; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.6rem; color: var(--dark); transition: all 0.2s; }
         .social-icon.facebook:hover { background: #1877F2; color: white; }
@@ -614,37 +613,33 @@
     </div>
 </section>
 
-<!-- Inquiry Form -->
+<!-- ========= 西班牙站：在线表单已替换为新表单（售后/工单） ========= -->
 <section id="inquiry" class="inquiry-section">
     <div class="mbormc-contact-container">
-        <h2>Solicitar presupuesto</h2>
-        <div class="form-sub">Indícanos las medidas de tus ventanas/puertas, tipo de producto y cantidad – respondemos en 24 h</div>
-        <form action="https://formsubmit.co/bb260e713201e3ded72c5866bab8d659" method="POST">
-            <input type="text" name="_honey" style="display:none">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
+        <h2>Enviar una solicitud</h2>
 
-            <div class="form-field">
-                <label>Nombre completo *</label>
-                <input type="text" name="name" placeholder="Carlos López" required>
+        <!-- 新表单（与所有其他站点一致） -->
+        <form action="https://api.formsubmit.cc/submit" method="POST" style="max-width:100%; padding:0; background:transparent; border-radius:0;">
+            <input type="hidden" name="_to_id" value="biy0grk2w8">
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                <input type="text" name="order_number" placeholder="N° de pedido" required style="flex:2; min-width:120px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
+                <input type="text" name="name" placeholder="Tu nombre" required style="flex:1; min-width:100px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
             </div>
 
-            <div class="form-field">
-                <label>Correo electrónico *</label>
-                <input type="email" name="email" placeholder="ejemplo@espana.com" required>
-            </div>
+            <input type="email" name="email" placeholder="Email usado para el pedido" required style="width:100%; padding:12px; margin:12px 0; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
 
-            <div class="form-field">
-                <label>País *</label>
-                <input type="text" name="country" placeholder="España" required>
-            </div>
+            <select name="issue_type" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box; background:white;">
+                <option>Envío y entrega</option>
+                <option>Devoluciones y reembolsos</option>
+                <option>Problema con el producto</option>
+            </select>
 
-            <div class="form-field">
-                <label>Detalle de tu consulta (medidas, modelos, cantidad) *</label>
-                <textarea name="message" rows="5" placeholder="Ejemplo: Necesito 6 mosquiteras H01 para ventanas practicables en un piso en Madrid. Medidas: 1200x1500 mm. Por favor presupuesto con envío a 28001." required></textarea>
-            </div>
+            <textarea name="message" rows="4" placeholder="Describe tu consulta" required style="width:100%; padding:12px; margin-bottom:16px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;"></textarea>
 
-            <button type="submit" class="submit-btn">ENVIAR SOLICITUD</button>
+            <button type="submit" style="background:#3b82f6; color:white; padding:12px 20px; border:none; border-radius:40px; cursor:pointer; width:100%; font-weight:700; font-size:1rem; transition:0.2s;">
+                Enviar solicitud →
+            </button>
         </form>
 
         <div class="social-icons">
@@ -674,13 +669,13 @@
     </div>
 </section>
 
-<!-- Contact Bar (additional contact info) -->
+<!-- Contact Bar（邮箱已改为 dporo@qq.com） -->
 <div class="contact-bar">
     <div class="container">
         <div class="contact-links">
             <a href="https://wa.me/8613536600067" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +86 135 3660 0067</a>
             <a href="#" id="wechatCopyBtn" style="cursor: pointer;"><i class="fab fa-weixin"></i> WeChat: FSMBOR (click to copy)</a>
-            <a href="mailto:info@mbormc.com"><i class="fas fa-envelope"></i> info@mbormc.com</a>
+            <a href="mailto:dporo@qq.com"><i class="fas fa-envelope"></i> dporo@qq.com</a>
             <span><i class="fas fa-map-marker-alt"></i> MBORMC, Dali Town, Nanhai, Foshan, Guangdong, China</span>
         </div>
         <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">📩 ¿Prefieres email? Usa el formulario – respondemos en 24 horas.</p>

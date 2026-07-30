@@ -219,11 +219,38 @@
             opacity: 1;
         }
 
+        /* ===== 国旗图标 - 使用 Font Awesome ===== */
         .country-flag {
-            font-size: 3.2rem;
+            font-size: 3.6rem;
             line-height: 1.2;
             margin-bottom: 0.75rem;
+            color: #1e293b;
         }
+        .country-flag .flag-icon {
+            display: inline-block;
+            width: 56px;
+            height: 42px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            vertical-align: middle;
+        }
+        /* 使用 CSS 背景图片显示国旗（采用 Flag CDN） */
+        .flag-us { background-image: url('https://flagcdn.com/w160/us.png'); }
+        .flag-au { background-image: url('https://flagcdn.com/w160/au.png'); }
+        .flag-jp { background-image: url('https://flagcdn.com/w160/jp.png'); }
+        .flag-gb { background-image: url('https://flagcdn.com/w160/gb.png'); }
+        .flag-de { background-image: url('https://flagcdn.com/w160/de.png'); }
+        .flag-fr { background-image: url('https://flagcdn.com/w160/fr.png'); }
+        .flag-sg { background-image: url('https://flagcdn.com/w160/sg.png'); }
+        .flag-my { background-image: url('https://flagcdn.com/w160/my.png'); }
+        .flag-ar { background-image: url('https://flagcdn.com/w160/ar.png'); }
+        .flag-ca { background-image: url('https://flagcdn.com/w160/ca.png'); }
+        .flag-it { background-image: url('https://flagcdn.com/w160/it.png'); }
+        .flag-es { background-image: url('https://flagcdn.com/w160/es.png'); }
+
         .country-name {
             font-size: 1.3rem;
             font-weight: 700;
@@ -418,7 +445,11 @@
                 padding: 1.5rem 1rem;
             }
             .country-flag {
-                font-size: 2.4rem;
+                font-size: 2.8rem;
+            }
+            .country-flag .flag-icon {
+                width: 44px;
+                height: 33px;
             }
             .country-name {
                 font-size: 1.1rem;
@@ -443,6 +474,10 @@
             }
             .page-hero h1 {
                 font-size: 1.8rem;
+            }
+            .country-flag .flag-icon {
+                width: 48px;
+                height: 36px;
             }
         }
     </style>
@@ -522,7 +557,7 @@
 
                 <!-- 🇺🇸 USA -->
                 <a href="us.html" class="country-card">
-                    <div class="country-flag">🇺🇸</div>
+                    <div class="country-flag"><span class="flag-icon flag-us"></span></div>
                     <div class="country-name">USA</div>
                     <div class="country-code">United States</div>
                     <div class="country-desc">Custom screens for homes, condos, and hotels across all 50 states.</div>
@@ -531,7 +566,7 @@
 
                 <!-- 🇦🇺 Australia -->
                 <a href="au.html" class="country-card">
-                    <div class="country-flag">🇦🇺</div>
+                    <div class="country-flag"><span class="flag-icon flag-au"></span></div>
                     <div class="country-name">Australia</div>
                     <div class="country-code">Australia</div>
                     <div class="country-desc">Made-to-measure screens for terrace houses, apartments, and coastal properties.</div>
@@ -540,7 +575,7 @@
 
                 <!-- 🇯🇵 Japan -->
                 <a href="jp.html" class="country-card">
-                    <div class="country-flag">🇯🇵</div>
+                    <div class="country-flag"><span class="flag-icon flag-jp"></span></div>
                     <div class="country-name">Japan</div>
                     <div class="country-code">日本</div>
                     <div class="country-desc">カスタム防虫スクリーン — マンション・戸建て・ホテル向け。</div>
@@ -549,7 +584,7 @@
 
                 <!-- 🇬🇧 United Kingdom -->
                 <a href="uk.html" class="country-card">
-                    <div class="country-flag">🇬🇧</div>
+                    <div class="country-flag"><span class="flag-icon flag-gb"></span></div>
                     <div class="country-name">United Kingdom</div>
                     <div class="country-code">UK</div>
                     <div class="country-desc">Custom screens for sash windows, casement windows, French doors, and flats.</div>
@@ -558,7 +593,7 @@
 
                 <!-- 🇩🇪 Germany -->
                 <a href="de.html" class="country-card">
-                    <div class="country-flag">🇩🇪</div>
+                    <div class="country-flag"><span class="flag-icon flag-de"></span></div>
                     <div class="country-name">Germany</div>
                     <div class="country-code">Deutschland</div>
                     <div class="country-desc">Maßgefertigte Fliegengitter für Dreh-Kipp-Fenster und Terrassentüren.</div>
@@ -567,7 +602,7 @@
 
                 <!-- 🇫🇷 France -->
                 <a href="fr.html" class="country-card">
-                    <div class="country-flag">🇫🇷</div>
+                    <div class="country-flag"><span class="flag-icon flag-fr"></span></div>
                     <div class="country-name">France</div>
                     <div class="country-code">France</div>
                     <div class="country-desc">Moustiquaires sur mesure pour fenêtres oscillo-battantes et portes-fenêtres.</div>
@@ -576,7 +611,7 @@
 
                 <!-- 🇸🇬 Singapore -->
                 <a href="sg.html" class="country-card">
-                    <div class="country-flag">🇸🇬</div>
+                    <div class="country-flag"><span class="flag-icon flag-sg"></span></div>
                     <div class="country-name">Singapore</div>
                     <div class="country-code">Singapore</div>
                     <div class="country-desc">Custom screens for HDB flats, condos, and landed properties.</div>
@@ -585,7 +620,7 @@
 
                 <!-- 🇲🇾 Malaysia -->
                 <a href="my.html" class="country-card">
-                    <div class="country-flag">🇲🇾</div>
+                    <div class="country-flag"><span class="flag-icon flag-my"></span></div>
                     <div class="country-name">Malaysia</div>
                     <div class="country-code">Malaysia</div>
                     <div class="country-desc">Custom mosquito screens for terrace houses, condos, and hotels.</div>
@@ -594,7 +629,7 @@
 
                 <!-- 🇦🇷 Argentina -->
                 <a href="ar.html" class="country-card">
-                    <div class="country-flag">🇦🇷</div>
+                    <div class="country-flag"><span class="flag-icon flag-ar"></span></div>
                     <div class="country-name">Argentina</div>
                     <div class="country-code">Argentina</div>
                     <div class="country-desc">Mallas mosquiteras a medida para departamentos, casas y quintas.</div>
@@ -603,7 +638,7 @@
 
                 <!-- 🇨🇦 Canada -->
                 <a href="ca.html" class="country-card">
-                    <div class="country-flag">🇨🇦</div>
+                    <div class="country-flag"><span class="flag-icon flag-ca"></span></div>
                     <div class="country-name">Canada</div>
                     <div class="country-code">Canada</div>
                     <div class="country-desc">Custom screens for houses, condos, cottages, and hotels across Canada.</div>
@@ -612,7 +647,7 @@
 
                 <!-- 🇮🇹 Italy -->
                 <a href="it.html" class="country-card">
-                    <div class="country-flag">🇮🇹</div>
+                    <div class="country-flag"><span class="flag-icon flag-it"></span></div>
                     <div class="country-name">Italy</div>
                     <div class="country-code">Italia</div>
                     <div class="country-desc">Zanzariere su misura per finestre e porte in Italia. Perfette per ogni esigenza.</div>
@@ -621,7 +656,7 @@
 
                 <!-- 🇪🇸 Spain -->
                 <a href="es.html" class="country-card">
-                    <div class="country-flag">🇪🇸</div>
+                    <div class="country-flag"><span class="flag-icon flag-es"></span></div>
                     <div class="country-name">Spain</div>
                     <div class="country-code">España</div>
                     <div class="country-desc">Mosquiteras a medida para pisos, chalets, y hoteles en toda España.</div>

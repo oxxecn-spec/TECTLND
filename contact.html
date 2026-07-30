@@ -204,7 +204,7 @@
 
         /* ---------- 联系主区域 ---------- */
         .contact-section {
-            padding: 4rem 0;
+            padding: 4rem 0 5rem;
             background: #ffffff;
         }
         .contact-grid {
@@ -432,7 +432,7 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* 表单成功/错误提示（纯前端示例） */
+        /* 表单成功/错误提示 */
         .form-message {
             display: none;
             padding: 0.8rem 1rem;
@@ -451,48 +451,6 @@
             background: #fde8e8;
             color: #991b1b;
             border: 1px solid #f5c6c6;
-        }
-
-        /* ---------- 地图区域 ---------- */
-        .map-section {
-            padding: 0 0 4rem 0;
-            background: #ffffff;
-        }
-        .map-container {
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-border);
-            position: relative;
-            height: 320px;
-            background: #eef4fc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: var(--text-muted);
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .map-placeholder {
-            text-align: center;
-            padding: 2rem;
-        }
-        .map-placeholder i {
-            font-size: 3rem;
-            color: var(--primary-light);
-            opacity: 0.5;
-            margin-bottom: 0.8rem;
-        }
-        .map-placeholder p {
-            font-weight: 500;
-        }
-        .map-placeholder .map-sub {
-            font-size: 0.85rem;
-            color: var(--text-muted);
         }
 
         /* ---------- 底部组件 ---------- */
@@ -580,9 +538,6 @@
             .form-wrapper {
                 padding: 2rem 1.5rem;
             }
-            .map-container {
-                height: 240px;
-            }
         }
 
         @media (max-width: 768px) {
@@ -638,9 +593,6 @@
                 width: 38px;
                 height: 38px;
                 font-size: 1rem;
-            }
-            .map-container {
-                height: 200px;
             }
             .global-mini .country-chips {
                 gap: 0.3rem 0.5rem;
@@ -840,7 +792,7 @@
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
 
-                        <!-- 提交状态提示（纯前端示例，配合 _next 重定向更完整） -->
+                        <!-- 提交状态提示 -->
                         <div class="form-message" id="formMessage"></div>
                     </form>
                 </div>
@@ -849,97 +801,73 @@
         </div>
     </section>
 
-    <!-- ===== 地图区域 ===== -->
-    <section class="map-section">
+    <!-- ===== 底部联系栏 ===== -->
+    <div class="contact-bar">
         <div class="container">
-            <div class="map-container">
-                <!-- 使用百度地图/高德地图的嵌入方式（这里用百度地图静图占位，可替换为真实 iframe） -->
-                <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14660.491270411566!2d113.007246!3d23.153328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3155484b8a335227%3A0x65f89cfac0dfaeb4!2sNanhai%20District%2C%20Foshan%2C%20Guangdong%20Province%2C%20China!5e0!3m2!1sen!2sus!4v1700000000000"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="MBORMC Factory Location – Dali Town, Nanhai, Foshan, China">
-            </iframe>
-        </div>
-        <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:0.8rem;">
-            <i class="fas fa-map-pin" style="color:var(--primary);"></i>
-            MBORMC Production Base, Dali Town, Nanhai District, Foshan, Guangdong, China
-        </p>
-    </div>
-</section>
-
-<!-- ===== 底部联系栏 ===== -->
-<div class="contact-bar">
-    <div class="container">
-        <div class="contact-links">
-            <a href="https://wa.me/8613536600067" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +86 135 3660 0067</a>
-            <a href="#" id="wechatCopyBtn" style="cursor: pointer;"><i class="fab fa-weixin"></i> WeChat: FSMBOR (click to copy)</a>
-            <a href="mailto:dporo@qq.com"><i class="fas fa-envelope"></i> dporo@qq.com</a>
-            <span><i class="fas fa-map-marker-alt"></i> MBORMC, Dali Town, Nanhai, Foshan, Guangdong, China</span>
+            <div class="contact-links">
+                <a href="https://wa.me/8613536600067" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +86 135 3660 0067</a>
+                <a href="#" id="wechatCopyBtn" style="cursor: pointer;"><i class="fab fa-weixin"></i> WeChat: FSMBOR (click to copy)</a>
+                <a href="mailto:dporo@qq.com"><i class="fas fa-envelope"></i> dporo@qq.com</a>
+                <span><i class="fas fa-map-marker-alt"></i> MBORMC, Dali Town, Nanhai, Foshan, Guangdong, China</span>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- ===== 页脚 ===== -->
-<footer class="footer">
-    <div class="container">
-        <p>© 2026 MBORMC Custom Mosquito Screens Manufacturer | Made‑to‑Measure | OEM/ODM</p>
-        <p>
-            <a href="index.html">Home</a> |
-            <a href="index.html#products">Products</a> |
-            <a href="about.html">About</a> |
-            <a href="global.html">Global</a> |
-            <a href="contact.html">Contact</a> |
-            <a href="/sitemap.xml">Sitemap</a>
-        </p>
-    </div>
-</footer>
+    <!-- ===== 页脚 ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 MBORMC Custom Mosquito Screens Manufacturer | Made‑to‑Measure | OEM/ODM</p>
+            <p>
+                <a href="index.html">Home</a> |
+                <a href="index.html#products">Products</a> |
+                <a href="about.html">About</a> |
+                <a href="global.html">Global</a> |
+                <a href="contact.html">Contact</a> |
+                <a href="/sitemap.xml">Sitemap</a>
+            </p>
+        </div>
+    </footer>
 
-<!-- ===== JavaScript ===== -->
-<script>
-    // ---- 移动端菜单切换 ----
-    const menuToggle = document.getElementById('mobileMenuBtn');
-    const navList = document.getElementById('navLinks');
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            navList.classList.toggle('show');
-        });
-    }
-
-    // ---- 复制微信 ID（统一函数） ----
-    function copyWechat() {
-        const wechatId = 'FSMBOR';
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(wechatId).then(function() {
-                showCopyFeedback('✅ WeChat ID "' + wechatId + '" copied to clipboard');
-            }).catch(function() {
-                fallbackCopy(wechatId);
+    <!-- ===== JavaScript ===== -->
+    <script>
+        // ---- 移动端菜单切换 ----
+        const menuToggle = document.getElementById('mobileMenuBtn');
+        const navList = document.getElementById('navLinks');
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                navList.classList.toggle('show');
             });
-        } else {
-            fallbackCopy(wechatId);
         }
-    }
 
-    function fallbackCopy(text) {
-        const input = document.createElement('input');
-        input.value = text;
-        document.body.appendChild(input);
-        input.select();
-        try {
-            document.execCommand('copy');
-            showCopyFeedback('✅ WeChat ID "' + text + '" copied to clipboard');
-        } catch (e) {
-            prompt('Press Ctrl+C to copy WeChat ID:', text);
+        // ---- 复制微信 ID（统一函数） ----
+        function copyWechat() {
+            const wechatId = 'FSMBOR';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(wechatId).then(function() {
+                    showCopyFeedback('✅ WeChat ID "' + wechatId + '" copied to clipboard');
+                }).catch(function() {
+                    fallbackCopy(wechatId);
+                });
+            } else {
+                fallbackCopy(wechatId);
+            }
         }
-        document.body.removeChild(input);
-    }
 
-    function showCopyFeedback(msg) {
-        // 用轻提示代替 alert（更友好）
-        const oldAlert = window.alert;
-        window.alert = function(m) {
-            // 用自定义轻提示
+        function fallbackCopy(text) {
+            const input = document.createElement('input');
+            input.value = text;
+            document.body.appendChild(input);
+            input.select();
+            try {
+                document.execCommand('copy');
+                showCopyFeedback('✅ WeChat ID "' + text + '" copied to clipboard');
+            } catch (e) {
+                prompt('Press Ctrl+C to copy WeChat ID:', text);
+            }
+            document.body.removeChild(input);
+        }
+
+        function showCopyFeedback(msg) {
             const div = document.createElement('div');
             div.style.cssText = `
                         position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
@@ -949,14 +877,13 @@
                         z-index: 9999; max-width: 90%; text-align: center;
                         animation: fadeInUp 0.3s ease;
                     `;
-            div.textContent = m;
+            div.textContent = msg;
             document.body.appendChild(div);
             setTimeout(function() {
                 div.style.opacity = '0';
                 div.style.transition = 'opacity 0.4s';
                 setTimeout(function() { div.remove(); }, 400);
             }, 3000);
-            // 添加动画
             const style = document.createElement('style');
             style.textContent = `
                         @keyframes fadeInUp {
@@ -965,94 +892,81 @@
                         }
                     `;
             document.head.appendChild(style);
-        };
-        window.alert(msg);
-        // 恢复原 alert（移除自定义）
-        setTimeout(function() {
-            window.alert = oldAlert;
-        }, 100);
-    }
+        }
 
-    // ---- 绑定复制事件 ----
-    const wechatCopyBtn = document.getElementById('wechatCopyBtn');
-    if (wechatCopyBtn) {
-        wechatCopyBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            copyWechat();
-        });
-    }
-
-    const wechatFloatBtn = document.getElementById('wechatFloatingBtn');
-    if (wechatFloatBtn) {
-        wechatFloatBtn.addEventListener('click', copyWechat);
-    }
-
-    const wechatDisplay = document.getElementById('wechatDisplay');
-    if (wechatDisplay) {
-        wechatDisplay.addEventListener('click', copyWechat);
-    }
-
-    const wechatSocialBtn = document.getElementById('wechatSocialBtn');
-    if (wechatSocialBtn) {
-        wechatSocialBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            copyWechat();
-        });
-    }
-
-    // ---- 表单提交前验证（增强用户体验） ----
-    const contactForm = document.getElementById('contactForm');
-    const formMessage = document.getElementById('formMessage');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-
-            // 简单前端验证
-            if (!name || !email || !message) {
+        // ---- 绑定复制事件 ----
+        const wechatCopyBtn = document.getElementById('wechatCopyBtn');
+        if (wechatCopyBtn) {
+            wechatCopyBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                formMessage.className = 'form-message error';
-                formMessage.textContent = '⚠️ Please fill in all required fields (*).';
-                formMessage.style.display = 'block';
-                return;
-            }
+                copyWechat();
+            });
+        }
 
-            // 简单邮箱格式验证
-            if (!email.includes('@') || !email.includes('.')) {
+        const wechatFloatBtn = document.getElementById('wechatFloatingBtn');
+        if (wechatFloatBtn) {
+            wechatFloatBtn.addEventListener('click', copyWechat);
+        }
+
+        const wechatDisplay = document.getElementById('wechatDisplay');
+        if (wechatDisplay) {
+            wechatDisplay.addEventListener('click', copyWechat);
+        }
+
+        const wechatSocialBtn = document.getElementById('wechatSocialBtn');
+        if (wechatSocialBtn) {
+            wechatSocialBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                formMessage.className = 'form-message error';
-                formMessage.textContent = '⚠️ Please enter a valid email address.';
-                formMessage.style.display = 'block';
-                return;
-            }
+                copyWechat();
+            });
+        }
 
-            // 显示提交中状态
-            const submitBtn = document.getElementById('formSubmitBtn');
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
+        // ---- 表单提交前验证 ----
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
 
-            // 表单将通过 action 正常提交
-            // 如果有 _next 重定向，用户会被带到成功页
-        });
-    }
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
 
-    // ---- 从 URL 检测提交成功（?success=true） ----
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
-        const msg = document.getElementById('formMessage');
-        if (msg) {
-            msg.className = 'form-message success';
-            msg.textContent = '✅ Your message has been sent successfully! We\'ll get back to you within 24 hours.';
-            msg.style.display = 'block';
-            // 清除 URL 参数（避免刷新重复显示）
-            if (window.history && window.history.replaceState) {
-                const cleanUrl = window.location.pathname + window.location.hash;
-                window.history.replaceState({}, document.title, cleanUrl);
+                if (!name || !email || !message) {
+                    e.preventDefault();
+                    formMessage.className = 'form-message error';
+                    formMessage.textContent = '⚠️ Please fill in all required fields (*).';
+                    formMessage.style.display = 'block';
+                    return;
+                }
+
+                if (!email.includes('@') || !email.includes('.')) {
+                    e.preventDefault();
+                    formMessage.className = 'form-message error';
+                    formMessage.textContent = '⚠️ Please enter a valid email address.';
+                    formMessage.style.display = 'block';
+                    return;
+                }
+
+                const submitBtn = document.getElementById('formSubmitBtn');
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+            });
+        }
+
+        // ---- 从 URL 检测提交成功 ----
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            const msg = document.getElementById('formMessage');
+            if (msg) {
+                msg.className = 'form-message success';
+                msg.textContent = '✅ Your message has been sent successfully! We\'ll get back to you within 24 hours.';
+                msg.style.display = 'block';
+                if (window.history && window.history.replaceState) {
+                    const cleanUrl = window.location.pathname + window.location.hash;
+                    window.history.replaceState({}, document.title, cleanUrl);
+                }
             }
         }
-    }
-</script>
+    </script>
 </body>
 </html>

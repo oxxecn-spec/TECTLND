@@ -9,7 +9,7 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.mbormc.com/" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- JSON-LD Structured Data for SEO (Google) -->
+    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -613,7 +613,6 @@
             margin-bottom: 25px;
             font-size: 1.8rem;
         }
-        /* 新表单内联样式已自带，额外微调 */
         .mbormc-contact-container form input,
         .mbormc-contact-container form select,
         .mbormc-contact-container form textarea {
@@ -863,12 +862,73 @@
             .country-links {
                 gap: 0.6rem;
             }
+            /* 视频网格自适应 */
+            .video-grid {
+                grid-template-columns: 1fr !important;
+            }
         }
 
         /* 最新文章模块样式 */
         .latest-articles-section {
             padding: 3rem 0 2rem 0;
             background: #ffffff;
+        }
+
+        /* ===== 视频展示板块样式（3列网格，自适应） ===== */
+        .video-section {
+            padding: 4rem 0;
+            background: #f8fafd;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .video-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s;
+            border-bottom: 3px solid var(--primary);
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            background: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-title {
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-align: center;
+            background: white;
+        }
+        .video-caption {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -958,7 +1018,7 @@
                     </div>
                     <div class="product-body">
                         <div class="feature-badge">Pet‑resistant | Custom size</div>
-                        <div class="product-title">Folding Screen Door (FD02)</div>
+                        <div class="product-title">Folding Screen Door (FD05)</div>
                         <div class="product-desc">304 stainless steel concertina mesh, sliding & folding design. Perfect for French doors, patios, and wide openings.</div>
                         <div class="product-materials">304 SS / Crystal panel + Aluminium frame</div>
                         <div class="product-price">Custom quote for bulk</div>
@@ -988,7 +1048,7 @@
                     </div>
                     <div class="product-body">
                         <div class="feature-badge">DIY friendly | Cut-to-size</div>
-                        <div class="product-title">Self-Adhesive Velcro Screen (FD04)</div>
+                        <div class="product-title">Self-Adhesive Velcro Screen (FD02)</div>
                         <div class="product-desc">No frame needed, hook-and-loop tape, 304 stainless steel mesh. Removable and economical.</div>
                         <div class="product-materials">304 SS mesh + high-bond adhesive</div>
                         <div class="product-price">Wholesale available</div>
@@ -1140,6 +1200,40 @@
         </div>
     </section>
 
+    <!-- ========================== 视频展示板块（3个YouTube Shorts，3列自适应） ========================== -->
+    <section id="video-showcase" class="video-section">
+        <div class="container">
+            <div class="section-head">
+                <h2>🎬 Product Demo Videos</h2>
+                <p>Watch our screens in action – see how they work and install</p>
+            </div>
+            <div class="video-grid">
+                <!-- 视频 1: H01 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/ay68xugYxH8" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-title">MBORMC H01 – Invisible Retractable Screen</div>
+                </div>
+                <!-- 视频 2: FD05 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/ypOLZTvDmZE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-title">MBORMC FD05 – Folding Screen Door</div>
+                </div>
+                <!-- 视频 3: FD02 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/uOW75bbSxnQ" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-title">MBORMC FD02 – Folding Screen Door (Heavy‑Duty)</div>
+                </div>
+            </div>
+            <p class="video-caption">📌 点击播放按钮观看演示 — 更多产品视频即将上线</p>
+        </div>
+    </section>
+
     <!-- Why Choose MBORMC -->
     <section id="why" class="features-section">
         <div class="container">
@@ -1206,36 +1300,27 @@
     </section>
     <!-- ========= 最新文章模块结束 ========= -->
 
-    <!-- ========= 首页表单替换为新表单（售后/工单） ========= -->
+    <!-- ========= 首页表单 ========= -->
     <section id="inquiry" class="inquiry-section">
         <div class="mbormc-contact-container">
             <h2>Submit a Request</h2>
-
-            <!-- 新表单：从用户提供的代码复制，保留所有内联样式，并微调使其适应容器 -->
             <form action="https://api.formsubmit.cc/submit" method="POST" style="max-width:100%; padding:0; background:transparent; border-radius:0;">
                 <input type="hidden" name="_to_id" value="biy0grk2w8">
-
                 <div style="display:flex; gap:12px; flex-wrap:wrap;">
                     <input type="text" name="order_number" placeholder="Order #" required style="flex:2; min-width:120px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
                     <input type="text" name="name" placeholder="Your Name" required style="flex:1; min-width:100px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
                 </div>
-
                 <input type="email" name="email" placeholder="Email used for order" required style="width:100%; padding:12px; margin:12px 0; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
-
                 <select name="issue_type" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box; background:white;">
                     <option>Shipping & Delivery</option>
                     <option>Returns & Refunds</option>
                     <option>Product Issue</option>
                 </select>
-
                 <textarea name="message" rows="4" placeholder="Please describe your issue" required style="width:100%; padding:12px; margin-bottom:16px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;"></textarea>
-
                 <button type="submit" style="background:#3b82f6; color:white; padding:12px 20px; border:none; border-radius:40px; cursor:pointer; width:100%; font-weight:700; font-size:1rem; transition:0.2s;">
                     Submit Request →
                 </button>
             </form>
-
-            <!-- 保留社交图标和全球站点 -->
             <div class="social-icons">
                 <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank">📕</a>
@@ -1311,7 +1396,7 @@
         const wechatFloat = document.getElementById('wechatFloatingBtn');
         if (wechatFloat) wechatFloat.addEventListener('click', copyWechat);
 
-        // 加载最新3篇文章（删除描述中的"custom"单词）
+        // 加载最新3篇文章
         fetch('/articles.json')
             .then(response => {
                 if (!response.ok) throw new Error('Network response was not ok');
@@ -1324,12 +1409,10 @@
                     container.innerHTML = '<div style="grid-column:1/-1; text-align:center;">No articles yet. Check back soon.</div>';
                     return;
                 }
-                // 按日期倒序排序并取前3篇
                 const sorted = [...articles].sort((a, b) => (a.date < b.date ? 1 : -1));
                 const latest3 = sorted.slice(0, 3);
                 container.innerHTML = latest3.map(article => {
                     let desc = article.description || 'Click to read full article';
-                    // 删除所有 "custom" 单词（不区分大小写），清理多余空格
                     desc = desc.replace(/custom\s*/gi, '').replace(/\s{2,}/g, ' ').trim();
                     if (desc === '') desc = 'Click to read full article';
                     return `

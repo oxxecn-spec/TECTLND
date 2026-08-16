@@ -229,6 +229,22 @@
             justify-content: center;
         }
 
+        /* 自动跳转提示 */
+        .redirect-notice {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            background: rgba(30, 90, 138, 0.07);
+            padding: 0.5rem 1.6rem;
+            border-radius: 2.5rem;
+            display: inline-block;
+            backdrop-filter: blur(2px);
+        }
+        .redirect-notice i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
         /* 快速链接 — 在404下增加一些实用导航 */
         .quick-links {
             display: flex;
@@ -589,6 +605,11 @@
                     <a href="https://wa.me/8613536600067" class="btn btn-dark" target="_blank"><i class="fab fa-whatsapp"></i> Live Support</a>
                 </div>
 
+                <!-- 自动跳转提示 -->
+                <div class="redirect-notice">
+                    <i class="fas fa-arrow-right"></i> You will be redirected to the homepage in <span id="countdown">3</span> seconds.
+                </div>
+
                 <!-- 快速链接辅助导航 -->
                 <div class="quick-links">
                     <a href="/#about">About MBORMC</a>
@@ -736,6 +757,31 @@
         if (wechatFloat) {
             wechatFloat.addEventListener('click', copyWechat);
         }
+
+        // ===== 3秒自动跳转 + 倒计时 =====
+        (function() {
+            var countdownEl = document.getElementById('countdown');
+            var seconds = 3;
+            var redirectUrl = 'https://www.mbormc.com/';
+
+            if (countdownEl) {
+                var timer = setInterval(function() {
+                    seconds -= 1;
+                    if (seconds >= 0) {
+                        countdownEl.textContent = seconds;
+                    }
+                    if (seconds <= 0) {
+                        clearInterval(timer);
+                        window.location.href = redirectUrl;
+                    }
+                }, 1000);
+            } else {
+                // 容错：如果倒计时元素不存在，直接跳转
+                setTimeout(function() {
+                    window.location.href = redirectUrl;
+                }, 3000);
+            }
+        })();
     </script>
 </body>
 </html>

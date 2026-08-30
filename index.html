@@ -102,12 +102,32 @@
             padding: 1rem 0;
             flex-wrap: wrap;
         }
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
         .logo {
             font-size: 1.6rem;
             font-weight: 800;
             text-decoration: none;
             color: var(--dark);
             letter-spacing: -0.3px;
+        }
+        .lang-switch {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.2rem 0.6rem;
+            border: 1.5px solid var(--primary);
+            border-radius: 2rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .lang-switch:hover {
+            background: var(--primary);
+            color: white;
         }
         .nav-links {
             display: flex;
@@ -593,32 +613,6 @@
             font-weight: 500;
         }
 
-        /* inquiry form */
-        .inquiry-section {
-            padding: 4rem 0;
-            background: #ffffff;
-        }
-        .mbormc-contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            background: white;
-            box-shadow: var(--shadow-md);
-        }
-        .mbormc-contact-container h2 {
-            text-align: center;
-            color: var(--dark);
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-        .mbormc-contact-container form input,
-        .mbormc-contact-container form select,
-        .mbormc-contact-container form textarea {
-            font-family: inherit;
-        }
-
         /* social icons */
         .social-icons {
             display: flex;
@@ -853,9 +847,6 @@
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-            .mbormc-contact-container {
-                padding: 20px;
-            }
             .projects-grid {
                 grid-template-columns: 1fr;
             }
@@ -947,7 +938,10 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container nav-inner">
-            <a href="https://www.mbormc.com/" class="logo">MBORMC</a>
+            <div class="logo-wrapper">
+                <a href="https://www.mbormc.com/" class="logo">MBORMC</a>
+                <a href="https://www.mbormc.com/zh.html" class="lang-switch">繁體中文</a>
+            </div>
             <button class="menu-toggle" id="mobileMenuBtn" aria-label="Menu">☰</button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
@@ -977,7 +971,7 @@
                     <div class="stat"><div class="stat-num">🚢</div><div>Global Delivery</div></div>
                 </div>
                 <div style="margin-top: 2rem;">
-                    <a href="#inquiry" class="btn">Request a Free Quote →</a>
+                    <a href="https://wa.me/8613536600067" class="btn">Request a Free Quote →</a>
                     <a href="#products" class="btn btn-outline" style="margin-left: 1rem;">Explore Products</a>
                 </div>
             </div>
@@ -1086,7 +1080,7 @@
                     </div>
                 </a>
             </div>
-            <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">All products are made-to-measure. Tell us your dimensions — we will quote within 24h. <a href="#inquiry" style="color: var(--primary);">Request a custom quote →</a></p>
+            <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">All products are made-to-measure. Tell us your dimensions — we will quote within 24h. <a href="https://wa.me/8613536600067" style="color: var(--primary);">Request a custom quote →</a></p>
         </div>
     </section>
 
@@ -1108,7 +1102,7 @@
                     <div class="step-number">2</div>
                     <h3>Submit</h3>
                     <p>Send your measurements, mesh type, frame color, and quantity via our quote form.</p>
-                    <a href="#inquiry" class="step-link">Request a Quote →</a>
+                    <a href="https://wa.me/8613536600067" class="step-link">Request a Quote →</a>
                 </div>
                 <div class="step-card">
                     <div class="step-number">3</div>
@@ -1196,7 +1190,7 @@
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">* Replace placeholder images with your actual project photos. <a href="#inquiry" style="color: var(--primary);">Share your project with us →</a></p>
+            <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem;">* Replace placeholder images with your actual project photos. <a href="https://wa.me/8613536600067" style="color: var(--primary);">Share your project with us →</a></p>
         </div>
     </section>
 
@@ -1300,52 +1294,6 @@
     </section>
     <!-- ========= 最新文章模块结束 ========= -->
 
-    <!-- ========= 首页表单 ========= -->
-    <section id="inquiry" class="inquiry-section">
-        <div class="mbormc-contact-container">
-            <h2>Submit a Request</h2>
-            <form action="https://api.formsubmit.cc/submit" method="POST" style="max-width:100%; padding:0; background:transparent; border-radius:0;">
-                <input type="hidden" name="_to_id" value="biy0grk2w8">
-                <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                    <input type="text" name="order_number" placeholder="Order #" required style="flex:2; min-width:120px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
-                    <input type="text" name="name" placeholder="Your Name" required style="flex:1; min-width:100px; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
-                </div>
-                <input type="email" name="email" placeholder="Email used for order" required style="width:100%; padding:12px; margin:12px 0; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;">
-                <select name="issue_type" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box; background:white;">
-                    <option>Shipping & Delivery</option>
-                    <option>Returns & Refunds</option>
-                    <option>Product Issue</option>
-                </select>
-                <textarea name="message" rows="4" placeholder="Please describe your issue" required style="width:100%; padding:12px; margin-bottom:16px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit; box-sizing:border-box;"></textarea>
-                <button type="submit" style="background:#3b82f6; color:white; padding:12px 20px; border:none; border-radius:40px; cursor:pointer; width:100%; font-weight:700; font-size:1rem; transition:0.2s;">
-                    Submit Request →
-                </button>
-            </form>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/share/1bGhMhrg7d/" class="social-icon facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://xhslink.com/m/9u98BmY3tyS" class="social-icon xiaohongshu" target="_blank">📕</a>
-                <a href="https://www.threads.com/@mbormcnn" class="social-icon instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-            <div class="global-sites">
-                <h3>🌐 MBORMC Global Sites</h3>
-                <div class="country-links">
-                    <a href="us.html"><span>🇺🇸</span> USA</a>
-                    <a href="au.html"><span>🇦🇺</span> Australia</a>
-                    <a href="jp.html"><span>🇯🇵</span> Japan</a>
-                    <a href="uk.html"><span>🇬🇧</span> United Kingdom</a>
-                    <a href="de.html"><span>🇩🇪</span> Germany</a>
-                    <a href="fr.html"><span>🇫🇷</span> France</a>
-                    <a href="sg.html"><span>🇸🇬</span> Singapore</a>
-                    <a href="my.html"><span>🇲🇾</span> Malaysia</a>
-                    <a href="ar.html"><span>🇦🇷</span> Argentina</a>
-                    <a href="ca.html"><span>🇨🇦</span> Canada</a>
-                    <a href="it.html"><span>🇮🇹</span> Italy</a>
-                    <a href="es.html"><span>🇪🇸</span> Spain</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Contact Bar -->
     <div class="contact-bar">
         <div class="container">
@@ -1362,7 +1310,7 @@
     <footer class="footer">
         <div class="container">
             <p>© 2026 MBORMC Custom Mosquito Screens Manufacturer | Made-to-Measure | OEM/ODM</p>
-            <p><a href="#home">Home</a> | <a href="#products">Products</a> | <a href="#inquiry">Contact</a> | <a href="/sitemap.xml">Sitemap</a> | <a href="/globalstation.html">Global</a></p>
+            <p><a href="#home">Home</a> | <a href="#products">Products</a> | <a href="https://wa.me/8613536600067">Contact</a> | <a href="/sitemap.xml">Sitemap</a> | <a href="/globalstation.html">Global</a></p>
         </div>
     </footer>
 

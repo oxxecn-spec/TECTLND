@@ -113,7 +113,7 @@
         .page-hero h1 { font-size: clamp(32px, 4.5vw, 52px); font-weight: 800; margin-bottom: 16px; }
         .page-hero p { font-size: clamp(17px, 1.3vw, 22px); opacity: 0.85; max-width: 700px; margin: 0 auto; }
 
-        /* ===== CONTACT SECTION (No Form) ===== */
+        /* ===== CONTACT SECTION (No Form, No Map) ===== */
         .contact-main { padding: clamp(50px, 6vw, 90px) 0; background: #fff; }
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 70px); align-items: start; }
         .contact-info { display: flex; flex-direction: column; gap: clamp(20px, 2vw, 32px); }
@@ -140,11 +140,6 @@
         .cta-card p { color: #4a6272; font-size: clamp(15px, 1vw, 17px); line-height: 1.8; max-width: 500px; margin: 0 auto 24px; }
         .cta-card .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
         .cta-card .btn-group .btn { min-width: 160px; }
-
-        /* ===== MAP ===== */
-        .map-section { padding: 0 0 clamp(50px, 5vw, 80px) 0; background: #fff; }
-        .map-container { border-radius: clamp(20px, 2.5vw, 32px); overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border: 1px solid #eef2f0; }
-        .map-container iframe { width: 100%; height: clamp(280px, 30vw, 380px); border: 0; display: block; }
 
         /* ===== SOCIAL PROOF ===== */
         .contact-social { padding: clamp(30px, 3vw, 50px) 0; background: #f8fbf9; text-align: center; border-top: 1px solid #eef2f0; }
@@ -213,7 +208,6 @@
             .page-hero p { font-size: 15px; }
             .contact-method { padding: 12px 14px; }
             .contact-method .icon { width: 40px; height: 40px; font-size: 16px; }
-            .map-container iframe { height: 200px; }
             .contact-social { padding: 20px 0; }
             .social-icon-link { width: 44px; height: 44px; font-size: 18px; }
             .cta-card { padding: 24px 16px; }
@@ -304,7 +298,7 @@
         </div>
     </section>
 
-    <!-- ===== CONTACT SECTION (No Form) ===== -->
+    <!-- ===== CONTACT SECTION (No Form, No Map) ===== -->
     <section class="contact-main">
         <div class="container">
             <div class="contact-grid">
@@ -384,18 +378,6 @@
                     </p>
                 </div>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== MAP SECTION ===== -->
-    <section class="map-section">
-        <div class="container">
-            <div class="map-container">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3687.682784163281!2d113.1245!3d23.0285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31557e2b90b3b5a9%3A0x8e3e0d8f5e3e5e5e!2sFoshan%2C%20Guangdong!5e0!3m2!1sen!2scn!4v1700000000000"
-                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
             </div>
         </div>
     </section>

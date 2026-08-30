@@ -9,7 +9,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.mbormc.com/">
     <link rel="alternate" hreflang="en" href="https://www.mbormc.com/">
-    <link rel="alternate" hreflang="zh-Hant" href="https://www.mbormc.cn/">
+    <link rel="alternate" hreflang="zh-Hant" href="https://www.mbormc.com/zh.html">
     <meta property="og:title" content="MBORMC — Custom Mosquito Screens & Pet-Proof Folding Doors">
     <meta property="og:description" content="Custom mosquito screens, retractable fly screens, folding screen doors, and pet-proof mesh. Made-to-measure, worldwide shipping from Foshan.">
     <meta property="og:type" content="website">
@@ -93,7 +93,9 @@
         .logo { flex-shrink: 0; }
         .logo h1 { font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; color: #1a2c3e; letter-spacing: 0.5px; }
         .logo span { color: #2c7a4d; }
-        .logo p { font-size: clamp(8px, 0.6vw, 11px); letter-spacing: 1.5px; color: #6b7c8b; margin-top: 0px; }
+        .logo p { font-size: clamp(8px, 0.6vw, 11px); letter-spacing: 1.5px; color: #6b7c8b; margin-top: 0px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .lang-switch-header { font-size: clamp(9px, 0.55vw, 11px); font-weight: 700; color: #2c7a4d; background: #eaf4ef; padding: 2px 12px; border-radius: 30px; transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.3px; border: 1px solid transparent; }
+        .lang-switch-header:hover { background: #2c7a4d; color: #fff; border-color: #2c7a4d; }
         .nav-menu { display: flex; gap: clamp(16px, 2.2vw, 40px); font-weight: 500; font-size: clamp(13px, 0.9vw, 15px); align-items: center; flex-wrap: wrap; }
         .nav-menu a { color: #1a2c3e; padding: 4px 0; position: relative; white-space: nowrap; }
         .nav-menu a:hover, .nav-menu a.active { color: #2c7a4d; }
@@ -594,7 +596,7 @@
         .loading-spinner p { margin-top: 12px; font-size: 14px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ===== ★ KEYWORDS SECTION (新增) ===== */
+        /* ===== ★ KEYWORDS SECTION ===== */
         .keywords-section {
             padding: clamp(40px, 4vw, 60px) 0;
             background: #ffffff;
@@ -1003,7 +1005,10 @@
             <div class="logo">
                 <a href="https://www.mbormc.com/">
                     <h1>MBORMC<span> Custom Screens</span></h1>
-                    <p><i class="fas fa-shield-alt"></i> Custom-Made · Global Shipping</p>
+                    <p>
+                        <span><i class="fas fa-shield-alt"></i> Custom-Made · Global Shipping</span>
+                        <a href="/zh.html" class="lang-switch-header">繁體中文</a>
+                    </p>
                 </a>
             </div>
             <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">

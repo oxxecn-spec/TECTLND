@@ -3,785 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>404 – Page Not Found | MBORMC Custom Insect Screens</title>
-    <meta name="description" content="Page not found. Explore MBORMC's custom-made mosquito screens for windows and doors – made-to-measure, OEM/ODM, worldwide shipping.">
+    <title>Page Not Found — MBORMC Custom Screens</title>
     <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="https://www.mbormc.com/">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ===== 完全复用首页工业蓝主题 ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
             background: #ffffff;
-            color: #1e293b;
-            line-height: 1.5;
-            scroll-behavior: smooth;
-        }
-
-        :root {
-            --primary: #1e5a8a;
-            --primary-dark: #0f3b5c;
-            --primary-light: #3b82c4;
-            --dark: #0f2b3d;
-            --gray-light: #f0f4f9;
-            --gray-border: #dce5ec;
-            --text-muted: #4a627a;
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
-            --radius: 1rem;
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* ---------- 导航栏 ---------- */
-        .navbar {
-            background: white;
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .nav-inner {
+            color: #1a2c3e;
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
-            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
         }
-        .logo {
-            font-size: 1.6rem;
+        .container {
+            max-width: 680px;
+            width: 100%;
+            text-align: center;
+            padding: clamp(30px, 5vw, 60px);
+        }
+        .error-code {
+            font-size: clamp(80px, 15vw, 160px);
             font-weight: 800;
-            text-decoration: none;
-            color: var(--dark);
-            letter-spacing: -0.3px;
+            color: #1a2c3e;
+            line-height: 1;
+            letter-spacing: -4px;
         }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
+        .error-code span {
+            color: #2c7a4d;
         }
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 500;
-            color: var(--dark);
-            transition: color 0.2s;
+        .icon-large {
+            font-size: clamp(60px, 10vw, 100px);
+            color: #2c7a4d;
+            margin: 10px 0 20px;
+            display: inline-block;
         }
-        .nav-links a:hover {
-            color: var(--primary);
+        h1 {
+            font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 700;
+            color: #1a2c3e;
+            margin-bottom: 12px;
+        }
+        p {
+            font-size: clamp(16px, 1.2vw, 20px);
+            color: #4a6272;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: var(--primary);
-            color: white;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 36px;
+            background-color: #2c7a4d;
+            color: #fff;
+            border-radius: 40px;
             font-weight: 600;
-            padding: 0.6rem 1.4rem;
-            border-radius: 2.5rem;
-            text-decoration: none;
-            transition: all 0.2s;
+            font-size: 16px;
             border: none;
             cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            min-height: 48px;
+        }
+        .btn:hover {
+            background-color: #1f5a38;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(44, 122, 77, 0.3);
         }
         .btn-outline {
             background: transparent;
-            border: 1.5px solid var(--primary);
-            color: var(--primary);
+            border: 2px solid #2c7a4d;
+            color: #2c7a4d;
         }
         .btn-outline:hover {
-            background: var(--primary);
-            color: white;
+            background: #2c7a4d;
+            color: #fff;
         }
-        .btn-dark {
-            background: var(--dark);
-            color: white;
-        }
-        .btn-dark:hover {
-            background: #1f4a6e;
-            transform: translateY(-2px);
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            background: var(--primary-dark);
-            color: white;
-        }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-        }
-
-        /* ---------- 404 主区域 ---------- */
-        .error-section {
-            padding: 4rem 0 5rem;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(145deg, #f5f9ff 0%, #ffffff 100%);
-            text-align: center;
-        }
-        .error-content {
-            max-width: 720px;
-            margin: 0 auto;
-        }
-
-        /* 404 数字 + 背景装饰 */
-        .error-number-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-        .big-404 {
-            font-size: clamp(7rem, 18vw, 13rem);
-            font-weight: 900;
-            line-height: 1;
-            background: linear-gradient(135deg, #0f2b3d 0%, #1e5a8a 50%, #3b82c4 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.03em;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 10px 30px rgba(30, 90, 138, 0.12);
-        }
-        .big-404::after {
-            content: '404';
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            z-index: -1;
-            background: linear-gradient(135deg, #dce5ec 0%, #f0f4f9 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            opacity: 0.4;
-            transform: translate(4px, 4px);
-        }
-
-        /* 小图标点缀 */
-        .error-icons {
-            font-size: 2.8rem;
-            color: var(--primary);
-            opacity: 0.5;
-            margin-bottom: 0.25rem;
-            letter-spacing: 0.5rem;
-        }
-        .error-icons i {
-            display: inline-block;
-            animation: floatIcon 3s ease-in-out infinite;
-        }
-        .error-icons i:nth-child(2) {
-            animation-delay: 0.6s;
-        }
-        .error-icons i:nth-child(3) {
-            animation-delay: 1.2s;
-        }
-        @keyframes floatIcon {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-6px);
-            }
-        }
-
-        .error-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-top: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-        .error-message {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 520px;
-            margin: 0 auto 1.8rem;
-            line-height: 1.6;
-        }
-        .error-message strong {
-            color: var(--primary-dark);
-        }
-
-        /* 按钮组 */
         .btn-group {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-bottom: 2.5rem;
-        }
-        .btn-group .btn {
-            min-width: 160px;
-            justify-content: center;
-        }
-
-        /* 自动跳转提示 */
-        .redirect-notice {
-            margin-top: 0.5rem;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            background: rgba(30, 90, 138, 0.07);
-            padding: 0.5rem 1.6rem;
-            border-radius: 2.5rem;
-            display: inline-block;
-            backdrop-filter: blur(2px);
-        }
-        .redirect-notice i {
-            color: var(--primary);
-            margin-right: 0.5rem;
-        }
-
-        /* 快速链接 — 在404下增加一些实用导航 */
-        .quick-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.4rem 1.2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--gray-border);
-        }
-        .quick-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color 0.2s;
-            position: relative;
-        }
-        .quick-links a:hover {
-            color: var(--primary);
-        }
-        .quick-links a:not(:last-child)::after {
-            content: '·';
-            color: var(--gray-border);
-            margin-left: 0.6rem;
-            font-weight: 300;
-        }
-
-        /* ---------- 推荐产品区域 ---------- */
-        .suggested-section {
-            padding: 3rem 0 4rem;
-            background: var(--gray-light);
-            border-top: 1px solid var(--gray-border);
-        }
-        .section-head {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-        .section-head h2 {
-            font-size: 1.8rem;
-            color: #0a2a44;
-            margin-bottom: 0.4rem;
-        }
-        .section-head p {
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 0.95rem;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 1.8rem;
-        }
-        .product-card {
-            background: white;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.25s;
-            text-decoration: none;
-            color: inherit;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            border-bottom: 3px solid var(--primary);
-        }
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
-        }
-        .product-img {
-            position: relative;
-            aspect-ratio: 4/3;
-            background: #eef2f6;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .product-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s;
-        }
-        .product-card:hover .product-img img {
-            transform: scale(1.03);
-        }
-        .img-keyword-tag {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background: rgba(30, 90, 138, 0.92);
-            color: white;
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            backdrop-filter: blur(2px);
-            letter-spacing: 0.3px;
-            z-index: 2;
-        }
-        .product-body {
-            padding: 1.2rem 1.2rem 1rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .product-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #0f2b3d;
-            margin-bottom: 0.3rem;
-        }
-        .product-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-            flex-grow: 1;
-        }
-        .product-materials {
-            font-size: 0.75rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-top: 0.6rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid #f0f4f9;
-        }
-        .product-materials i {
-            margin-right: 0.3rem;
-        }
-
-        /* ---------- 底部组件 ---------- */
-        .contact-bar {
-            background: #eef3fc;
-            padding: 1.5rem 0;
-            text-align: center;
-            border-top: 1px solid var(--gray-border);
-        }
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        .contact-links a,
-        .contact-links span {
-            text-decoration: none;
-            font-weight: 600;
-            color: var(--dark);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.9rem;
-        }
-        .contact-links a:hover {
-            color: var(--primary);
-        }
-
-        .footer {
-            background: #0a2a44;
-            color: #bdd4e7;
-            padding: 2rem 0 1.5rem;
-            text-align: center;
-        }
-        .footer a {
-            color: #7ab3c8;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            color: white;
-        }
-
-        /* ---------- 浮动联系按钮 ---------- */
-        .floating-contact {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
             gap: 12px;
-        }
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: #f1f5f9;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.2s ease;
-            cursor: pointer;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .countdown {
+            font-size: clamp(14px, 1vw, 16px);
+            color: #7a8e9c;
+            margin-top: 20px;
+        }
+        .countdown strong {
+            color: #2c7a4d;
+            font-size: clamp(18px, 1.2vw, 22px);
+        }
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: #2c7a4d;
+            border-radius: 2px;
+            margin: 16px auto 20px;
+        }
+        .brand {
+            font-size: 14px;
+            color: #7a8e9c;
+            margin-top: 30px;
+        }
+        .brand strong {
+            color: #1a2c3e;
+        }
+        .brand a {
+            color: #2c7a4d;
+            font-weight: 600;
             text-decoration: none;
-            font-size: 1.6rem;
-            color: #1e3b5c;
         }
-        .contact-icon.whatsapp:hover {
-            background: #25D366;
-            color: white;
-        }
-        .contact-icon.wechat:hover {
-            background: #07C160;
-            color: white;
-        }
-
-        /* ---------- 响应式 ---------- */
-        @media (max-width: 768px) {
-            .floating-contact {
-                right: 10px;
-                gap: 8px;
-            }
-            .contact-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 1.3rem;
-            }
-            .nav-links {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem 0;
-            }
-            .nav-links.show {
-                display: flex;
-            }
-            .menu-toggle {
-                display: block;
-            }
-
-            .error-section {
-                padding: 3rem 0 3.5rem;
-                min-height: 50vh;
-            }
-            .big-404 {
-                font-size: clamp(5rem, 16vw, 8rem);
-            }
-            .error-title {
-                font-size: 1.4rem;
-            }
-            .error-message {
-                font-size: 1rem;
-                padding: 0 0.5rem;
-            }
-            .btn-group .btn {
-                min-width: 140px;
-                width: 100%;
-                justify-content: center;
-            }
-            .quick-links {
-                gap: 0.3rem 0.8rem;
-            }
-            .quick-links a {
-                font-size: 0.8rem;
-            }
-            .quick-links a:not(:last-child)::after {
-                margin-left: 0.4rem;
-            }
-
-            .product-grid {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-            }
-            .section-head h2 {
-                font-size: 1.5rem;
-            }
-
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.6rem;
-            }
-            .contact-links a,
-            .contact-links span {
-                font-size: 0.85rem;
-            }
+        .brand a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 480px) {
-            .error-icons {
-                font-size: 2rem;
-            }
-            .big-404 {
-                font-size: clamp(4rem, 14vw, 6rem);
-            }
-            .btn-group .btn {
-                min-width: 100%;
-                padding: 0.7rem 1.2rem;
-            }
+            .container { padding: 20px; }
+            .btn { padding: 12px 24px; font-size: 14px; min-height: 44px; width: 100%; justify-content: center; }
+            .btn-group { flex-direction: column; align-items: center; }
+            .btn-group .btn { width: 100%; max-width: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 浮动联系按钮 -->
-    <div class="floating-contact">
-        <a href="https://wa.me/8613536600067" class="contact-icon whatsapp" target="_blank" rel="noopener" title="WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-        <div class="contact-icon wechat" id="wechatFloatingBtn" title="WeChat (click to copy)">
-            <i class="fab fa-weixin"></i>
+    <div class="container">
+        <!-- 404 图标 -->
+        <div class="icon-large"><i class="fas fa-compass"></i></div>
+
+        <!-- 404 代码 -->
+        <div class="error-code">4<span>0</span>4</div>
+
+        <!-- 标题 -->
+        <h1>Page Not Found</h1>
+
+        <!-- 分隔线 -->
+        <div class="divider"></div>
+
+        <!-- 描述 -->
+        <p>Oops! The page you're looking for doesn't exist or has been moved. We'll redirect you to our homepage in <strong id="countdownNumber">3</strong> seconds.</p>
+
+        <!-- 按钮组 -->
+        <div class="btn-group">
+            <a href="https://www.mbormc.com/" class="btn"><i class="fas fa-home"></i> Go to Homepage</a>
+            <a href="https://www.mbormc.com/contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Contact Us</a>
+        </div>
+
+        <!-- 倒计时 -->
+        <div class="countdown">
+            <i class="fas fa-arrow-right" style="color: #2c7a4d; margin-right: 6px;"></i>
+            Redirecting in <strong id="countdownDisplay">3</strong> seconds...
+        </div>
+
+        <!-- 品牌 -->
+        <div class="brand">
+            <strong>MBORMC</strong> — Custom Mosquito Screens &amp; Pet-Proof Doors
+            <br>
+            <a href="https://www.mbormc.com/">www.mbormc.com</a>
         </div>
     </div>
-
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container nav-inner">
-            <a href="https://www.mbormc.com/" class="logo">MBORMC</a>
-            <button class="menu-toggle" id="mobileMenuBtn" aria-label="Menu">☰</button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="/#home">Home</a></li>
-                <li><a href="/#products">Products</a></li>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/#why">Why MBORMC</a></li>
-                <li><a href="/news/news.html">News</a></li>
-                <li><a href="/#inquiry">Contact</a></li>
-            </ul>
-            <a href="https://wa.me/8613536600067" class="btn btn-dark" target="_blank" rel="noopener">
-                <i class="fab fa-whatsapp"></i> WhatsApp
-            </a>
-        </div>
-    </nav>
-
-    <!-- ===== 404 主区域 ===== -->
-    <section class="error-section">
-        <div class="container">
-            <div class="error-content">
-
-                <!-- 装饰图标 -->
-                <div class="error-icons">
-                    <i class="fas fa-mosquito"></i>
-                    <i class="fas fa-fly"></i>
-                    <i class="fas fa-bug"></i>
-                </div>
-
-                <!-- 404 数字 -->
-                <div class="error-number-wrapper">
-                    <div class="big-404">404</div>
-                </div>
-
-                <h1 class="error-title">Oops! Page not found</h1>
-
-                <p class="error-message">
-                    The page you're looking for may have been moved, renamed, or never existed.
-                    <br>
-                    But don't worry — we still have the perfect <strong>custom mosquito screen</strong> for your windows and doors.
-                </p>
-
-                <!-- 主要操作按钮 -->
-                <div class="btn-group">
-                    <a href="/" class="btn"><i class="fas fa-home"></i> Homepage</a>
-                    <a href="/#products" class="btn btn-outline"><i class="fas fa-grip"></i> Browse Products</a>
-                    <a href="https://wa.me/8613536600067" class="btn btn-dark" target="_blank"><i class="fab fa-whatsapp"></i> Live Support</a>
-                </div>
-
-                <!-- 自动跳转提示 -->
-                <div class="redirect-notice">
-                    <i class="fas fa-arrow-right"></i> You will be redirected to the homepage in <span id="countdown">3</span> seconds.
-                </div>
-
-                <!-- 快速链接辅助导航 -->
-                <div class="quick-links">
-                    <a href="/#about">About MBORMC</a>
-                    <a href="/#inquiry">Get a Quote</a>
-                    <a href="/global.html">Global Sites</a>
-                    <a href="/news/news.html">Latest News</a>
-                    <a href="/sitemap.xml">Sitemap</a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 推荐产品区域 ===== -->
-    <section class="suggested-section">
-        <div class="container">
-            <div class="section-head">
-                <h2>🪟 Popular Custom Screens</h2>
-                <p>Explore our best-selling made‑to‑measure insect screens — all built to your exact window or door size.</p>
-            </div>
-            <div class="product-grid">
-
-                <!-- 产品 1 -->
-                <a href="https://www.mbormc.com/h01" class="product-card">
-                    <div class="product-img">
-                        <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h01.jpg" alt="Retractable Roll-Up Window Screen" loading="lazy">
-                        <span class="img-keyword-tag">H Series · Window</span>
-                    </div>
-                    <div class="product-body">
-                        <div class="product-title">Retractable Roll‑Up Screen (H01)</div>
-                        <div class="product-desc">PET or 304 SS mesh · Spring‑loaded cassette · Custom width/height</div>
-                        <div class="product-materials"><i class="fas fa-cube"></i> 6063-T5 Aluminium + Powder coating</div>
-                    </div>
-                </a>
-
-                <!-- 产品 2 -->
-                <a href="https://www.mbormc.com/fd05" class="product-card">
-                    <div class="product-img">
-                        <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h02.jpg" alt="Folding Screen Door" loading="lazy">
-                        <span class="img-keyword-tag">F Series · Door</span>
-                    </div>
-                    <div class="product-body">
-                        <div class="product-title">Folding Screen Door (FD02)</div>
-                        <div class="product-desc">Concertina 304 SS · Pet‑resistant · For wide openings &amp; patios</div>
-                        <div class="product-materials"><i class="fas fa-cube"></i> 304 SS + Aluminium frame</div>
-                    </div>
-                </a>
-
-                <!-- 产品 3 -->
-                <a href="https://www.mbormc.com/fd02" class="product-card">
-                    <div class="product-img">
-                        <img src="https://raw.githubusercontent.com/oxxecn-spec/MBORMC..github.io/refs/heads/main/jpg/h04.jpg" alt="Self-Adhesive Velcro Screen" loading="lazy">
-                        <span class="img-keyword-tag">Tool‑free</span>
-                    </div>
-                    <div class="product-body">
-                        <div class="product-title">Self‑Adhesive Velcro Screen (FD04)</div>
-                        <div class="product-desc">No frame needed · 304 SS mesh · Removable &amp; economical</div>
-                        <div class="product-materials"><i class="fas fa-cube"></i> 304 SS mesh + High‑bond tape</div>
-                    </div>
-                </a>
-
-            </div>
-            <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">
-                <a href="/#inquiry" style="color: var(--primary); font-weight: 600; text-decoration: none;">
-                    <i class="fas fa-arrow-right"></i> Get your custom quote today
-                </a>
-            </p>
-        </div>
-    </section>
-
-    <!-- ===== 底部联系栏 ===== -->
-    <div class="contact-bar">
-        <div class="container">
-            <div class="contact-links">
-                <a href="https://wa.me/8613536600067" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp: +86 135 3660 0067</a>
-                <a href="#" id="wechatCopyBtn" style="cursor: pointer;"><i class="fab fa-weixin"></i> WeChat: FSMBOR (click to copy)</a>
-                <a href="mailto:dporo@qq.com"><i class="fas fa-envelope"></i> dporo@qq.com</a>
-                <span><i class="fas fa-map-marker-alt"></i> MBORMC, Dali Town, Nanhai, Foshan, Guangdong, China</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== 页脚 ===== -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 MBORMC Custom Mosquito Screens Manufacturer | Made‑to‑Measure | OEM/ODM</p>
-            <p>
-                <a href="/#home">Home</a> |
-                <a href="/#products">Products</a> |
-                <a href="/about.html">About</a> |
-                <a href="/#inquiry">Contact</a> |
-                <a href="/global.html">Global</a> |
-                <a href="/sitemap.xml">Sitemap</a>
-            </p>
-        </div>
-    </footer>
 
     <script>
-        // 移动端菜单切换
-        const menuToggle = document.getElementById('mobileMenuBtn');
-        const navList = document.getElementById('navLinks');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', function() {
-                navList.classList.toggle('show');
-            });
-        }
-
-        // 复制微信 ID（浮动按钮 + 底部链接）
-        function copyWechat() {
-            const wechatId = 'FSMBOR';
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(wechatId).then(function() {
-                    alert('✅ WeChat ID "' + wechatId + '" copied to clipboard');
-                }).catch(function() {
-                    fallbackCopy(wechatId);
-                });
-            } else {
-                fallbackCopy(wechatId);
-            }
-        }
-
-        function fallbackCopy(text) {
-            const input = document.createElement('input');
-            input.value = text;
-            document.body.appendChild(input);
-            input.select();
-            try {
-                document.execCommand('copy');
-                alert('✅ WeChat ID "' + text + '" copied to clipboard');
-            } catch (e) {
-                prompt('Press Ctrl+C to copy WeChat ID:', text);
-            }
-            document.body.removeChild(input);
-        }
-
-        const wechatBtn = document.getElementById('wechatCopyBtn');
-        if (wechatBtn) {
-            wechatBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                copyWechat();
-            });
-        }
-
-        const wechatFloat = document.getElementById('wechatFloatingBtn');
-        if (wechatFloat) {
-            wechatFloat.addEventListener('click', copyWechat);
-        }
-
-        // ===== 3秒自动跳转 + 倒计时 =====
+        // ===== 3秒倒计时自动跳转 =====
         (function() {
-            var countdownEl = document.getElementById('countdown');
-            var seconds = 3;
-            var redirectUrl = 'https://www.mbormc.com/';
+            let seconds = 3;
+            const countdownDisplay = document.getElementById('countdownDisplay');
+            const countdownNumber = document.getElementById('countdownNumber');
 
-            if (countdownEl) {
-                var timer = setInterval(function() {
-                    seconds -= 1;
-                    if (seconds >= 0) {
-                        countdownEl.textContent = seconds;
-                    }
-                    if (seconds <= 0) {
-                        clearInterval(timer);
-                        window.location.href = redirectUrl;
-                    }
-                }, 1000);
-            } else {
-                // 容错：如果倒计时元素不存在，直接跳转
-                setTimeout(function() {
-                    window.location.href = redirectUrl;
-                }, 3000);
+            function updateDisplay() {
+                if (countdownDisplay) countdownDisplay.textContent = seconds;
+                if (countdownNumber) countdownNumber.textContent = seconds;
             }
+
+            updateDisplay();
+
+            const timer = setInterval(function() {
+                seconds -= 1;
+                updateDisplay();
+
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    window.location.href = 'https://www.mbormc.com/';
+                }
+            }, 1000);
+
+            // 如果用户点击任何按钮，清除定时器（防止跳转干扰用户操作）
+            document.querySelectorAll('.btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    clearInterval(timer);
+                });
+            });
         })();
     </script>
+
 </body>
 </html>

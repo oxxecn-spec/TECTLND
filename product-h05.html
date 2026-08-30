@@ -227,6 +227,15 @@
         .cta-section .btn-outline-white { background: transparent; border: 2px solid #fff; color: #fff; }
         .cta-section .btn-outline-white:hover { background: #fff; color: #1a2c3e; }
 
+        /* ===== QUICK CONTACT CARD (Replaces Form) ===== */
+        .quick-contact { padding: clamp(50px, 6vw, 70px) 0; background: #eef4f0; }
+        .quick-contact-wrapper { max-width: 700px; margin: 0 auto; background: #fff; border-radius: clamp(24px, 3vw, 36px); padding: clamp(32px, 4vw, 48px); text-align: center; box-shadow: 0 16px 40px -10px rgba(0,0,0,0.06); border: 1px solid #eef2f0; }
+        .quick-contact-wrapper .icon-large { font-size: clamp(48px, 5vw, 64px); color: #2c7a4d; margin-bottom: 12px; display: inline-block; }
+        .quick-contact-wrapper h2 { font-size: clamp(24px, 2.5vw, 34px); font-weight: 700; color: #1a2c3e; margin-bottom: 8px; }
+        .quick-contact-wrapper p { font-size: clamp(15px, 1vw, 18px); color: #4a6272; max-width: 500px; margin: 0 auto 20px; line-height: 1.7; }
+        .quick-contact-wrapper .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .quick-contact-wrapper .btn-group .btn { min-width: 160px; }
+
         /* ===== FOOTER ===== */
         .footer { background: #0f1e2a; color: #cbd5e1; padding: clamp(32px, 4vw, 60px) 0 clamp(16px, 2vw, 28px); }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: clamp(24px, 3vw, 52px); margin-bottom: clamp(28px, 3vw, 48px); }
@@ -278,6 +287,8 @@
             .spec-table td:first-child { background: transparent; font-weight: 600; padding-bottom: 0; }
             .floating-contact { right: 12px; bottom: 16px; }
             .floating-btn { width: 44px; height: 44px; font-size: 18px; }
+            .quick-contact-wrapper .btn-group { flex-direction: column; align-items: center; }
+            .quick-contact-wrapper .btn-group .btn { width: 100%; min-width: unset; }
         }
         @media (max-width: 480px) {
             .container { padding: 0 14px; }
@@ -289,6 +300,7 @@
             .logo h1 { font-size: 18px; }
             .logo p { font-size: 7px; letter-spacing: 0.5px; }
             .header .container { padding: 10px 14px; }
+            .quick-contact-wrapper { padding: 20px 16px; }
         }
     </style>
 </head>
@@ -299,7 +311,7 @@
         <button id="wechatModalBtn" class="floating-btn btn-wechat" aria-label="WeChat" style="cursor: pointer;" onclick="copyWechat()">
             <i class="fab fa-weixin"></i>
         </button>
-        <a href="https://wa.me/8613536600067?text=Hello%20MBORMC%2C%20I%27m%20interested%20in%20the%20H05%20Retractable%20Screen%20Door" target="_blank" rel="noopener" class="floating-btn btn-wa" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://wa.me/8613536600067?text=Hello%20MBORMC%2C%20I'm%20interested%20in%20the%20H05%20Retractable%20Screen%20Door" target="_blank" rel="noopener" class="floating-btn btn-wa" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
     </div>
 
     <!-- ===== WECHAT MODAL ===== -->
@@ -421,7 +433,7 @@
                         </p>
                         <div class="btn-group">
                             <a href="#contact" class="btn"><i class="fas fa-paper-plane"></i> Get a Custom Quote</a>
-                            <a href="https://wa.me/8613536600067?text=Hello%20MBORMC%2C%20I%27m%20interested%20in%20the%20H05%20Retractable%20Screen%20Door" target="_blank" rel="noopener" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Inquiry</a>
+                            <a href="https://wa.me/8613536600067?text=Hello%20MBORMC%2C%20I'm%20interested%20in%20the%20H05%20Retractable%20Screen%20Door" target="_blank" rel="noopener" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Inquiry</a>
                         </div>
                     </div>
                 </div>
@@ -628,47 +640,26 @@
                 <p>Provide your doorway dimensions and choose single or double opening — we'll manufacture a custom retractable pet-proof screen door just for you.</p>
                 <div class="btn-group">
                     <a href="#contact" class="btn btn-white"><i class="fas fa-paper-plane"></i> Get a Custom Quote</a>
-                    <a href="https://wa.me/8613536600067?text=Hello%20MBORMC%2C%20I%27m%20interested%20in%20the%20H05%20Retractable%20Screen%20Door" target="_blank" rel="noopener" class="btn btn-outline-white"><i class="fab fa-whatsapp"></i> WhatsApp Inquiry</a>
+                    <a href="https://wa.me/8613536600067?text=Hello%20MBORMC%2C%20I'm%20interested%20in%20the%20H05%20Retractable%20Screen%20Door" target="_blank" rel="noopener" class="btn btn-outline-white"><i class="fab fa-whatsapp"></i> WhatsApp Inquiry</a>
                 </div>
             </div>
         </section>
 
-        <!-- ===== CONTACT FORM ===== -->
-        <section id="contact" style="background: #eef4f0; padding: clamp(50px, 6vw, 80px) 0;">
+        <!-- ===== QUICK CONTACT CARD (Replaces Form) ===== -->
+        <section id="contact" class="quick-contact">
             <div class="container">
-                <h2 class="section-title"><i class="fas fa-headset"></i> Request a Custom H05 Quote</h2>
-                <p class="section-subtitle">Fill out the form below and we'll get back to you within 24 hours with a detailed quote.</p>
-                <div style="max-width: 780px; margin: 0 auto; background: #fff; padding: clamp(24px, 4vw, 48px); border-radius: clamp(24px, 3vw, 36px); box-shadow: 0 16px 40px -10px rgba(0,0,0,0.06);">
-                    <form action="https://api.formsubmit.cc/submit" method="POST" novalidate>
-                        <input type="hidden" name="_to_id" value="biy0grk2w8">
-                        <input type="hidden" name="_subject" value="H05 Retractable Pet-Proof Screen Door Quote Inquiry">
-                        <input type="hidden" name="_captcha" value="false">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 1.5vw, 20px);">
-                            <input type="text" name="name" placeholder="Your Name *" required style="font-family: inherit; width: 100%; padding: clamp(12px, 1.2vw, 16px) clamp(14px, 1.5vw, 20px); border: 1.5px solid #e2e8f0; border-radius: clamp(10px, 1vw, 14px); font-size: clamp(14px, 0.9vw, 16px); transition: border-color 0.3s; background: #fafbfc; margin-bottom: 12px;">
-                            <input type="email" name="email" placeholder="Your Email *" required style="font-family: inherit; width: 100%; padding: clamp(12px, 1.2vw, 16px) clamp(14px, 1.5vw, 20px); border: 1.5px solid #e2e8f0; border-radius: clamp(10px, 1vw, 14px); font-size: clamp(14px, 0.9vw, 16px); transition: border-color 0.3s; background: #fafbfc; margin-bottom: 12px;">
-                        </div>
-                        <input type="text" name="phone" placeholder="Phone Number (with country code)" style="font-family: inherit; width: 100%; padding: clamp(12px, 1.2vw, 16px) clamp(14px, 1.5vw, 20px); border: 1.5px solid #e2e8f0; border-radius: clamp(10px, 1vw, 14px); font-size: clamp(14px, 0.9vw, 16px); transition: border-color 0.3s; background: #fafbfc; margin-bottom: 12px;">
-                        <input type="text" name="door_size" placeholder="Doorway Size (W × H, in cm) *" required style="font-family: inherit; width: 100%; padding: clamp(12px, 1.2vw, 16px) clamp(14px, 1.5vw, 20px); border: 1.5px solid #e2e8f0; border-radius: clamp(10px, 1vw, 14px); font-size: clamp(14px, 0.9vw, 16px); transition: border-color 0.3s; background: #fafbfc; margin-bottom: 12px;">
-                        <select name="door_type" style="font-family: inherit; width: 100%; padding: clamp(12px, 1.2vw, 16px) clamp(14px, 1.5vw, 20px); border: 1.5px solid #e2e8f0; border-radius: clamp(10px, 1vw, 14px); font-size: clamp(14px, 0.9vw, 16px); transition: border-color 0.3s; background: #fafbfc; margin-bottom: 12px;">
-                            <option value="">Select Opening Style</option>
-                            <option value="single">🚪 Single Opening (folds to one side)</option>
-                            <option value="double">🚪 Double Opening (splits in the middle)</option>
-                        </select>
-                        <select name="scene" style="font-family: inherit; width: 100%; padding: clamp(12px, 1.2vw, 16px) clamp(14px, 1.5vw, 20px); border: 1.5px solid #e2e8f0; border-radius: clamp(10px, 1vw, 14px); font-size: clamp(14px, 0.9vw, 16px); transition: border-color 0.3s; background: #fafbfc; margin-bottom: 12px;">
-                            <option value="">Select Application</option>
-                            <option value="balcony">🚪 Sliding Patio Doors</option>
-                            <option value="villa">🏡 Villa Entrance</option>
-                            <option value="entrance">🏠 Entry Door</option>
-                            <option value="living">🛋️ Living Room</option>
-                            <option value="office">🏢 Office</option>
-                            <option value="private">🛏️ Private Space</option>
-                            <option value="study">📚 Study</option>
-                            <option value="sunroom">🌞 Sunroom</option>
-                            <option value="other">Other</option>
-                        </select>
-                        <textarea name="message" rows="4" placeholder="Please describe any special requirements (e.g., pet-proof needs, frame color, etc.)" style="font-family: inherit; width: 100%; padding: clamp(12px, 1.2vw, 16px) clamp(14px, 1.5vw, 20px); border: 1.5px solid #e2e8f0; border-radius: clamp(10px, 1vw, 14px); font-size: clamp(14px, 0.9vw, 16px); transition: border-color 0.3s; background: #fafbfc; margin-bottom: 16px; resize: vertical; min-height: 100px;"></textarea>
-                        <button type="submit" style="width: 100%; padding: clamp(12px, 1.2vw, 16px); background: #2c7a4d; color: #fff; border: none; border-radius: 40px; font-size: clamp(15px, 1vw, 18px); font-weight: 600; cursor: pointer; transition: all 0.3s;"><i class="fas fa-paper-plane"></i> Submit Custom Request</button>
-                    </form>
+                <div class="quick-contact-wrapper">
+                    <div class="icon-large"><i class="fas fa-comment-dots"></i></div>
+                    <h2>Reach Out Anytime</h2>
+                    <p>Prefer a direct conversation? Contact us via WhatsApp, WeChat, or email for the fastest response. Our team is ready to answer your questions and provide custom quotes.</p>
+                    <div class="btn-group">
+                        <a href="https://wa.me/8613536600067?text=Hello%20MBORMC%2C%20I'm%20interested%20in%20the%20H05%20Retractable%20Screen%20Door" target="_blank" rel="noopener" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="#" id="wechatCopyBtn" class="btn btn-outline" style="cursor: pointer;" onclick="copyWechat()"><i class="fab fa-weixin"></i> WeChat</a>
+                        <a href="mailto:info@mbormc.com" class="btn btn-outline"><i class="fas fa-envelope"></i> Email</a>
+                    </div>
+                    <p style="margin-top: 20px; font-size: clamp(13px, 0.8vw, 15px); color: #7a8e9c;">
+                        <i class="fas fa-clock" style="color: #2c7a4d;"></i> We typically respond within 24 hours
+                    </p>
                 </div>
             </div>
         </section>
@@ -688,6 +679,7 @@
                     <h4><i class="fas fa-tag"></i> Products</h4>
                     <p><a href="https://www.mbormc.com/product-fd01"><i class="fas fa-arrow-right"></i> MBORMC FD01</a><br>
                        <a href="https://www.mbormc.com/product-fd02"><i class="fas fa-arrow-right"></i> MBORMC FD02</a><br>
+                       <a href="https://www.mbormc.com/product-fd04"><i class="fas fa-arrow-right"></i> MBORMC FD04</a><br>
                        <a href="https://www.mbormc.com/product-h01"><i class="fas fa-arrow-right"></i> MBORMC H01</a><br>
                        <a href="https://www.mbormc.com/product-h05"><i class="fas fa-arrow-right"></i> MBORMC H05</a></p>
                 </div>
@@ -776,6 +768,15 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && wechatModal.classList.contains('show')) closeWechatModal();
         });
+
+        // ===== WeChat Copy Button (Quick Contact) =====
+        const wechatCopyBtn = document.getElementById('wechatCopyBtn');
+        if (wechatCopyBtn) {
+            wechatCopyBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                copyWechat();
+            });
+        }
 
         // ===== Mobile Menu =====
         const mobileBtn = document.getElementById('mobileMenuBtn');

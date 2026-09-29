@@ -568,6 +568,56 @@
         .social-icon.youtube { background: #ff0000; }
         .social-label { margin-top: 8px; font-size: clamp(11px, 0.7vw, 14px); color: #5a6f7e; font-weight: 500; }
 
+        /* ===== ★ FACEBOOK FEED (Elfsight) ===== */
+        .facebook-feed-section {
+            background: #f8fbf9;
+            padding: clamp(40px, 5vw, 70px) 0;
+            border-top: 1px solid #eef2f0;
+            border-bottom: 1px solid #eef2f0;
+        }
+        .facebook-feed-section .section-title:after { background: #1877f2; }
+        .facebook-feed-card {
+            background: #ffffff;
+            border-radius: clamp(20px, 2.5vw, 32px);
+            padding: clamp(16px, 2vw, 32px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid #eef2f0;
+            position: relative;
+            min-height: 240px;
+            overflow: hidden;
+        }
+        .facebook-feed-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1877f2, #4293ff, #1877f2);
+            border-radius: 0 0 2px 2px;
+        }
+        .facebook-feed-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #8b9eb0;
+            font-size: clamp(13px, 0.85vw, 15px);
+            padding: 40px 16px;
+            transition: opacity 0.3s ease;
+        }
+        .facebook-feed-loading .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e1;
+            border-top-color: #1877f2;
+            border-radius: 50%;
+            animation: fbspin 0.8s linear infinite;
+        }
+        @keyframes fbspin { to { transform: rotate(360deg); } }
+        .elfsight-wrapper { width: 100%; overflow: hidden; border-radius: 1.25rem; }
+        .elfsight-wrapper .elfsight-app-2857f19f-d8ce-491c-bb4e-74b67085d1ed { width: 100%; }
+
         /* ===== LATEST ARTICLES ===== */
         .latest-articles-home { padding: clamp(40px, 5vw, 70px) 0; background: #f8fbf9; border-top: 1px solid #eef2f0; }
         .latest-articles-home .section-title:after { background: #2c7a4d; }
@@ -825,6 +875,7 @@
             .keywords-grid { grid-template-columns: 1fr 1fr; }
             .keyword-item { font-size: 11px; padding: 8px 12px; }
             .keyword-item .keyword-icon { font-size: 14px; }
+            .facebook-feed-card { padding: 14px; border-radius: 20px; }
         }
 
         @media (max-width: 480px) {
@@ -1455,6 +1506,27 @@
             </div>
         </section>
 
+        <!-- ===== ★ FACEBOOK FEED (Elfsight) ===== -->
+        <section class="facebook-feed-section" aria-labelledby="facebook-feed-title">
+            <div class="container">
+                <h2 class="section-title" id="facebook-feed-title">
+                    <i class="fab fa-facebook" style="color:#1877f2; margin-right:10px;"></i> Facebook 动态
+                </h2>
+                <p class="section-subtitle">来自我们 Facebook 主页的最新帖子 · 实时更新</p>
+                <div class="facebook-feed-card">
+                    <div id="elfsight-loading-indicator" class="facebook-feed-loading">
+                        <span class="spinner"></span>
+                        <span>正在加载 Facebook 动态…</span>
+                    </div>
+                    <div class="elfsight-wrapper">
+                        <!-- Elfsight Facebook Feed | Untitled Facebook Feed -->
+                        <script src="https://elfsightcdn.com/platform.js" async></script>
+                        <div class="elfsight-app-2857f19f-d8ce-491c-bb4e-74b67085d1ed" data-elfsight-app-lazy></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ===== LATEST ARTICLES ===== -->
         <section class="latest-articles-home" aria-labelledby="latest-articles-title">
             <div class="container">
@@ -1834,6 +1906,54 @@
                 if (document.hidden) stopAutoPlay();
                 else startAutoPlay();
             });
+        })();
+
+        // ===== Facebook Feed Loading Indicator =====
+        (function() {
+            const elfsightContainer = document.querySelector('.elfsight-app-2857f19f-d8ce-491c-bb4e-74b67085d1ed');
+            const loadingIndicator = document.getElementById('elfsight-loading-indicator');
+
+            if (!elfsightContainer || !loadingIndicator) return;
+
+            function isElfsightLoaded() {
+                return elfsightContainer.children.length > 0;
+            }
+
+            function hideLoadingIndicator() {
+                if (loadingIndicator) {
+                    loadingIndicator.style.opacity = '0';
+                    setTimeout(() => {
+                        if (loadingIndicator.parentNode) {
+                            loadingIndicator.style.display = 'none';
+                        }
+                    }, 300);
+                }
+            }
+
+            if (isElfsightLoaded()) {
+                hideLoadingIndicator();
+                return;
+            }
+
+            const observer = new MutationObserver((mutations) => {
+                if (isElfsightLoaded()) {
+                    hideLoadingIndicator();
+                    observer.disconnect();
+                }
+            });
+
+            observer.observe(elfsightContainer, {
+                childList: true,
+                subtree: true
+            });
+
+            // 备用：5秒后如果还没加载出来，给出更温和的提示（但不强制隐藏）
+            setTimeout(() => {
+                if (loadingIndicator && loadingIndicator.style.display !== 'none' && !isElfsightLoaded()) {
+                    const span = loadingIndicator.querySelector('span:last-child');
+                    if (span) span.textContent = 'Facebook 动态加载中，请稍候…';
+                }
+            }, 5000);
         })();
     </script>
 </body>

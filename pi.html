@@ -846,7 +846,7 @@
         const titleCity = buyerCity || '';
         document.title = `${titleName} ${titleCity} PI`.trim();
 
-        // ===== 動態保險條款 =====
+        // ===== 動態保險條款（已修改：先評估，按程度處理）=====
         let insuranceHtml = '';
         if (freightInsurance > 0) {
             insuranceHtml = `
@@ -855,15 +855,21 @@
                 ✅ 本訂單已投保運費保險（RMB ${freightInsurance.toFixed(2)}）。
                 </p>
                 <p>
-                1. 若貨物在運輸途中因運輸原因（如擠壓、碰撞、颱風、潮濕等不可控因素）損壞，我司將免費重新製作受損產品。<br>
-                2. 二次運輸費用由賣方承擔。<br>
-                3. 請於收貨時檢查，如有損壞請 7 個工作日內拍照聯絡我們，以便安排重做。
+                1. 收貨時請當場檢查外包裝及產品。如發現木箱或產品有破損，請<strong>先拍照或錄影</strong>（含外包裝、破損位置、整體及局部特寫），並於 <strong>7 個工作日內</strong> 將照片／影片發送給我們。<br>
+                2. 我們收到照片後會進行<strong>專業評估</strong>，根據損壞原因、位置及程度，判斷處理方式：<br>
+                &nbsp;&nbsp;&nbsp;• <strong>影響結構、功能或安全</strong> → 安排<strong>免費重做</strong>受損產品，二次運輸費用由賣方承擔。<br>
+                &nbsp;&nbsp;&nbsp;• <strong>僅外觀輕微受壓、不影響使用</strong> → 可安排<strong>補發配件</strong>（如紗網、膠條、五金件等）或提供<strong>維修方案</strong>，無需整件重做。<br>
+                &nbsp;&nbsp;&nbsp;• <strong>可現場簡易修復</strong> → 我們會提供<strong>維修指導</strong>，必要時補發小配件。<br>
+                3. 未經拍照評估、自行處理或超過期限才反映者，恕無法按保險條款處理，但我們仍會協助您與承運方溝通索賠。
                 </p>
                 <p class="en-term">
                 ✅ This order is covered by Freight Insurance (RMB ${freightInsurance.toFixed(2)}).<br>
-                1. If damaged during transit, we will reproduce free of charge.<br>
-                2. The second shipping cost shall be borne by the Seller.<br>
-                3. Please inspect upon arrival and contact us within 7 working days.
+                1. Please inspect the packaging and products upon delivery. If any damage is found, <strong>take photos/videos first</strong> (including outer packaging, damaged area, overall and close-up shots) and send them to us <strong>within 7 working days</strong>.<br>
+                2. Upon receiving the photos, we will conduct a <strong>professional assessment</strong> based on the cause, location, and severity of the damage:<br>
+                &nbsp;&nbsp;&nbsp;• <strong>Structural, functional, or safety impact</strong> → We will <strong>reproduce the damaged product free of charge</strong>, and the second shipping cost shall be borne by the Seller.<br>
+                &nbsp;&nbsp;&nbsp;• <strong>Minor cosmetic compression only, no impact on use</strong> → We may <strong>send replacement parts</strong> (mesh, seals, hardware, etc.) or provide a <strong>repair solution</strong> instead of full reproduction.<br>
+                &nbsp;&nbsp;&nbsp;• <strong>On-site simple repair possible</strong> → We will provide <strong>repair guidance</strong> and send small parts if necessary.<br>
+                3. Claims without prior photo assessment, self-handled repairs, or reports beyond the deadline will not be covered under the insurance terms, but we will still assist you in filing a claim with the carrier.
                 </p>
             `;
         } else {

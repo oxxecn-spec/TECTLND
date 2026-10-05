@@ -610,6 +610,18 @@
             </div>
         </div>
 
+        <!-- 公司資料（可選） -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>公司名稱（可選）/ Company Name (Optional)</label>
+                <input type="text" id="buyerCompany" placeholder="個人客戶可留空 / Leave blank for individual">
+            </div>
+            <div class="form-group">
+                <label>公司稅號 / VAT Number（可選）</label>
+                <input type="text" id="buyerVAT" placeholder="個人客戶可留空 / Leave blank for individual">
+            </div>
+        </div>
+
         <!-- 付款結構（僅結構，無渠道） -->
         <div class="form-row">
             <div class="form-group">
@@ -857,6 +869,8 @@
         const buyerCity = document.getElementById('buyerCity').value || '';
         const buyerContact = document.getElementById('buyerContact').value || '';
         const buyerAddress = document.getElementById('buyerAddress').value || '';
+        const buyerCompany = document.getElementById('buyerCompany').value.trim() || '';
+        const buyerVAT = document.getElementById('buyerVAT').value.trim() || '';
         const woodenCase = parseFloat(document.getElementById('woodenCase').value) || 0;
         const freightInsurance = parseFloat(document.getElementById('freightInsurance').value) || 0;
         const otherFee = parseFloat(document.getElementById('otherFee').value) || 0;
@@ -931,6 +945,22 @@
         const titleName = buyerName || '客戶';
         const titleCity = buyerCity || '';
         document.title = `${titleName} ${titleCity} PI`.trim();
+
+        // 買方欄位：公司版 / 個人版
+        let buyerHtml = '';
+        if (buyerCompany) {
+            buyerHtml = `<strong>${buyerCompany}</strong><br>`;
+            if (buyerName) buyerHtml += `聯絡人 / Contact：${buyerName}<br>`;
+            if (buyerCity) buyerHtml += `${buyerCity}<br>`;
+            if (buyerVAT) buyerHtml += `VAT / 稅號：${buyerVAT}<br>`;
+            if (buyerContact) buyerHtml += `${buyerContact}<br>`;
+            if (buyerAddress) buyerHtml += buyerAddress;
+        } else {
+            buyerHtml = `<strong>${buyerName || '—'}</strong><br>`;
+            if (buyerCity) buyerHtml += `${buyerCity}<br>`;
+            if (buyerContact) buyerHtml += `${buyerContact}<br>`;
+            if (buyerAddress) buyerHtml += buyerAddress;
+        }
 
         // ===== 動態保險條款 =====
         let insuranceHtml = '';
@@ -1044,10 +1074,7 @@
             <div class="address-box">
                 <div class="label">買方 / Buyer</div>
                 <div class="content">
-                    <strong>${buyerName || '—'}</strong><br>
-                    ${buyerCity || ''}<br>
-                    ${buyerContact ? buyerContact + '<br>' : ''}
-                    ${buyerAddress ? buyerAddress : ''}
+                    ${buyerHtml}
                 </div>
             </div>
         </div>
@@ -1311,7 +1338,7 @@
         </div>
 
         <div style="background:#fff3cd; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
-            <strong>📝 匯款備註 / Payment Reference：</strong> ${buyerName || '[買方姓名]'} ${orderNo}
+            <strong>📝 匯款備註 / Payment Reference：</strong> ${buyerCompany || buyerName || '[買方姓名]'} ${orderNo}
         </div>
 
         <div class="sign-row">

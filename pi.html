@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PI 报价单生成器 · MBORMC 曼伯欧罗</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #e6e9ef;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 30px 20px;
+        }
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        /* ===== 表单区域 ===== */
+        .form-panel {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            padding: 28px 32px;
+            margin-bottom: 24px;
+        }
+        .form-panel h2 {
+            font-size: 20px;
+            color: #0b1a33;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #1a2b4c;
+            padding-bottom: 10px;
+        }
+        .form-panel h3 {
+            font-size: 15px;
+            color: #0b1a33;
+            margin: 18px 0 8px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px 20px;
+            margin-bottom: 14px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #5d708b;
+            letter-spacing: 0.3px;
+        }
+        .form-group input, .form-group select {
+            padding: 8px 10px;
+            border: 1px solid #dce5ec;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1b293b;
+            transition: border 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #1e5a8a;
+            box-shadow: 0 0 0 3px rgba(30,90,138,0.1);
+        }
+
+        /* ===== 产品卡片 ===== */
+        .product-card {
+            background: #f8fafd;
+            border: 1px solid #e3e9f2;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            position: relative;
+        }
+        .product-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .product-card .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e5a8a;
+        }
+        .product-card .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px 14px;
+            margin-bottom: 8px;
+        }
+        .product-card .row:last-child { margin-bottom: 0; }
+        .product-card .form-group label { font-size: 11px; }
+        .product-card .form-group input,
+        .product-card .form-group select { padding: 6px 8px; font-size: 13px; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #1e5a8a; color: white; }
+        .btn-primary:hover { background: #0f3b5c; transform: translateY(-1px); }
+        .btn-outline {
+            background: white;
+            border: 1.5px solid #1e5a8a;
+            color: #1e5a8a;
+        }
+        .btn-outline:hover { background: #1e5a8a; color: white; }
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+        }
+        .btn-danger:hover { background: #c0392b; }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        /* ===== PI 输出区域 ===== */
+        .quote-output {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            padding: 45px 50px;
+            display: none;
+        }
+        .quote-output.show { display: block; }
+
+        .brand-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid #1a2b4c;
+            padding-bottom: 16px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+        .brand-left { display: flex; flex-direction: column; }
+        .brand-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0b1a33;
+            letter-spacing: 1px;
+        }
+        .brand-name small { font-weight: 400; font-size: 14px; color: #3d4f6a; margin-left: 10px; }
+        .brand-tagline {
+            font-size: 13px;
+            color: #3d5a73;
+            background: #eaf3ed;
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 30px;
+            margin-top: 4px;
+        }
+        .invoice-meta {
+            text-align: right;
+            background: #f4f7fc;
+            padding: 10px 18px;
+            border-radius: 16px;
+        }
+        .invoice-meta div { font-size: 14px; color: #1f2a3f; line-height: 1.6; }
+        .invoice-meta strong { font-weight: 600; color: #0b1a33; }
+
+        .address-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px 40px;
+            background: #f9fafc;
+            padding: 18px 22px;
+            border-radius: 18px;
+            margin-bottom: 24px;
+            border: 1px solid #e9edf4;
+        }
+        .address-box { flex: 1 1 200px; }
+        .address-box .label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #5d708b;
+            margin-bottom: 5px;
+        }
+        .address-box .content { font-size: 15px; line-height: 1.6; color: #1b293b; }
+        .address-box .content .phone { font-weight: 500; color: #0f2b4f; }
+        .web-link { color: #0059b3; text-decoration: none; border-bottom: 1px dotted #b3c9e0; }
+
+        .table-wrap { overflow-x: auto; margin: 18px 0 20px; border-radius: 16px; border: 1px solid #e3e9f2; }
+        table { width: 100%; border-collapse: collapse; font-size: 12.5px; background: white; min-width: 950px; }
+        th {
+            background: #1a2b4c;
+            color: white;
+            font-weight: 600;
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 11.5px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+        th .en-head { font-weight: 300; font-size: 10px; color: #c7d6ed; display: block; margin-top: 2px; }
+        td { padding: 10px 8px; border-bottom: 1px solid #eef2f8; text-align: center; vertical-align: middle; background: white; }
+        tr:last-child td { border-bottom: none; }
+        .text-left { text-align: left; padding-left: 12px; }
+        .bg-total { background: #e9eff9; font-weight: 700; font-size: 16px; }
+        .bg-sub { background: #f8f9fa; }
+        .en-cell { font-size: 10px; color: #4f6a8a; display: block; margin-top: 2px; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 30px;
+            background: #f8fafd;
+            padding: 18px 22px;
+            border-radius: 18px;
+            margin: 18px 0 16px;
+            border: 1px solid #e6ecf5;
+        }
+        .info-item { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 14px; line-height: 1.6; }
+        .info-item .tag { font-weight: 600; color: #26436a; min-width: 140px; }
+
+        /* ===== 多币种显示框 ===== */
+        .currency-box {
+            background: #f0f7ff;
+            border: 2px solid #b8d4e8;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin: 18px 0;
+        }
+        .currency-box .title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #003d7a;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+        .currency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px 24px;
+        }
+        .currency-item {
+            background: #ffffff;
+            border: 1px solid #dce9f5;
+            border-radius: 12px;
+            padding: 12px 16px;
+            text-align: center;
+        }
+        .currency-item .c-label {
+            font-size: 12px;
+            color: #5d708b;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .currency-item .c-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #003d7a;
+        }
+        .currency-item.main .c-value {
+            color: #b8860b;
+            font-size: 22px;
+        }
+        .currency-note {
+            margin-top: 14px;
+            font-size: 12px;
+            color: #856404;
+            background: #fff8e1;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 10px 14px;
+            line-height: 1.7;
+        }
+
+        .terms-box {
+            background: #f2f6fe;
+            border-left: 5px solid #1a2b4c;
+            padding: 16px 22px;
+            border-radius: 14px;
+            margin: 20px 0 16px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #0f263f;
+        }
+        .terms-box strong { color: #002856; }
+        .terms-box .en-term { font-size: 13px; color: #2f4f74; display: block; margin-top: 3px; font-weight: 400; }
+
+        .sign-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 28px 0 10px;
+            padding-top: 12px;
+            border-top: 2px solid #dfe7f2;
+        }
+        .sign-box { min-width: 180px; padding: 6px 0; }
+        .sign-box .label { font-size: 13px; color: #475e7c; font-weight: 500; }
+        .sign-box .name { font-size: 18px; font-weight: 600; color: #0b1a33; margin-top: 4px; border-bottom: 1px solid #bacfe0; padding-bottom: 6px; display: inline-block; }
+        .sign-box .date { font-size: 14px; color: #2e4a6b; margin-top: 8px; }
+
+        .footer-note {
+            text-align: center;
+            font-size: 13px;
+            color: #4f688b;
+            margin-top: 18px;
+            border-top: 1px solid #e2eaf5;
+            padding-top: 16px;
+        }
+        .footer-note .en { display: block; font-size: 12px; color: #6b86a8; margin-top: 3px; }
+
+        @media (max-width: 768px) {
+            .product-card .row { grid-template-columns: 1fr 1fr; }
+            .quote-output { padding: 20px 18px; }
+            .brand-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .invoice-meta { text-align: left; width: 100%; }
+            .info-grid { grid-template-columns: 1fr; }
+            .sign-row { flex-direction: column; gap: 16px; }
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .form-panel { display: none !important; }
+            .quote-output { display: block !important; box-shadow: none; padding: 20px 25px; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ===== 表单区域 ===== -->
+    <div class="form-panel">
+        <h2>📝 填写 PI 信息</h2>
+
+        <!-- 基本信息 -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>订单编号 / Invoice No.</label>
+                <input type="text" id="orderNo" placeholder="MB202610-001" value="MB202610-001">
+            </div>
+            <div class="form-group">
+                <label>日期 / Date</label>
+                <input type="text" id="dateVal" placeholder="2026年10月6日">
+            </div>
+            <div class="form-group">
+                <label>贸易条款 / Trade Terms</label>
+                <select id="tradeTerms">
+                    <option value="DDP (双清包税到门)">DDP (双清包税到门)</option>
+                    <option value="DDP (Air Freight · 空运包税到门)">DDP (Air Freight · 空运包税到门)</option>
+                    <option value="DDP (Sea Freight · 海运包税到门)">DDP (Sea Freight · 海运包税到门)</option>
+                    <option value="EXW Foshan (出厂价)">EXW Foshan (出厂价)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>运输时效 / Shipping Time</label>
+                <select id="shippingTime">
+                    <option value="空运约15天 · Air freight approx. 15 days">空运约15天</option>
+                    <option value="海运约45天 · Sea freight approx. 45 days" selected>海运约45天</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 生产周期 & 木箱体积 -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>生产周期 / Lead Time</label>
+                <input type="text" id="leadTime" placeholder="收到款项后15-20天" value="收到款项后15-20天">
+            </div>
+            <div class="form-group">
+                <label>木箱体积/重量 / Wooden Case Size & Weight</label>
+                <input type="text" id="woodenCaseInfo" placeholder="2200×500×500mm · 60KG">
+            </div>
+        </div>
+
+        <!-- 客户信息 -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>客户姓名 / Buyer Name</label>
+                <input type="text" id="buyerName" placeholder="客户姓名">
+            </div>
+            <div class="form-group">
+                <label>客户国家/城市 / Country & City</label>
+                <input type="text" id="buyerCity" placeholder="例如：英国 · 伦敦">
+            </div>
+            <div class="form-group">
+                <label>客户邮箱/电话 / Contact</label>
+                <input type="text" id="buyerContact" placeholder="邮箱或电话">
+            </div>
+            <div class="form-group">
+                <label>收货地址 / Delivery Address</label>
+                <input type="text" id="buyerAddress" placeholder="完整收货地址">
+            </div>
+        </div>
+
+        <!-- 付款方式 -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>付款方式 / Payment Method</label>
+                <select id="paymentMethod">
+                    <option value="微信 / WeChat Pay">微信 / WeChat Pay</option>
+                    <option value="支付宝 / Alipay">支付宝 / Alipay</option>
+                    <option value="国际公司账号 / International Company Account">国际公司账号 / International Company Account</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 汇率设置 -->
+        <h3>💱 汇率设置（用于多币种显示）</h3>
+        <div class="form-row">
+            <div class="form-group">
+                <label>1 HKD = ? CNY</label>
+                <input type="number" id="rateHKD" value="0.8584" step="0.0001" min="0">
+            </div>
+            <div class="form-group">
+                <label>1 USD = ? CNY</label>
+                <input type="number" id="rateUSD" value="6.7050" step="0.0001" min="0">
+            </div>
+            <div class="form-group">
+                <label>1 GBP = ? CNY</label>
+                <input type="number" id="rateGBP" value="8.8920" step="0.0001" min="0">
+            </div>
+        </div>
+
+        <!-- 产品明细 -->
+        <h3>📦 产品明细 / Product Details</h3>
+        <div id="productCards"></div>
+        <button class="btn btn-outline" onclick="addProductCard()" style="margin-top:6px;">+ 添加一款产品 / Add Product</button>
+
+        <!-- 额外费用 -->
+        <h3>💰 额外费用（可选）/ Additional Charges (Optional)</h3>
+        <div class="form-row">
+            <div class="form-group">
+                <label>木箱包装费 / Wooden Case (RMB)</label>
+                <input type="number" id="woodenCase" placeholder="0" value="0" min="0">
+            </div>
+            <div class="form-group">
+                <label>其他费用 / Other Fees (RMB)</label>
+                <input type="number" id="otherFee" placeholder="0" value="0" min="0">
+            </div>
+            <div class="form-group">
+                <label>折扣 / Discount (RMB)</label>
+                <input type="number" id="discount" placeholder="0" value="0" min="0">
+            </div>
+        </div>
+
+        <!-- 备注 -->
+        <div class="form-row">
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>备注 / Remark</label>
+                <input type="text" id="remark" placeholder="例如：不足1㎡按1㎡计算">
+            </div>
+        </div>
+
+        <!-- 按钮 -->
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="generateQuote()">📄 生成 PI</button>
+            <button class="btn btn-outline" onclick="window.print()" id="printBtn" style="display:none;">🖨️ 打印 / 另存为 PDF</button>
+        </div>
+    </div>
+
+    <!-- ===== PI 输出区域 ===== -->
+    <div class="quote-output" id="quoteOutput"></div>
+
+</div>
+
+<script>
+    let productIndex = 0;
+
+    const COLOR_OPTIONS = [
+        '白色 / White',
+        '灰色 / Grey'
+    ];
+
+    const PRODUCT_TYPE_OPTIONS = [
+        '防宠物纱窗 / Pet-Proof Window Screen',
+        '入户门纱门 / Entrance Door Screen',
+        '其他产品 / Other Products'
+    ];
+
+    function addProductCard() {
+        const container = document.getElementById('productCards');
+        const idx = productIndex++;
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.id = 'product-card-' + idx;
+
+        let colorOptions = COLOR_OPTIONS.map(c => `<option value="${c}">${c}</option>`).join('');
+        let typeOptions = PRODUCT_TYPE_OPTIONS.map(t => `<option value="${t}">${t}</option>`).join('');
+
+        card.innerHTML = `
+            <div class="card-header">
+                <span class="card-title">产品 #${idx + 1} / Product #${idx + 1}</span>
+                <button class="btn btn-danger" onclick="removeProductCard(${idx})">删除</button>
+            </div>
+
+            <div class="row">
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>产品类型 / Product Type</label>
+                    <select class="p-type">${typeOptions}</select>
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>产品名称 / Product Name</label>
+                    <input type="text" class="p-name" placeholder="例如：折叠式纱门（单开）">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>框颜色 / Colour</label>
+                    <select class="p-color">${colorOptions}</select>
+                </div>
+                <div class="form-group">
+                    <label>开启方式 / Opening</label>
+                    <select class="p-opening">
+                        <option value="左单开 / Left Single Opening">左单开</option>
+                        <option value="右单开 / Right Single Opening">右单开</option>
+                        <option value="对开式 / Double Opening">对开式</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>高度 (mm) / Height</label>
+                    <input type="number" class="p-height" placeholder="" oninput="calcCard(${idx})">
+                </div>
+                <div class="form-group">
+                    <label>宽度 (mm) / Width</label>
+                    <input type="number" class="p-width" placeholder="" oninput="calcCard(${idx})">
+                </div>
+                <div class="form-group">
+                    <label>数量 / Qty</label>
+                    <input type="number" class="p-qty" placeholder="1" value="1" min="1" oninput="calcCard(${idx})">
+                </div>
+                <div class="form-group">
+                    <label>单价 (元/㎡) / Unit Price</label>
+                    <input type="number" class="p-unit" placeholder="" oninput="calcCard(${idx})">
+                </div>
+                <div class="form-group">
+                    <label>金额 / Amount</label>
+                    <input type="text" class="p-amount" readonly style="background:#f4f7fc; font-weight:600; color:#0b1a33;">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>纱网 / 材质说明 / Mesh & Material</label>
+                    <input type="text" class="p-mesh" placeholder="例如：304#不锈钢防宠物丝网">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>备注 / Remark</label>
+                    <input type="text" class="p-remark" placeholder="例如：含安装五金配件">
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    }
+
+    function removeProductCard(idx) {
+        const card = document.getElementById('product-card-' + idx);
+        if (card) card.remove();
+    }
+
+    function calcCard(idx) {
+        const card = document.getElementById('product-card-' + idx);
+        if (!card) return;
+        const h = parseFloat(card.querySelector('.p-height').value) || 0;
+        const w = parseFloat(card.querySelector('.p-width').value) || 0;
+        const qty = parseFloat(card.querySelector('.p-qty').value) || 0;
+        const unit = parseFloat(card.querySelector('.p-unit').value) || 0;
+
+        const areaPerPc = (h / 1000) * (w / 1000);
+        const billedAreaPerPc = areaPerPc < 1 ? 1 : areaPerPc;
+        const amount = billedAreaPerPc * qty * unit;
+        card.querySelector('.p-amount').value = amount ? amount.toFixed(2) : '';
+    }
+
+    function generateQuote() {
+        const orderNo = document.getElementById('orderNo').value || '';
+        const dateVal = document.getElementById('dateVal').value || '';
+        const tradeTerms = document.getElementById('tradeTerms').value;
+        const shippingTime = document.getElementById('shippingTime').value;
+        const leadTime = document.getElementById('leadTime').value || '';
+        const woodenCaseInfo = document.getElementById('woodenCaseInfo').value || '';
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const buyerName = document.getElementById('buyerName').value || '';
+        const buyerCity = document.getElementById('buyerCity').value || '';
+        const buyerContact = document.getElementById('buyerContact').value || '';
+        const buyerAddress = document.getElementById('buyerAddress').value || '';
+        const woodenCase = parseFloat(document.getElementById('woodenCase').value) || 0;
+        const otherFee = parseFloat(document.getElementById('otherFee').value) || 0;
+        const discount = parseFloat(document.getElementById('discount').value) || 0;
+        const remark = document.getElementById('remark').value || '';
+
+        const rateHKD = parseFloat(document.getElementById('rateHKD').value) || 0.8584;
+        const rateUSD = parseFloat(document.getElementById('rateUSD').value) || 6.7050;
+        const rateGBP = parseFloat(document.getElementById('rateGBP').value) || 8.8920;
+
+        const cards = document.querySelectorAll('.product-card');
+        const products = [];
+        let productTotal = 0;
+
+        cards.forEach(card => {
+            const type = card.querySelector('.p-type').value;
+            const name = card.querySelector('.p-name').value.trim();
+            const color = card.querySelector('.p-color').value;
+            const opening = card.querySelector('.p-opening').value;
+            const h = parseFloat(card.querySelector('.p-height').value) || 0;
+            const w = parseFloat(card.querySelector('.p-width').value) || 0;
+            const qty = parseFloat(card.querySelector('.p-qty').value) || 0;
+            const unit = parseFloat(card.querySelector('.p-unit').value) || 0;
+            const mesh = card.querySelector('.p-mesh').value.trim();
+            const pRemark = card.querySelector('.p-remark').value.trim();
+
+            if (!name || !h || !w || !qty || !unit) return;
+
+            const areaPerPc = (h / 1000) * (w / 1000);
+            const billedAreaPerPc = areaPerPc < 1 ? 1 : areaPerPc;
+            const amount = billedAreaPerPc * qty * unit;
+            productTotal += amount;
+
+            products.push({
+                type, name, color, opening, h, w, qty,
+                area: areaPerPc,
+                billedArea: billedAreaPerPc,
+                unit, amount, mesh, pRemark
+            });
+        });
+
+        if (products.length === 0) {
+            alert('请至少填写一款完整的产品信息！');
+            return;
+        }
+
+        const grandTotal = productTotal + woodenCase + otherFee - discount;
+
+        // 多币种换算
+        const totalHKD = rateHKD > 0 ? (grandTotal / rateHKD) : 0;
+        const totalUSD = rateUSD > 0 ? (grandTotal / rateUSD) : 0;
+        const totalGBP = rateGBP > 0 ? (grandTotal / rateGBP) : 0;
+
+        let html = `
+        <div class="brand-row">
+            <div class="brand-left">
+                <div class="brand-name">MBORMC 曼伯欧罗 <small>®</small></div>
+                <div class="brand-tagline">全球纱窗品牌 · Global Screen Brand</div>
+            </div>
+            <div class="invoice-meta">
+                <div><strong>Invoice No. · 发票编号</strong> ${orderNo}</div>
+                <div><strong>Date · 日期</strong> ${dateVal}</div>
+                <div><strong>Trade Terms · 贸易条款</strong> ${tradeTerms}</div>
+            </div>
+        </div>
+
+        <div class="address-panel">
+            <div class="address-box">
+                <div class="label">Seller · 卖方</div>
+                <div class="content">
+                    <strong>佛山市德铂欧罗门窗有限公司</strong><br>
+                    Foshan Debo Ouluo Doors and Windows Co., LTD<br>
+                    Contact / 联系人: 邓金闪 / Deng Jinshan<br>
+                    <span class="phone">WhatsApp: +86 135 3660 0067</span><br>
+                    <span class="phone">微信 / WeChat: FSMBOR</span><br>
+                    Address / 地址: 中国广东佛山南海区大沥镇<br>
+                    Web: <a href="http://www.mbormc.com" target="_blank" class="web-link">www.mbormc.com</a>
+                </div>
+            </div>
+            <div class="address-box">
+                <div class="label">Buyer · 买方</div>
+                <div class="content">
+                    <strong>${buyerName || '—'}</strong><br>
+                    ${buyerCity || ''}<br>
+                    ${buyerContact ? buyerContact + '<br>' : ''}
+                    ${buyerAddress ? buyerAddress : ''}
+                </div>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.<br><span class="en-head">序号</span></th>
+                        <th>Product Type<br><span class="en-head">产品类型</span></th>
+                        <th style="text-align:left; padding-left:12px;">Product Description<br><span class="en-head">产品名称</span></th>
+                        <th>Colour<br><span class="en-head">颜色</span></th>
+                        <th>Opening<br><span class="en-head">开启方式</span></th>
+                        <th>Size (mm)<br><span class="en-head">尺寸</span></th>
+                        <th>Area (m²)<br><span class="en-head">面积</span></th>
+                        <th>Qty<br><span class="en-head">数量</span></th>
+                        <th>Unit Price (RMB)<br><span class="en-head">单价</span></th>
+                        <th>Amount (RMB)<br><span class="en-head">金额</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        products.forEach((p, i) => {
+            let nameCell = p.name;
+            if (p.mesh) nameCell += `<span class="en-cell">${p.mesh}</span>`;
+            if (p.pRemark) nameCell += `<span class="en-cell" style="color:#c0722a;">备注：${p.pRemark}</span>`;
+
+            html += `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${p.type}</td>
+                    <td class="text-left">${nameCell}</td>
+                    <td>${p.color}</td>
+                    <td>${p.opening}</td>
+                    <td>${p.h} × ${p.w}</td>
+                    <td>${p.billedArea.toFixed(2)}</td>
+                    <td>${p.qty}</td>
+                    <td>${p.unit}</td>
+                    <td>${p.amount.toFixed(2)}</td>
+                </tr>
+            `;
+        });
+
+        if (woodenCase > 0) {
+            html += `
+                <tr class="bg-sub">
+                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">Wooden Case Packaging · 木箱包装费</td>
+                    <td>${woodenCase.toFixed(2)}</td>
+                </tr>
+            `;
+        }
+        if (otherFee > 0) {
+            html += `
+                <tr class="bg-sub">
+                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">Other Charges · 其他费用</td>
+                    <td>${otherFee.toFixed(2)}</td>
+                </tr>
+            `;
+        }
+        if (discount > 0) {
+            html += `
+                <tr class="bg-sub">
+                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#c0392b;">Discount · 折扣优惠</td>
+                    <td style="color:#c0392b;">-${discount.toFixed(2)}</td>
+                </tr>
+            `;
+        }
+
+        html += `
+                    <tr class="bg-total">
+                        <td colspan="9" style="text-align:right; font-size:15px; padding-right:20px;">✅ TOTAL · 合计</td>
+                        <td style="font-size:20px; font-weight:700; color:#003d7a;">RMB ${grandTotal.toFixed(2)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        `;
+
+        // ===== 多币种显示框 =====
+        html += `
+        <div class="currency-box">
+            <div class="title">💱 Multi-Currency Reference · 多币种参考报价</div>
+            <div class="currency-grid">
+                <div class="currency-item main">
+                    <div class="c-label">RMB · 人民币</div>
+                    <div class="c-value">¥ ${grandTotal.toFixed(2)}</div>
+                </div>
+                <div class="currency-item">
+                    <div class="c-label">HKD · 港币</div>
+                    <div class="c-value">HK$ ${totalHKD.toFixed(2)}</div>
+                </div>
+                <div class="currency-item">
+                    <div class="c-label">USD · 美元</div>
+                    <div class="c-value">$ ${totalUSD.toFixed(2)}</div>
+                </div>
+                <div class="currency-item">
+                    <div class="c-label">GBP · 英镑</div>
+                    <div class="c-value">£ ${totalGBP.toFixed(2)}</div>
+                </div>
+            </div>
+            <div class="currency-note">
+                ⚠️ <strong>Exchange Rate Note · 汇率说明：</strong><br>
+                The above foreign currency amounts are for reference only, calculated at the exchange rate on the date of this invoice. The final amount will be based on the actual bank exchange rate on the payment date.<br>
+                以上外币金额仅供参考，按本发票日期汇率折算。最终金额以付款当日银行实际汇率为准。
+            </div>
+        </div>
+        `;
+
+        if (remark) {
+            html += `
+                <div style="background:#fff8e1; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
+                    📌 <strong>备注 / Remark：</strong>${remark}
+                </div>
+            `;
+        }
+
+        html += `
+        <div class="info-grid">
+            <div class="info-item"><span class="tag">Trade Terms · 贸易条款</span><span>${tradeTerms}</span></div>
+            <div class="info-item"><span class="tag">Shipping Time · 运输时效</span><span>${shippingTime}</span></div>
+            <div class="info-item"><span class="tag">Lead Time · 生产周期</span><span>${leadTime}</span></div>
+            <div class="info-item"><span class="tag">Payment Method · 付款方式</span><span>${paymentMethod}</span></div>
+            <div class="info-item"><span class="tag">Currency · 结算币种</span><span>RMB · 人民币（可接受 HKD / USD / GBP）</span></div>
+            <div class="info-item"><span class="tag">Delivery · 交货</span><span>含运费、关税、VAT、派送到门（DDP）</span></div>
+            <div class="info-item"><span class="tag">Warranty · 保修配件</span><span>1 years · 1年</span></div>
+            ${woodenCaseInfo ? `<div class="info-item"><span class="tag">Wooden Case · 木箱体积</span><span>${woodenCaseInfo}</span></div>` : ''}
+        </div>
+
+        <div class="terms-box">
+            <p style="margin-bottom:6px;">
+                <strong>📌 Payment Terms · 付款条件</strong><br>
+                100% payment in advance before production. This is a custom order, non-cancelable and non-returnable after confirmation.
+                <span class="en-term">100% 全款预付，收到款项后安排生产。本订单为定制产品，确认后不可取消或退货。</span>
+            </p>
+            <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
+                <strong>🚚 Shipping Note · 运输备注</strong><br>
+                DDP – includes shipping, customs clearance, duties, VAT, and door-to-door delivery. No additional charges upon arrival.
+                <span class="en-term">DDP 包税到门 — 包含运输、清关、关税、VAT、派送。收货时无需支付任何额外费用。</span>
+            </p>
+            <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
+                <strong>🛡️ Insurance & Damage Guarantee · 保险及破损保障</strong><br>
+                1. Shipping insurance is included in this order.<br>
+                2. If any product is damaged during transit due to transport-related causes and becomes unusable, we will reproduce the damaged item(s) free of charge and cover the second shipping cost.<br>
+                3. Please inspect upon arrival. If damage is found, take photos and contact us within 7 working days.
+                <span class="en-term">1. 本订单已含运输保险。<br>
+                2. 若货物在运输途中因运输原因破损而无法使用，我司将免费重新生产受损产品，并承担二次运输费用。<br>
+                3. 请于收货时检查，如有破损请7个工作日内拍照联系我们。</span>
+            </p>
+        </div>
+
+        <div style="background:#f0f7ff; border:1px solid #b8d4e8; border-radius:10px; padding:14px 18px; margin:12px 0 8px; font-size:13.5px; color:#1a3c62;">
+            <strong>💳 Payment Account · 收款账户</strong><br>
+            Payment account details will be provided separately. Please contact us for the account information.<br>
+            <span style="font-size:13px; color:#2f4f74;">收款账户信息将另行提供，请联系我们获取账户详情。</span>
+        </div>
+
+        <div style="background:#fff3cd; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
+            <strong>📝 Payment Reference · 汇款备注：</strong> ${buyerName || '[Buyer Name]'} ${orderNo}
+        </div>
+
+        <div class="sign-row">
+            <div class="sign-box">
+                <div class="label">Seller Signature · 卖方签名</div>
+                <div class="name">邓金闪 / Deng Jinshan</div>
+                <div class="date">Date · 日期: ${dateVal}</div>
+            </div>
+            <div class="sign-box" style="text-align:right;">
+                <div class="label">Buyer Signature · 买方签名</div>
+                <div class="name" style="border-bottom-color:#b0c8e0; min-width:140px;">________________</div>
+                <div class="date">Date · 日期: ___________</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            本订购单一式两份，双方各执一份，具有同等法律效力。<br>
+            <span class="en">This order is issued in duplicate, each party holds one copy with equal legal effect.</span>
+        </div>
+        `;
+
+        const output = document.getElementById('quoteOutput');
+        output.innerHTML = html;
+        output.classList.add('show');
+        document.getElementById('printBtn').style.display = 'inline-flex';
+        output.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        addProductCard();
+        addProductCard();
+
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        document.getElementById('dateVal').value = `${y}年${m}月${d}日`;
+    });
+</script>
+</body>
+</html>

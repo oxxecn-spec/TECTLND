@@ -587,7 +587,7 @@
                 <input type="number" id="woodenCase" placeholder="0" value="0" min="0">
             </div>
             <div class="form-group">
-                <label>運費保險（人民幣）/ Freight Insurance (RMB)</label>
+                <label>運費保險（人民幣，自定義金額）/ Freight Insurance (RMB)</label>
                 <input type="number" id="freightInsurance" placeholder="0" value="0" min="0">
             </div>
             <div class="form-group">
@@ -846,6 +846,46 @@
         const titleCity = buyerCity || '';
         document.title = `${titleName} ${titleCity} PI`.trim();
 
+        // ===== 動態保險條款 =====
+        let insuranceHtml = '';
+        if (freightInsurance > 0) {
+            insuranceHtml = `
+                <p><strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong></p>
+                <p style="color:#1a5e1a; font-weight:600;">
+                ✅ 本訂單已投保運費保險（RMB ${freightInsurance.toFixed(2)}）。
+                </p>
+                <p>
+                1. 若貨物在運輸途中因運輸原因（如擠壓、碰撞、颱風、潮濕等不可控因素）損壞，我司將免費重新製作受損產品。<br>
+                2. 二次運輸費用由賣方承擔。<br>
+                3. 請於收貨時檢查，如有損壞請 7 個工作日內拍照聯絡我們，以便安排重做。
+                </p>
+                <p class="en-term">
+                ✅ This order is covered by Freight Insurance (RMB ${freightInsurance.toFixed(2)}).<br>
+                1. If damaged during transit, we will reproduce free of charge.<br>
+                2. The second shipping cost shall be borne by the Seller.<br>
+                3. Please inspect upon arrival and contact us within 7 working days.
+                </p>
+            `;
+        } else {
+            insuranceHtml = `
+                <p><strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong></p>
+                <p style="color:#c0392b; font-weight:600;">
+                ⚠️ 本訂單未投保運費保險，按正常運輸流程發貨。
+                </p>
+                <p>
+                1. 若貨物在運輸途中因運輸原因損壞或丟失，我司將協助您向承運方索賠。<br>
+                2. 我司不承擔免費重做或二次運輸費用。<br>
+                3. 建議您自行投保，或選擇含保險的物流方案。
+                </p>
+                <p class="en-term">
+                ⚠️ This order is not covered by Freight Insurance.<br>
+                1. If damaged or lost during transit, we will assist you in filing a claim with the carrier.<br>
+                2. We will not be responsible for free reproduction or the second shipping cost.<br>
+                3. We recommend that you arrange your own insurance or choose a logistics option that includes insurance.
+                </p>
+            `;
+        }
+
         let html = `
         <div class="brand-row">
             <div class="brand-left">
@@ -1026,14 +1066,11 @@
                 DDP 包稅到門 — 包含運輸、清關、關稅、VAT、派送。收貨時無需支付任何額外費用。
                 <span class="en-term">DDP – includes shipping, customs clearance, duties, VAT, and door-to-door delivery. No additional charges upon arrival.</span>
             </p>
-            <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
-                <strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong><br>
-                ${freightInsurance > 0 ? `<span style="color:#1a5e1a; font-weight:600;">✅ 本訂單已投保運費保險（RMB ${freightInsurance.toFixed(2)}），運輸途中如有損壞可獲賠。</span><br>` : ''}
-                1. 本訂單已含運輸保險。<br>
-                2. 若貨物在運輸途中因運輸原因破損而無法使用，我司將免費重新生產受損產品，並承擔二次運輸費用。<br>
-                3. 請於收貨時檢查，如有破損請 7 個工作日內拍照聯絡我們。
-                <span class="en-term">1. Shipping insurance is included. 2. If damaged during transit, we will reproduce free of charge and cover the second shipping cost. 3. Please inspect upon arrival and contact us within 7 working days.</span>
-            </p>
+        </div>
+
+        <!-- 動態保險條款 -->
+        <div class="terms-box" style="background:#f0f7ff; border-left-color:#1e5a8a;">
+            ${insuranceHtml}
         </div>
 
         <div class="compliance-box">

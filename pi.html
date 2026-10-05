@@ -538,7 +538,9 @@
             body { background: white; padding: 0; }
             .form-panel { display: none !important; }
             .mobile-pdf-hint { display: none !important; }
-            .quote-output, .quotation-output {
+            /* ★ 关键修复：只有 .active 的容器才显示，另一个保持隐藏 */
+            .quote-output.active,
+            .quotation-output.active {
                 display: block !important;
                 box-shadow: none;
                 padding: 15px 20px;
@@ -547,6 +549,10 @@
                 margin: 0;
                 width: 100%;
                 max-width: 100%;
+            }
+            .quote-output:not(.active),
+            .quotation-output:not(.active) {
+                display: none !important;
             }
             .table-wrap { overflow: visible; border: 1px solid #ccc; }
             table { min-width: 100%; font-size: 10px; }
@@ -586,7 +592,6 @@
     <div class="form-panel">
         <h2>📝 填寫資料 / Fill Information</h2>
 
-        <!-- 基本資料 -->
         <div class="form-row">
             <div class="form-group">
                 <label>單號（自動生成）/ No.（Auto）</label>
@@ -614,7 +619,6 @@
             </div>
         </div>
 
-        <!-- 生產週期 & 木箱體積 -->
         <div class="form-row">
             <div class="form-group">
                 <label>生產週期 / Lead Time</label>
@@ -626,7 +630,6 @@
             </div>
         </div>
 
-        <!-- 客戶資料 -->
         <div class="form-row">
             <div class="form-group">
                 <label>客戶姓名 / Buyer Name</label>
@@ -646,7 +649,6 @@
             </div>
         </div>
 
-        <!-- 公司資料（可選） -->
         <div class="form-row">
             <div class="form-group">
                 <label>公司名稱（可選）/ Company Name (Optional)</label>
@@ -658,7 +660,6 @@
             </div>
         </div>
 
-        <!-- 付款結構 -->
         <div class="form-row">
             <div class="form-group">
                 <label>付款方式（結構）/ Payment Structure</label>
@@ -670,7 +671,6 @@
             </div>
         </div>
 
-        <!-- 匯率設定 -->
         <h3>💱 匯率設定（自動取得，可手動修改）/ Exchange Rate Settings</h3>
         <div id="rateStatus" class="rate-status loading">正在取得當天即時匯率... / Fetching live rates...</div>
         <div class="form-row">
@@ -688,12 +688,10 @@
             </div>
         </div>
 
-        <!-- 產品明細 -->
         <h3>📦 產品明細 / Product Details</h3>
         <div id="productCards"></div>
         <button class="btn btn-outline" onclick="addProductCard()" style="margin-top:6px;">+ 新增一項產品 / Add Product</button>
 
-        <!-- 額外費用 -->
         <h3>💰 額外費用（可選）/ Additional Charges (Optional)</h3>
         <div class="form-row">
             <div class="form-group">
@@ -714,7 +712,6 @@
             </div>
         </div>
 
-        <!-- 備註 -->
         <div class="form-row">
             <div class="form-group" style="grid-column: 1 / -1;">
                 <label>備註 / Remark</label>
@@ -722,14 +719,12 @@
             </div>
         </div>
 
-        <!-- 按鈕 -->
         <div class="btn-group">
             <button class="btn btn-quote" onclick="generateQuote('quote')">📋 生成報價單（繁體中文）</button>
             <button class="btn btn-primary" onclick="generateQuote('both')">📄 生成正式 PI（繁體 + English）</button>
             <button class="btn btn-outline" onclick="window.print()" id="printBtn" style="display:none;">🖨️ 列印 / 另存為 PDF</button>
         </div>
 
-        <!-- 手機端 PDF 提示 -->
         <div class="mobile-pdf-hint" id="mobilePdfHint">
             📱 <strong>手機生成 PDF 提示：</strong><br>
             • <strong>Android / Chrome</strong>：點擊「列印」，在「目標印表機」選「另存為 PDF」即可。<br>
@@ -737,7 +732,7 @@
         </div>
     </div>
 
-    <!-- ===== PI 輸出區域 ===== -->
+    <!-- ===== 正式 PI 輸出區域 ===== -->
     <div class="quote-output" id="quoteOutput"></div>
 
     <!-- ===== 報價單輸出區域 ===== -->
@@ -989,7 +984,6 @@
 
         const qtNo = generateQuotationNo();
 
-        // 有效期 7 天
         const validDate = new Date();
         validDate.setDate(validDate.getDate() + 7);
         const validStr = `${validDate.getFullYear()}年${String(validDate.getMonth() + 1).padStart(2, '0')}月${String(validDate.getDate()).padStart(2, '0')}日`;
@@ -1141,8 +1135,8 @@
 
         const output = document.getElementById('quotationOutput');
         output.innerHTML = html;
-        output.classList.add('show');
-        document.getElementById('quoteOutput').classList.remove('show');
+        output.classList.add('show', 'active');  // ★ 加 active
+        document.getElementById('quoteOutput').classList.remove('show', 'active');  // ★ 移除 active
         document.getElementById('printBtn').style.display = 'inline-flex';
         output.scrollIntoView({ behavior: 'smooth' });
     }
@@ -1566,8 +1560,8 @@
 
         const output = document.getElementById('quoteOutput');
         output.innerHTML = html;
-        output.classList.add('show');
-        document.getElementById('quotationOutput').classList.remove('show');
+        output.classList.add('show', 'active');  // ★ 加 active
+        document.getElementById('quotationOutput').classList.remove('show', 'active');  // ★ 移除 active
         document.getElementById('printBtn').style.display = 'inline-flex';
         output.scrollIntoView({ behavior: 'smooth' });
     }

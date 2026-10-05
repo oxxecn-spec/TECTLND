@@ -14,7 +14,6 @@
         }
         .container { max-width: 1300px; margin: 0 auto; }
 
-        /* ===== 表單區域 ===== */
         .form-panel {
             background: #ffffff;
             border-radius: 18px;
@@ -73,7 +72,6 @@
             cursor: not-allowed;
         }
 
-        /* ===== 產品卡片 ===== */
         .product-card {
             background: #f8fafd;
             border: 1px solid #e3e9f2;
@@ -143,7 +141,6 @@
             margin-top: 18px;
         }
 
-        /* ===== 匯率狀態提示 ===== */
         .rate-status {
             font-size: 12px;
             padding: 8px 14px;
@@ -156,7 +153,6 @@
         .rate-status.success { background: #e8f5e9; color: #2e7d32; }
         .rate-status.fail { background: #fff3e0; color: #e65100; }
 
-        /* ===== PI 輸出區域 ===== */
         .quote-output {
             background: #ffffff;
             border-radius: 18px;
@@ -257,7 +253,6 @@
         .info-item { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 14px; line-height: 1.6; }
         .info-item .tag { font-weight: 600; color: #26436a; min-width: 140px; }
 
-        /* ===== 多幣種顯示框 ===== */
         .currency-box {
             background: #f0f7ff;
             border: 2px solid #b8d4e8;
@@ -323,7 +318,6 @@
         .terms-box strong { color: #002856; }
         .terms-box .en-term { font-size: 12.5px; color: #4f6a8a; display: block; margin-top: 3px; font-weight: 400; }
 
-        /* ===== 資金來源與合規聲明（只中文）===== */
         .compliance-box {
             background: #fff5f5;
             border: 2px solid #e74c3c;
@@ -377,7 +371,6 @@
             padding-top: 16px;
         }
 
-        /* ===== 手機端 PDF 提示 ===== */
         .mobile-pdf-hint {
             display: none;
             background: #e3f2fd;
@@ -390,84 +383,58 @@
             line-height: 1.7;
         }
 
-        /* ===== 手機端適配 ===== */
         @media (max-width: 768px) {
             body { padding: 12px 8px; }
             .container { max-width: 100%; }
-
             .form-panel { padding: 18px 16px; border-radius: 14px; margin-bottom: 14px; }
             .form-panel h2 { font-size: 17px; }
             .form-panel h3 { font-size: 14px; }
-
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
+            .form-row { grid-template-columns: 1fr; gap: 10px; }
             .form-group label { font-size: 12px; }
             .form-group input, .form-group select { font-size: 16px; padding: 10px 12px; }
-
             .product-card { padding: 14px 12px; border-radius: 10px; }
             .product-card .row { grid-template-columns: 1fr 1fr; gap: 8px; }
             .product-card .card-title { font-size: 13px; }
-
             .btn { padding: 12px 18px; font-size: 14px; }
             .btn-group { flex-direction: column; }
             .btn-group .btn { width: 100%; }
-
-            /* 手機端 PI 輸出 */
             .quote-output { padding: 20px 14px; border-radius: 14px; }
-
             .brand-row { flex-direction: column; align-items: stretch; gap: 10px; }
             .brand-name { font-size: 22px; }
             .invoice-meta { text-align: left; width: 100%; }
-
             .address-panel { flex-direction: column; gap: 16px; padding: 14px 16px; }
             .address-box .content { font-size: 14px; }
-
-            /* 表格橫向滑動 */
             .table-wrap { border-radius: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
             table { font-size: 11px; min-width: 700px; }
             th { padding: 8px 5px; font-size: 10px; }
             td { padding: 8px 5px; }
-
             .info-grid { grid-template-columns: 1fr; gap: 10px; padding: 14px 16px; }
             .info-item { font-size: 13px; }
             .info-item .tag { min-width: 100px; font-size: 12px; }
-
             .currency-box { padding: 14px 16px; }
             .currency-box .title { font-size: 14px; }
             .currency-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
             .currency-item { padding: 10px 8px; }
             .currency-item .c-value { font-size: 16px; }
             .currency-item.main .c-value { font-size: 18px; }
-
             .terms-box { padding: 14px 16px; font-size: 13px; }
             .compliance-box { padding: 12px 14px; font-size: 12px; }
             .compliance-box .box-title { font-size: 13px; }
-
             .sign-row { flex-direction: column; gap: 14px; }
             .sign-box { width: 100%; }
             .sign-box .name { font-size: 16px; }
-
-            /* 手機端 PDF 提示 */
             .mobile-pdf-hint { display: block; }
         }
 
-        /* ===== 平板適配 ===== */
         @media (min-width: 769px) and (max-width: 1024px) {
             .form-row { grid-template-columns: repeat(2, 1fr); }
             .product-card .row { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* ===== 列印 / PDF 輸出 ===== */
         @media print {
             body { background: white; padding: 0; }
-
-            /* 隱藏表單和按鈕 */
             .form-panel { display: none !important; }
             .mobile-pdf-hint { display: none !important; }
-
-            /* 顯示 PI */
             .quote-output {
                 display: block !important;
                 box-shadow: none;
@@ -476,26 +443,17 @@
                 border-radius: 0;
                 margin: 0;
             }
-
-            /* 表格在列印時全部展開 */
             .table-wrap { overflow: visible; border: 1px solid #ccc; }
             table { min-width: 100%; font-size: 10px; }
             th { font-size: 9px; padding: 6px 4px; }
             td { font-size: 10px; padding: 6px 4px; }
-
-            /* 防止分頁斷裂 */
             .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row { page-break-inside: avoid; }
             table { page-break-inside: auto; }
             tr { page-break-inside: avoid; }
-
-            /* 顏色列印 */
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-
-            /* 邊距設定 */
             @page { margin: 10mm; size: A4; }
         }
 
-        /* ===== 極小屏幕（手機豎屏）===== */
         @media (max-width: 420px) {
             .form-panel { padding: 14px 12px; }
             .form-panel h2 { font-size: 16px; }
@@ -616,7 +574,11 @@
                 <input type="number" id="woodenCase" placeholder="0" value="0" min="0">
             </div>
             <div class="form-group">
-                <label>其他費用（人民幣）/ Other Fees (RMB)</label>
+                <label>運費保險（人民幣）/ Freight Insurance (RMB)</label>
+                <input type="number" id="freightInsurance" placeholder="0" value="0" min="0">
+            </div>
+            <div class="form-group">
+                <label>其他費用（人民幣）/ Other Charges (RMB)</label>
                 <input type="number" id="otherFee" placeholder="0" value="0" min="0">
             </div>
             <div class="form-group">
@@ -667,7 +629,6 @@
         '其他產品 / Other Products'
     ];
 
-    // ===== 自動生成訂單編號（MB + 年月日時分）=====
     function generateOrderNo() {
         const now = new Date();
         const y = now.getFullYear();
@@ -678,7 +639,6 @@
         return `MB${y}${m}${d}${h}${min}`;
     }
 
-    // ===== 自動取得即時匯率 =====
     async function fetchRates() {
         const statusEl = document.getElementById('rateStatus');
         try {
@@ -819,6 +779,7 @@
         const buyerContact = document.getElementById('buyerContact').value || '';
         const buyerAddress = document.getElementById('buyerAddress').value || '';
         const woodenCase = parseFloat(document.getElementById('woodenCase').value) || 0;
+        const freightInsurance = parseFloat(document.getElementById('freightInsurance').value) || 0;
         const otherFee = parseFloat(document.getElementById('otherFee').value) || 0;
         const discount = parseFloat(document.getElementById('discount').value) || 0;
         const remark = document.getElementById('remark').value || '';
@@ -863,7 +824,7 @@
             return;
         }
 
-        const grandTotal = productTotal + woodenCase + otherFee - discount;
+        const grandTotal = productTotal + woodenCase + freightInsurance + otherFee - discount;
 
         const totalHKD = rateHKD > 0 ? (grandTotal / rateHKD) : 0;
         const totalUSD = rateUSD > 0 ? (grandTotal / rateUSD) : 0;
@@ -958,6 +919,14 @@
                 </tr>
             `;
         }
+        if (freightInsurance > 0) {
+            html += `
+                <tr class="bg-sub">
+                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#1a5e1a;">運費保險 / Freight Insurance</td>
+                    <td style="color:#1a5e1a;">${freightInsurance.toFixed(2)}</td>
+                </tr>
+            `;
+        }
         if (otherFee > 0) {
             html += `
                 <tr class="bg-sub">
@@ -1047,6 +1016,7 @@
             </p>
             <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
                 <strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong><br>
+                ${freightInsurance > 0 ? `<span style="color:#1a5e1a; font-weight:600;">✅ 本訂單已投保運費保險（RMB ${freightInsurance.toFixed(2)}），運輸途中如有損壞可獲賠。</span><br>` : ''}
                 1. 本訂單已含運輸保險。<br>
                 2. 若貨物在運輸途中因運輸原因破損而無法使用，我司將免費重新生產受損產品，並承擔二次運輸費用。<br>
                 3. 請於收貨時檢查，如有破損請 7 個工作日內拍照聯絡我們。
@@ -1054,7 +1024,6 @@
             </p>
         </div>
 
-        <!-- ===== 資金來源與合規聲明（只中文）===== -->
         <div class="compliance-box">
             <div class="box-title">⚠️ 資金來源與合規聲明</div>
             <div class="box-note">
@@ -1101,7 +1070,6 @@
         output.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // ===== 初始化 =====
     window.onload = function() {
         const orderInput = document.getElementById('orderNo');
         if (orderInput) {

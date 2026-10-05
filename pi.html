@@ -127,6 +127,12 @@
             color: #1e5a8a;
         }
         .btn-outline:hover { background: #1e5a8a; color: white; }
+        .btn-quote {
+            background: white;
+            border: 2px solid #b8860b;
+            color: #b8860b;
+        }
+        .btn-quote:hover { background: #b8860b; color: white; }
         .btn-danger {
             background: #e74c3c;
             color: white;
@@ -163,13 +169,15 @@
         }
         .quote-output.show { display: block; }
 
-        /* ===== 語言模式：全中文時隱藏英文 ===== */
-        .quote-output.zh-only .en-head,
-        .quote-output.zh-only .en-term,
-        .quote-output.zh-only .en-text,
-        .quote-output.zh-only .en-cell {
-            display: none !important;
+        /* ===== 報價單專用樣式 ===== */
+        .quotation-output {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            padding: 45px 50px;
+            display: none;
         }
+        .quotation-output.show { display: block; }
 
         .brand-row {
             display: flex;
@@ -470,7 +478,7 @@
             .btn { padding: 12px 18px; font-size: 14px; }
             .btn-group { flex-direction: column; }
             .btn-group .btn { width: 100%; }
-            .quote-output { padding: 20px 14px; border-radius: 14px; }
+            .quote-output, .quotation-output { padding: 20px 14px; border-radius: 14px; }
             .brand-row { flex-direction: column; align-items: stretch; gap: 10px; }
             .brand-name { font-size: 22px; }
             .invoice-meta { text-align: left; width: 100%; }
@@ -510,7 +518,7 @@
             body { background: white; padding: 0; }
             .form-panel { display: none !important; }
             .mobile-pdf-hint { display: none !important; }
-            .quote-output {
+            .quote-output, .quotation-output {
                 display: block !important;
                 box-shadow: none;
                 padding: 15px 20px;
@@ -556,12 +564,12 @@
 
     <!-- ===== 表單區域 ===== -->
     <div class="form-panel">
-        <h2>📝 填寫 PI 資料 / Fill PI Information</h2>
+        <h2>📝 填寫資料 / Fill Information</h2>
 
         <!-- 基本資料 -->
         <div class="form-row">
             <div class="form-group">
-                <label>訂單編號（自動生成）/ Invoice No.（Auto）</label>
+                <label>單號（自動生成）/ No.（Auto）</label>
                 <input type="text" id="orderNo" readonly>
             </div>
             <div class="form-group">
@@ -696,8 +704,8 @@
 
         <!-- 按鈕 -->
         <div class="btn-group">
-            <button class="btn btn-primary" onclick="generateQuote('zh')">📄 生成 PI（繁體中文）</button>
-            <button class="btn btn-primary" style="background:#2e7d32;" onclick="generateQuote('both')">📄 生成 PI（繁體 + English）</button>
+            <button class="btn btn-quote" onclick="generateQuote('quote')">📋 生成報價單（繁體中文）</button>
+            <button class="btn btn-primary" onclick="generateQuote('both')">📄 生成正式 PI（繁體 + English）</button>
             <button class="btn btn-outline" onclick="window.print()" id="printBtn" style="display:none;">🖨️ 列印 / 另存為 PDF</button>
         </div>
 
@@ -712,7 +720,11 @@
     <!-- ===== PI 輸出區域 ===== -->
     <div class="quote-output" id="quoteOutput"></div>
 
+    <!-- ===== 報價單輸出區域 ===== -->
+    <div class="quotation-output" id="quotationOutput"></div>
+
 </div>
+
 <script>
     let productIndex = 0;
 
@@ -735,6 +747,16 @@
         const h = String(now.getHours()).padStart(2, '0');
         const min = String(now.getMinutes()).padStart(2, '0');
         return `MB${y}${m}${d}${h}${min}`;
+    }
+
+    function generateQuotationNo() {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        const h = String(now.getHours()).padStart(2, '0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        return `QT${y}${m}${d}${h}${min}`;
     }
 
     async function fetchRates() {
@@ -864,15 +886,8 @@
         card.querySelector('.p-amount').value = amount ? amount.toFixed(2) : '';
     }
 
-    function generateQuote(lang) {
-        // lang: 'zh' = 全繁體中文, 'both' = 繁體 + English
-        const isBoth = (lang === 'both');
-
-        // 工具函式：雙語模式下返回 "中文 / English"，中文模式只返回中文
-        const T = (cn, en) => isBoth ? `${cn} / ${en}` : cn;
-        // 工具函式：英文段落（雙語顯示，中文隱藏）
-        const E = (en) => isBoth ? `<span class="en-term">${en}</span>` : '';
-
+    // 收集表單資料（共用）
+    function collectFormData() {
         const orderNo = document.getElementById('orderNo').value || '';
         const dateVal = document.getElementById('dateVal').value || '';
         const tradeTerms = document.getElementById('tradeTerms').value;
@@ -928,178 +943,85 @@
             });
         });
 
-        if (products.length === 0) {
+        const grandTotal = productTotal + woodenCase + freightInsurance + otherFee - discount;
+
+        return {
+            orderNo, dateVal, tradeTerms, shippingTime, leadTime, woodenCaseInfo,
+            payCode, payTitle, buyerName, buyerCity, buyerContact, buyerAddress,
+            buyerCompany, buyerVAT, woodenCase, freightInsurance, otherFee, discount, remark,
+            rateHKD, rateUSD, rateGBP, products, productTotal, grandTotal
+        };
+    }
+
+    // ============================================================
+    // 生成報價單（極簡，繁體中文）
+    // ============================================================
+    function generateQuotation() {
+        const d = collectFormData();
+
+        if (d.products.length === 0) {
             alert('請至少填寫一項完整的產品資料！/ Please fill at least one complete product.');
             return;
         }
 
-        const grandTotal = productTotal + woodenCase + freightInsurance + otherFee - discount;
+        const totalHKD = d.rateHKD > 0 ? (d.grandTotal / d.rateHKD) : 0;
+        const totalUSD = d.rateUSD > 0 ? (d.grandTotal / d.rateUSD) : 0;
+        const totalGBP = d.rateGBP > 0 ? (d.grandTotal / d.rateGBP) : 0;
 
-        const totalHKD = rateHKD > 0 ? (grandTotal / rateHKD) : 0;
-        const totalUSD = rateUSD > 0 ? (grandTotal / rateUSD) : 0;
-        const totalGBP = rateGBP > 0 ? (grandTotal / rateGBP) : 0;
+        const qtNo = generateQuotationNo();
 
-        // 定金/尾款金额
-        let depositAmount = 0, balanceAmount = 0, depositRate = '', balanceRate = '';
-        if (payCode === 'A') {
-            depositRate = '100%';
-            depositAmount = grandTotal;
-            balanceRate = '0%';
-            balanceAmount = 0;
-        } else if (payCode === 'B') {
-            depositRate = '70%';
-            depositAmount = grandTotal * 0.7;
-            balanceRate = '30%';
-            balanceAmount = grandTotal * 0.3;
-        } else if (payCode === 'C') {
-            depositRate = '50%';
-            depositAmount = grandTotal * 0.5;
-            balanceRate = '50%';
-            balanceAmount = grandTotal * 0.5;
-        }
-
-        const titleName = buyerName || '客戶';
-        const titleCity = buyerCity || '';
-        document.title = `${titleName} ${titleCity} PI`.trim();
-
-        // 買方欄位：公司版 / 個人版
-        let buyerHtml = '';
-        if (buyerCompany) {
-            buyerHtml = `<strong>${buyerCompany}</strong><br>`;
-            if (buyerName) buyerHtml += `${T('聯絡人', 'Contact')}：${buyerName}<br>`;
-            if (buyerCity) buyerHtml += `${buyerCity}<br>`;
-            if (buyerVAT) buyerHtml += `${T('稅號', 'VAT')}：${buyerVAT}<br>`;
-            if (buyerContact) buyerHtml += `${buyerContact}<br>`;
-            if (buyerAddress) buyerHtml += buyerAddress;
-        } else {
-            buyerHtml = `<strong>${buyerName || '—'}</strong><br>`;
-            if (buyerCity) buyerHtml += `${buyerCity}<br>`;
-            if (buyerContact) buyerHtml += `${buyerContact}<br>`;
-            if (buyerAddress) buyerHtml += buyerAddress;
-        }
-
-        // ===== 保險條款 =====
-        let insuranceHtml = '';
-        if (freightInsurance > 0) {
-            insuranceHtml = `
-                <p><strong>🛡️ ${T('保險及破損保障', 'Insurance & Damage Guarantee')}</strong></p>
-                <p style="color:#1a5e1a; font-weight:600;">
-                ✅ ${T(`本訂單已投保運費保險（RMB ${freightInsurance.toFixed(2)}）。`, `This order is covered by Freight Insurance (RMB ${freightInsurance.toFixed(2)}).`)}
-                </p>
-                <p>
-                ${isBoth ? '1. ' : '1. '}${T('收貨時請當場檢查外包裝及產品。如發現木箱或產品有破損，請<strong>先拍照或錄影</strong>（含外包裝、破損位置、整體及局部特寫），並於 <strong>7 個工作日內</strong> 將照片／影片發送給我們。', 'Please inspect the packaging and products upon delivery. If any damage is found, <strong>take photos/videos first</strong> (including outer packaging, damaged area, overall and close-up shots) and send them to us <strong>within 7 working days</strong>.')}<br>
-                ${isBoth ? '2. ' : '2. '}${T('我們收到照片後會進行<strong>專業評估</strong>，根據損壞原因、位置及程度，判斷處理方式：', 'Upon receiving the photos, we will conduct a <strong>professional assessment</strong> based on the cause, location, and severity of the damage:')}<br>
-                &nbsp;&nbsp;&nbsp;• ${T('<strong>影響結構、功能或安全</strong> → 安排<strong>免費重做</strong>受損產品，二次運輸費用由賣方承擔。', '<strong>Structural, functional, or safety impact</strong> → We will <strong>reproduce the damaged product free of charge</strong>, and the second shipping cost shall be borne by the Seller.')}<br>
-                &nbsp;&nbsp;&nbsp;• ${T('<strong>僅外觀輕微受壓、不影響使用</strong> → 可安排<strong>補發配件</strong>（如紗網、膠條、五金件等）或提供<strong>維修方案</strong>，無需整件重做。', '<strong>Minor cosmetic compression only, no impact on use</strong> → We may <strong>send replacement parts</strong> (mesh, seals, hardware, etc.) or provide a <strong>repair solution</strong> instead of full reproduction.')}<br>
-                &nbsp;&nbsp;&nbsp;• ${T('<strong>可現場簡易修復</strong> → 我們會提供<strong>維修指導</strong>，必要時補發小配件。', '<strong>On-site simple repair possible</strong> → We will provide <strong>repair guidance</strong> and send small parts if necessary.')}<br>
-                ${isBoth ? '3. ' : '3. '}${T('未經拍照評估、自行處理或超過期限才反映者，我們仍會盡力協助，但無法保證按保險條款全額處理。', 'Claims without prior photo assessment, self-handled repairs, or reports beyond the deadline will still receive our best assistance, but full coverage under the insurance terms cannot be guaranteed.')}
-                </p>
-            `;
-        } else {
-            insuranceHtml = `
-                <p><strong>🛡️ ${T('保險及破損保障', 'Insurance & Damage Guarantee')}</strong></p>
-                <p style="color:#c0392b; font-weight:600;">
-                ⚠️ ${T('本訂單未投保運費保險，按正常運輸流程發貨。', 'This order is not covered by Freight Insurance.')}
-                </p>
-                <p>
-                ${T('1. 若貨物在運輸途中因運輸原因損壞或丟失，我司將協助您向承運方索賠。', '1. If damaged or lost during transit, we will assist you in filing a claim with the carrier.')}<br>
-                ${T('2. 我司不承擔免費重做或二次運輸費用。', '2. We will not be responsible for free reproduction or the second shipping cost.')}<br>
-                ${T('3. 建議您自行投保，或選擇含保險的物流方案。', '3. We recommend that you arrange your own insurance or choose a logistics option that includes insurance.')}<br>
-                ${T('4. 建議收貨時當場開箱檢查，如有異常請立即拍照並向承運方備註，以便後續索賠。', '4. Please inspect the goods upon delivery. If any abnormality is found, take photos immediately and note it with the carrier for future claims.')}
-                </p>
-            `;
-        }
-
-        // ===== 付款條款 =====
-        let paymentTermsHtml = '';
-        let balanceTriggerHtml = '';
-        if (payCode === 'A') {
-            paymentTermsHtml = `
-                <p style="margin-bottom:6px;">
-                    <strong>📌 ${T('付款條件（方式 A）', 'Payment Terms (Type A)')}</strong><br>
-                    ${T('<strong>100% 全款預付</strong>，下單時一次性付清全款，收款後安排生產。本訂單為訂製產品，確認後不可取消或退貨。', '<strong>100% payment in advance.</strong> Full payment is made at the time of order, and production is arranged upon receipt. This is a custom order, non-cancelable and non-returnable after confirmation.')}
-                </p>
-            `;
-        } else if (payCode === 'B' || payCode === 'C') {
-            const depPct = payCode === 'B' ? '70%' : '50%';
-            const balPct = payCode === 'B' ? '30%' : '50%';
-            paymentTermsHtml = `
-                <p style="margin-bottom:6px;">
-                    <strong>📌 ${T(`付款條件（方式 ${payCode}）`, `Payment Terms (Type ${payCode})`)}</strong><br>
-                    ${T(`下單時支付 <strong>${depPct} 定金（RMB ${depositAmount.toFixed(2)}）</strong>，生產完成後拍照確認，支付 <strong>${balPct} 尾款（RMB ${balanceAmount.toFixed(2)}）</strong>後發貨。定金一經支付，不予退還。本訂單為訂製產品，確認後不可取消或退貨。`,
-                    `${depPct} deposit (RMB ${depositAmount.toFixed(2)}) at order, ${balPct} balance (RMB ${balanceAmount.toFixed(2)}) after production photos are confirmed, before shipment. The deposit is non-refundable. This is a custom order, non-cancelable and non-returnable after confirmation.`)}
-                </p>
-            `;
-            balanceTriggerHtml = `
-                <div class="terms-box" style="background:#fff8e1; border-left-color:#ffc107;">
-                    <p style="margin-bottom:6px;">
-                        <strong>📸 ${T('生產確認與尾款', 'Production Approval & Balance Payment')}</strong><br>
-                        ${T('1. 生產完成後，賣方拍攝產品照片/影片發送給買方確認。', '1. Upon completion of production, the Seller will send product photos/videos to the Buyer for confirmation.')}<br>
-                        ${T('2. 買方應在收到照片後 <strong>3 個工作日內</strong> 確認或提出書面異議。', '2. The Buyer shall confirm or raise written objections within 3 working days after receiving the photos.')}<br>
-                        ${T('3. 買方確認後（或逾期未回覆視為確認），應在 <strong>3 個工作日內</strong> 支付尾款。', '3. After confirmation (or deemed confirmed if no reply within the period), the Buyer shall pay the balance within 3 working days.')}<br>
-                        ${T('4. 尾款到帳後安排發貨。', '4. Shipment will be arranged after the balance is received.')}
-                    </p>
-                </div>
-            `;
-        }
+        // 有效期 7 天
+        const validDate = new Date();
+        validDate.setDate(validDate.getDate() + 7);
+        const validStr = `${validDate.getFullYear()}年${String(validDate.getMonth() + 1).padStart(2, '0')}月${String(validDate.getDate()).padStart(2, '0')}日`;
 
         let html = `
         <div class="brand-row">
             <div class="brand-left">
                 <div class="brand-name">MBORMC 曼伯歐羅 <small>®</small></div>
-                <div class="brand-tagline">${T('全球紗窗品牌', 'Global Screen Brand')}</div>
+                <div class="brand-tagline">全球紗窗品牌</div>
             </div>
             <div class="invoice-meta">
-                <div><strong>${T('發票編號', 'Invoice No.')}</strong> ${orderNo}</div>
-                <div><strong>${T('日期', 'Date')}</strong> ${dateVal}</div>
-                <div><strong>${T('貿易條款', 'Trade Terms')}</strong> ${tradeTerms}</div>
+                <div><strong>報價單編號 / Quotation No.</strong> ${qtNo}</div>
+                <div><strong>日期 / Date</strong> ${d.dateVal}</div>
+                <div><strong>有效期至 / Valid Until</strong> ${validStr}</div>
             </div>
         </div>
 
+        ${d.buyerName || d.buyerCity ? `
         <div class="address-panel">
             <div class="address-box">
-                <div class="label">${T('賣方', 'Seller')}</div>
+                <div class="label">客戶 / Customer</div>
                 <div class="content">
-                    <strong>佛山市德鉑歐羅門窗有限公司</strong><br>
-                    ${isBoth ? 'Foshan Debo Ouluo Doors and Windows Co., LTD<br>' : ''}
-                    ${T('聯絡人', 'Contact')}：${T('鄧金閃', 'Deng Jinshan')}<br>
-                    <span class="phone">WhatsApp：+86 135 3660 0067</span><br>
-                    <span class="phone">${T('微信', 'WeChat')}：FSMBOR</span><br>
-                    ${T('地址', 'Address')}：${T('中國廣東佛山南海區大瀝鎮', 'Dali Town, Nanhai District, Foshan, Guangdong, China')}<br>
-                    ${T('網站', 'Web')}：<a href="http://www.mbormc.com" target="_blank" class="web-link">www.mbormc.com</a>
-                </div>
-            </div>
-            <div class="address-box">
-                <div class="label">${T('買方', 'Buyer')}</div>
-                <div class="content">
-                    ${buyerHtml}
+                    <strong>${d.buyerName || '—'}</strong>${d.buyerCity ? '<br>' + d.buyerCity : ''}
                 </div>
             </div>
         </div>
+        ` : ''}
 
         <div class="table-wrap">
             <table>
                 <thead>
                     <tr>
-                        <th>${T('序號', 'No.')}${isBoth ? '<br><span class="en-head">No.</span>' : ''}</th>
-                        <th>${T('產品類型', 'Product Type')}${isBoth ? '<br><span class="en-head">Product Type</span>' : ''}</th>
-                        <th style="text-align:left; padding-left:12px;">${T('產品名稱', 'Product Description')}${isBoth ? '<br><span class="en-head">Product Description</span>' : ''}</th>
-                        <th>${T('顏色', 'Colour')}${isBoth ? '<br><span class="en-head">Colour</span>' : ''}</th>
-                        <th>${T('開啟方式', 'Opening')}${isBoth ? '<br><span class="en-head">Opening</span>' : ''}</th>
-                        <th>${T('尺寸（mm）', 'Size (mm)')}${isBoth ? '<br><span class="en-head">Size (mm)</span>' : ''}</th>
-                        <th>${T('面積（㎡）', 'Area (m²)')}${isBoth ? '<br><span class="en-head">Area (m²)</span>' : ''}</th>
-                        <th>${T('數量', 'Qty')}${isBoth ? '<br><span class="en-head">Qty</span>' : ''}</th>
-                        <th>${T('單價（元）', 'Unit Price (RMB)')}${isBoth ? '<br><span class="en-head">Unit Price (RMB)</span>' : ''}</th>
-                        <th>${T('金額（元）', 'Amount (RMB)')}${isBoth ? '<br><span class="en-head">Amount (RMB)</span>' : ''}</th>
+                        <th>序號</th>
+                        <th>產品類型</th>
+                        <th style="text-align:left; padding-left:12px;">產品名稱</th>
+                        <th>顏色</th>
+                        <th>開啟方式</th>
+                        <th>尺寸（mm）</th>
+                        <th>面積（㎡）</th>
+                        <th>數量</th>
+                        <th>單價（元）</th>
+                        <th>金額（元）</th>
                     </tr>
                 </thead>
                 <tbody>
         `;
 
-        products.forEach((p, i) => {
+        d.products.forEach((p, i) => {
             let nameCell = p.name;
             if (p.mesh) nameCell += `<span class="en-cell">${p.mesh}</span>`;
-            if (p.pRemark) nameCell += `<span class="en-cell" style="color:#c0722a;">${T('備註', 'Remark')}：${p.pRemark}</span>`;
+            if (p.pRemark) nameCell += `<span class="en-cell" style="color:#c0722a;">備註：${p.pRemark}</span>`;
 
             html += `
                 <tr>
@@ -1117,54 +1039,312 @@
             `;
         });
 
-        if (woodenCase > 0) {
-            html += `
-                <tr class="bg-sub">
-                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">${T('木箱包裝費', 'Wooden Case Packaging')}</td>
-                    <td>${woodenCase.toFixed(2)}</td>
-                </tr>
-            `;
+        if (d.woodenCase > 0) {
+            html += `<tr class="bg-sub"><td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">木箱包裝費</td><td>${d.woodenCase.toFixed(2)}</td></tr>`;
         }
-        if (freightInsurance > 0) {
-            html += `
-                <tr class="bg-sub">
-                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#1a5e1a;">${T('運費保險', 'Freight Insurance')}</td>
-                    <td style="color:#1a5e1a;">${freightInsurance.toFixed(2)}</td>
-                </tr>
-            `;
+        if (d.freightInsurance > 0) {
+            html += `<tr class="bg-sub"><td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#1a5e1a;">運費保險</td><td style="color:#1a5e1a;">${d.freightInsurance.toFixed(2)}</td></tr>`;
         }
-        if (otherFee > 0) {
-            html += `
-                <tr class="bg-sub">
-                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">${T('其他費用', 'Other Charges')}</td>
-                    <td>${otherFee.toFixed(2)}</td>
-                </tr>
-            `;
+        if (d.otherFee > 0) {
+            html += `<tr class="bg-sub"><td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">其他費用</td><td>${d.otherFee.toFixed(2)}</td></tr>`;
         }
-        if (discount > 0) {
-            html += `
-                <tr class="bg-sub">
-                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#c0392b;">${T('折扣優惠', 'Discount')}</td>
-                    <td style="color:#c0392b;">-${discount.toFixed(2)}</td>
-                </tr>
-            `;
+        if (d.discount > 0) {
+            html += `<tr class="bg-sub"><td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#c0392b;">折扣優惠</td><td style="color:#c0392b;">-${d.discount.toFixed(2)}</td></tr>`;
         }
 
         html += `
                     <tr class="bg-total">
-                        <td colspan="9" style="text-align:right; font-size:15px; padding-right:20px;">✅ ${T('合計', 'TOTAL')}</td>
-                        <td style="font-size:20px; font-weight:700; color:#003d7a;">RMB ${grandTotal.toFixed(2)}</td>
+                        <td colspan="9" style="text-align:right; font-size:15px; padding-right:20px;">✅ 合計 / TOTAL</td>
+                        <td style="font-size:20px; font-weight:700; color:#003d7a;">RMB ${d.grandTotal.toFixed(2)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="currency-box">
+            <div class="title">💱 多幣種參考報價</div>
+            <div class="currency-grid">
+                <div class="currency-item main">
+                    <div class="c-label">人民幣 / RMB</div>
+                    <div class="c-value">¥ ${d.grandTotal.toFixed(2)}</div>
+                </div>
+                <div class="currency-item">
+                    <div class="c-label">港幣 / HKD</div>
+                    <div class="c-value">HK$ ${totalHKD.toFixed(2)}</div>
+                </div>
+                <div class="currency-item">
+                    <div class="c-label">美元 / USD</div>
+                    <div class="c-value">$ ${totalUSD.toFixed(2)}</div>
+                </div>
+                <div class="currency-item">
+                    <div class="c-label">英鎊 / GBP</div>
+                    <div class="c-value">£ ${totalGBP.toFixed(2)}</div>
+                </div>
+            </div>
+            <div class="currency-note">
+                ⚠️ <strong>匯率說明：</strong>以上外幣金額僅供參考，按本報價單日期匯率折算。最終金額以付款當日銀行實際匯率為準。
+            </div>
+        </div>
+        `;
+
+        if (d.remark) {
+            html += `
+                <div style="background:#fff8e1; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
+                    📌 <strong>備註：</strong>${d.remark}
+                </div>
+            `;
+        }
+
+        html += `
+        <div class="footer-note" style="background:#f9fafc; padding:16px 20px; border-radius:12px; border:1px solid #e6ecf5; margin-top:20px;">
+            <strong>📋 本報價單僅供參考，最終交易以雙方簽署的正式 PI 為準。</strong><br>
+            <span style="font-size:12px; color:#6b7a8d;">This quotation is for reference only. The final transaction shall be subject to the signed Proforma Invoice.</span>
+            <br><br>
+            <span style="font-size:13px;">本報價有效期 7 天，逾期請重新確認價格。<br>This quotation is valid for 7 days. Please re-confirm the price after expiry.</span>
+        </div>
+        `;
+
+        const output = document.getElementById('quotationOutput');
+        output.innerHTML = html;
+        output.classList.add('show');
+
+        // 隱藏正式 PI 輸出（如已生成）
+        document.getElementById('quoteOutput').classList.remove('show');
+
+        document.getElementById('printBtn').style.display = 'inline-flex';
+        output.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ============================================================
+    // 生成正式 PI（雙語，完整條款）
+    // ============================================================
+    function generateProformaInvoice() {
+        const d = collectFormData();
+
+        if (d.products.length === 0) {
+            alert('請至少填寫一項完整的產品資料！/ Please fill at least one complete product.');
+            return;
+        }
+
+        const totalHKD = d.rateHKD > 0 ? (d.grandTotal / d.rateHKD) : 0;
+        const totalUSD = d.rateUSD > 0 ? (d.grandTotal / d.rateUSD) : 0;
+        const totalGBP = d.rateGBP > 0 ? (d.grandTotal / d.rateGBP) : 0;
+
+        // 定金/尾款
+        let depositAmount = 0, balanceAmount = 0, depositRate = '', balanceRate = '';
+        if (d.payCode === 'A') {
+            depositRate = '100%'; depositAmount = d.grandTotal;
+            balanceRate = '0%'; balanceAmount = 0;
+        } else if (d.payCode === 'B') {
+            depositRate = '70%'; depositAmount = d.grandTotal * 0.7;
+            balanceRate = '30%'; balanceAmount = d.grandTotal * 0.3;
+        } else if (d.payCode === 'C') {
+            depositRate = '50%'; depositAmount = d.grandTotal * 0.5;
+            balanceRate = '50%'; balanceAmount = d.grandTotal * 0.5;
+        }
+
+        // 買方欄位
+        let buyerHtml = '';
+        if (d.buyerCompany) {
+            buyerHtml = `<strong>${d.buyerCompany}</strong><br>`;
+            if (d.buyerName) buyerHtml += `聯絡人 / Contact：${d.buyerName}<br>`;
+            if (d.buyerCity) buyerHtml += `${d.buyerCity}<br>`;
+            if (d.buyerVAT) buyerHtml += `VAT / 稅號：${d.buyerVAT}<br>`;
+            if (d.buyerContact) buyerHtml += `${d.buyerContact}<br>`;
+            if (d.buyerAddress) buyerHtml += d.buyerAddress;
+        } else {
+            buyerHtml = `<strong>${d.buyerName || '—'}</strong><br>`;
+            if (d.buyerCity) buyerHtml += `${d.buyerCity}<br>`;
+            if (d.buyerContact) buyerHtml += `${d.buyerContact}<br>`;
+            if (d.buyerAddress) buyerHtml += d.buyerAddress;
+        }
+
+        // 保險條款
+        let insuranceHtml = '';
+        if (d.freightInsurance > 0) {
+            insuranceHtml = `
+                <p><strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong></p>
+                <p style="color:#1a5e1a; font-weight:600;">
+                ✅ 本訂單已投保運費保險（RMB ${d.freightInsurance.toFixed(2)}）。
+                <span class="en-term">This order is covered by Freight Insurance (RMB ${d.freightInsurance.toFixed(2)}).</span>
+                </p>
+                <p>
+                1. 收貨時請當場檢查外包裝及產品。如發現木箱或產品有破損，請<strong>先拍照或錄影</strong>（含外包裝、破損位置、整體及局部特寫），並於 <strong>7 個工作日內</strong> 將照片／影片發送給我們。<br>
+                2. 我們收到照片後會進行<strong>專業評估</strong>，根據損壞原因、位置及程度，判斷處理方式：<br>
+                &nbsp;&nbsp;&nbsp;• <strong>影響結構、功能或安全</strong> → 安排<strong>免費重做</strong>受損產品，二次運輸費用由賣方承擔。<br>
+                &nbsp;&nbsp;&nbsp;• <strong>僅外觀輕微受壓、不影響使用</strong> → 可安排<strong>補發配件</strong>（如紗網、膠條、五金件等）或提供<strong>維修方案</strong>，無需整件重做。<br>
+                &nbsp;&nbsp;&nbsp;• <strong>可現場簡易修復</strong> → 我們會提供<strong>維修指導</strong>，必要時補發小配件。<br>
+                3. 未經拍照評估、自行處理或超過期限才反映者，我們仍會盡力協助，但無法保證按保險條款全額處理。
+                </p>
+                <p class="en-term">
+                ✅ This order is covered by Freight Insurance (RMB ${d.freightInsurance.toFixed(2)}).<br>
+                1. Please inspect the packaging and products upon delivery. If any damage is found, take photos/videos first (including outer packaging, damaged area, overall and close-up shots) and send them to us within 7 working days.<br>
+                2. Upon receiving the photos, we will conduct a professional assessment based on the cause, location, and severity of the damage:<br>
+                &nbsp;&nbsp;&nbsp;• Structural, functional, or safety impact → We will reproduce the damaged product free of charge, and the second shipping cost shall be borne by the Seller.<br>
+                &nbsp;&nbsp;&nbsp;• Minor cosmetic compression only, no impact on use → We may send replacement parts (mesh, seals, hardware, etc.) or provide a repair solution instead of full reproduction.<br>
+                &nbsp;&nbsp;&nbsp;• On-site simple repair possible → We will provide repair guidance and send small parts if necessary.<br>
+                3. Claims without prior photo assessment, self-handled repairs, or reports beyond the deadline will still receive our best assistance, but full coverage under the insurance terms cannot be guaranteed.
+                </p>
+            `;
+        } else {
+            insuranceHtml = `
+                <p><strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong></p>
+                <p style="color:#c0392b; font-weight:600;">
+                ⚠️ 本訂單未投保運費保險，按正常運輸流程發貨。
+                <span class="en-term">This order is not covered by Freight Insurance.</span>
+                </p>
+                <p>
+                1. 若貨物在運輸途中因運輸原因損壞或丟失，我司將協助您向承運方索賠。<br>
+                2. 我司不承擔免費重做或二次運輸費用。<br>
+                3. 建議您自行投保，或選擇含保險的物流方案。<br>
+                4. 建議收貨時當場開箱檢查，如有異常請立即拍照並向承運方備註，以便後續索賠。
+                </p>
+                <p class="en-term">
+                1. If damaged or lost during transit, we will assist you in filing a claim with the carrier.<br>
+                2. We will not be responsible for free reproduction or the second shipping cost.<br>
+                3. We recommend that you arrange your own insurance or choose a logistics option that includes insurance.<br>
+                4. Please inspect the goods upon delivery. If any abnormality is found, take photos immediately and note it with the carrier for future claims.
+                </p>
+            `;
+        }
+
+        // 付款條款
+        let paymentTermsHtml = '';
+        let balanceTriggerHtml = '';
+        if (d.payCode === 'A') {
+            paymentTermsHtml = `
+                <p style="margin-bottom:6px;">
+                    <strong>📌 付款條件 / Payment Terms（方式 A）</strong><br>
+                    <strong>100% 全款預付</strong>，下單時一次性付清全款，收款後安排生產。本訂單為訂製產品，確認後不可取消或退貨。
+                    <span class="en-term">100% payment in advance. Full payment is made at the time of order, and production is arranged upon receipt. This is a custom order, non-cancelable and non-returnable after confirmation.</span>
+                </p>
+            `;
+        } else if (d.payCode === 'B' || d.payCode === 'C') {
+            const depPct = d.payCode === 'B' ? '70%' : '50%';
+            const balPct = d.payCode === 'B' ? '30%' : '50%';
+            paymentTermsHtml = `
+                <p style="margin-bottom:6px;">
+                    <strong>📌 付款條件 / Payment Terms（方式 ${d.payCode}）</strong><br>
+                    下單時支付 <strong>${depPct} 定金（RMB ${depositAmount.toFixed(2)}）</strong>，生產完成後拍照確認，支付 <strong>${balPct} 尾款（RMB ${balanceAmount.toFixed(2)}）</strong>後發貨。定金一經支付，不予退還。本訂單為訂製產品，確認後不可取消或退貨。
+                    <span class="en-term">${depPct} deposit (RMB ${depositAmount.toFixed(2)}) at order, ${balPct} balance (RMB ${balanceAmount.toFixed(2)}) after production photos are confirmed, before shipment. The deposit is non-refundable. This is a custom order, non-cancelable and non-returnable after confirmation.</span>
+                </p>
+            `;
+            balanceTriggerHtml = `
+                <div class="terms-box" style="background:#fff8e1; border-left-color:#ffc107;">
+                    <p style="margin-bottom:6px;">
+                        <strong>📸 生產確認與尾款 / Production Approval & Balance Payment</strong><br>
+                        1. 生產完成後，賣方拍攝產品照片/影片發送給買方確認。<br>
+                        2. 買方應在收到照片後 <strong>3 個工作日內</strong> 確認或提出書面異議。<br>
+                        3. 買方確認後（或逾期未回覆視為確認），應在 <strong>3 個工作日內</strong> 支付尾款。<br>
+                        4. 尾款到帳後安排發貨。
+                        <span class="en-term">1. Upon completion of production, the Seller will send product photos/videos to the Buyer for confirmation.<br>2. The Buyer shall confirm or raise written objections within 3 working days after receiving the photos.<br>3. After confirmation (or deemed confirmed if no reply within the period), the Buyer shall pay the balance within 3 working days.<br>4. Shipment will be arranged after the balance is received.</span>
+                    </p>
+                </div>
+            `;
+        }
+
+        let html = `
+        <div class="brand-row">
+            <div class="brand-left">
+                <div class="brand-name">MBORMC 曼伯歐羅 <small>®</small></div>
+                <div class="brand-tagline">全球紗窗品牌 / Global Screen Brand</div>
+            </div>
+            <div class="invoice-meta">
+                <div><strong>發票編號 / Invoice No.</strong> ${d.orderNo}</div>
+                <div><strong>日期 / Date</strong> ${d.dateVal}</div>
+                <div><strong>貿易條款 / Trade Terms</strong> ${d.tradeTerms}</div>
+            </div>
+        </div>
+
+        <div class="address-panel">
+            <div class="address-box">
+                <div class="label">賣方 / Seller</div>
+                <div class="content">
+                    <strong>佛山市德鉑歐羅門窗有限公司</strong><br>
+                    Foshan Debo Ouluo Doors and Windows Co., LTD<br>
+                    聯絡人 / Contact：鄧金閃 / Deng Jinshan<br>
+                    <span class="phone">WhatsApp：+86 135 3660 0067</span><br>
+                    <span class="phone">微信 / WeChat：FSMBOR</span><br>
+                    地址 / Address：中國廣東佛山南海區大瀝鎮<br>
+                    網站 / Web：<a href="http://www.mbormc.com" target="_blank" class="web-link">www.mbormc.com</a>
+                </div>
+            </div>
+            <div class="address-box">
+                <div class="label">買方 / Buyer</div>
+                <div class="content">
+                    ${buyerHtml}
+                </div>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>序號<br><span class="en-head">No.</span></th>
+                        <th>產品類型<br><span class="en-head">Product Type</span></th>
+                        <th style="text-align:left; padding-left:12px;">產品名稱<br><span class="en-head">Product Description</span></th>
+                        <th>顏色<br><span class="en-head">Colour</span></th>
+                        <th>開啟方式<br><span class="en-head">Opening</span></th>
+                        <th>尺寸（mm）<br><span class="en-head">Size (mm)</span></th>
+                        <th>面積（㎡）<br><span class="en-head">Area (m²)</span></th>
+                        <th>數量<br><span class="en-head">Qty</span></th>
+                        <th>單價（元）<br><span class="en-head">Unit Price (RMB)</span></th>
+                        <th>金額（元）<br><span class="en-head">Amount (RMB)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        d.products.forEach((p, i) => {
+            let nameCell = p.name;
+            if (p.mesh) nameCell += `<span class="en-cell">${p.mesh}</span>`;
+            if (p.pRemark) nameCell += `<span class="en-cell" style="color:#c0722a;">備註：${p.pRemark}</span>`;
+
+            html += `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${p.type}</td>
+                    <td class="text-left">${nameCell}</td>
+                    <td>${p.color}</td>
+                    <td>${p.opening}</td>
+                    <td>${p.h} × ${p.w}</td>
+                    <td>${p.billedArea.toFixed(2)}</td>
+                    <td>${p.qty}</td>
+                    <td>${p.unit}</td>
+                    <td>${p.amount.toFixed(2)}</td>
+                </tr>
+            `;
+        });
+
+        if (d.woodenCase > 0) {
+            html += `<tr class="bg-sub"><td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">木箱包裝費 / Wooden Case</td><td>${d.woodenCase.toFixed(2)}</td></tr>`;
+        }
+        if (d.freightInsurance > 0) {
+            html += `<tr class="bg-sub"><td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#1a5e1a;">運費保險 / Freight Insurance</td><td style="color:#1a5e1a;">${d.freightInsurance.toFixed(2)}</td></tr>`;
+        }
+        if (d.otherFee > 0) {
+            html += `<tr class="bg-sub"><td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">其他費用 / Other Charges</td><td>${d.otherFee.toFixed(2)}</td></tr>`;
+        }
+        if (d.discount > 0) {
+            html += `<tr class="bg-sub"><td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#c0392b;">折扣優惠 / Discount</td><td style="color:#c0392b;">-${d.discount.toFixed(2)}</td></tr>`;
+        }
+
+        html += `
+                    <tr class="bg-total">
+                        <td colspan="9" style="text-align:right; font-size:15px; padding-right:20px;">✅ 合計 / TOTAL</td>
+                        <td style="font-size:20px; font-weight:700; color:#003d7a;">RMB ${d.grandTotal.toFixed(2)}</td>
                     </tr>
         `;
 
-        if (payCode === 'B' || payCode === 'C') {
+        if (d.payCode === 'B' || d.payCode === 'C') {
             html += `
                     <tr class="bg-sub">
-                        <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">${T(`定金（${depositRate}）`, `Deposit (${depositRate})`)}</td>
+                        <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">定金（${depositRate}）/ Deposit</td>
                         <td style="font-weight:600;">${depositAmount.toFixed(2)}</td>
                     </tr>
                     <tr class="bg-sub">
-                        <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#b8860b;">${T(`尾款（${balanceRate}）`, `Balance (${balanceRate})`)}</td>
+                        <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#b8860b;">尾款（${balanceRate}）/ Balance</td>
                         <td style="font-weight:600; color:#b8860b;">${balanceAmount.toFixed(2)}</td>
                     </tr>
             `;
@@ -1174,61 +1354,61 @@
                 </tbody>
             </table>
         </div>
-        `;
 
-        html += `
         <div class="currency-box">
-            <div class="title">💱 ${T('多幣種參考報價', 'Multi-Currency Reference')}</div>
+            <div class="title">💱 多幣種參考報價 / Multi-Currency Reference</div>
             <div class="currency-grid">
                 <div class="currency-item main">
-                    <div class="c-label">${T('人民幣', 'RMB')}</div>
-                    <div class="c-value">¥ ${grandTotal.toFixed(2)}</div>
+                    <div class="c-label">人民幣 / RMB</div>
+                    <div class="c-value">¥ ${d.grandTotal.toFixed(2)}</div>
                 </div>
                 <div class="currency-item">
-                    <div class="c-label">${T('港幣', 'HKD')}</div>
+                    <div class="c-label">港幣 / HKD</div>
                     <div class="c-value">HK$ ${totalHKD.toFixed(2)}</div>
                 </div>
                 <div class="currency-item">
-                    <div class="c-label">${T('美元', 'USD')}</div>
+                    <div class="c-label">美元 / USD</div>
                     <div class="c-value">$ ${totalUSD.toFixed(2)}</div>
                 </div>
                 <div class="currency-item">
-                    <div class="c-label">${T('英鎊', 'GBP')}</div>
+                    <div class="c-label">英鎊 / GBP</div>
                     <div class="c-value">£ ${totalGBP.toFixed(2)}</div>
                 </div>
             </div>
             <div class="currency-note">
-                ⚠️ <strong>${T('匯率說明', 'Exchange Rate Note')}：</strong><br>
-                ${T('以上外幣金額僅供參考，按本發票日期匯率折算。最終金額以付款當日銀行實際匯率為準。', 'The above foreign currency amounts are for reference only. The final amount will be based on the actual bank exchange rate on the payment date.')}
+                ⚠️ <strong>匯率說明 / Exchange Rate Note：</strong><br>
+                以上外幣金額僅供參考，按本發票日期匯率折算。最終金額以付款當日銀行實際匯率為準。<br>
+                <span class="en-term">The above foreign currency amounts are for reference only. The final amount will be based on the actual bank exchange rate on the payment date.</span>
             </div>
         </div>
         `;
 
-        if (remark) {
+        if (d.remark) {
             html += `
                 <div style="background:#fff8e1; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
-                    📌 <strong>${T('備註', 'Remark')}：</strong>${remark}
+                    📌 <strong>備註 / Remark：</strong>${d.remark}
                 </div>
             `;
         }
 
         html += `
         <div class="info-grid">
-            <div class="info-item"><span class="tag">${T('貿易條款', 'Trade Terms')}</span><span>${tradeTerms}</span></div>
-            <div class="info-item"><span class="tag">${T('運輸時效', 'Shipping Time')}</span><span>${shippingTime}</span></div>
-            <div class="info-item"><span class="tag">${T('生產週期', 'Lead Time')}</span><span>${leadTime}</span></div>
-            <div class="info-item"><span class="tag">${T('付款方式', 'Payment')}</span><span>${payTitle}</span></div>
-            <div class="info-item"><span class="tag">${T('結算幣種', 'Currency')}</span><span>${T('人民幣 RMB（可接受港幣／美元／英鎊）', 'RMB (HKD / USD / GBP also accepted)')}</span></div>
-            <div class="info-item"><span class="tag">${T('交貨方式', 'Delivery')}</span><span>${T('含運費、關稅、VAT、派送到門（DDP）', 'DDP – includes shipping, duties, VAT, door-to-door delivery')}</span></div>
-            <div class="info-item"><span class="tag">${T('保修配件', 'Warranty')}</span><span>${T('1 年', '1 year')}</span></div>
-            ${woodenCaseInfo ? `<div class="info-item"><span class="tag">${T('木箱體積', 'Wooden Case')}</span><span>${woodenCaseInfo}</span></div>` : ''}
+            <div class="info-item"><span class="tag">貿易條款 / Trade Terms</span><span>${d.tradeTerms}</span></div>
+            <div class="info-item"><span class="tag">運輸時效 / Shipping Time</span><span>${d.shippingTime}</span></div>
+            <div class="info-item"><span class="tag">生產週期 / Lead Time</span><span>${d.leadTime}</span></div>
+            <div class="info-item"><span class="tag">付款方式 / Payment</span><span>${d.payTitle}</span></div>
+            <div class="info-item"><span class="tag">結算幣種 / Currency</span><span>人民幣 RMB（可接受港幣／美元／英鎊）</span></div>
+            <div class="info-item"><span class="tag">交貨方式 / Delivery</span><span>含運費、關稅、VAT、派送到門（DDP）</span></div>
+            <div class="info-item"><span class="tag">保修配件 / Warranty</span><span>1 年 / 1 year</span></div>
+            ${d.woodenCaseInfo ? `<div class="info-item"><span class="tag">木箱體積 / Wooden Case</span><span>${d.woodenCaseInfo}</span></div>` : ''}
         </div>
 
         <div class="terms-box">
             ${paymentTermsHtml}
             <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
-                <strong>🚚 ${T('運輸備註', 'Shipping Note')}</strong><br>
-                ${T('DDP 包稅到門 — 包含運輸、清關、關稅、VAT、派送。收貨時無需支付任何額外費用。', 'DDP – includes shipping, customs clearance, duties, VAT, and door-to-door delivery. No additional charges upon arrival.')}
+                <strong>🚚 運輸備註 / Shipping Note</strong><br>
+                DDP 包稅到門 — 包含運輸、清關、關稅、VAT、派送。收貨時無需支付任何額外費用。
+                <span class="en-term">DDP – includes shipping, customs clearance, duties, VAT, and door-to-door delivery. No additional charges upon arrival.</span>
             </p>
         </div>
 
@@ -1236,24 +1416,27 @@
 
         <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
             <p style="margin-bottom:6px;">
-                <strong>📐 ${T('產品規格說明', 'Product Specifications')}</strong><br>
-                ${T('1. 所有尺寸以買方確認的訂單數據為準，生產公差為 <strong>±3mm</strong>。', '1. All dimensions are based on the order data confirmed by the Buyer, with a production tolerance of ±3mm.')}<br>
-                ${T('2. 顏色以雙方確認的色卡或樣品為準，因顯示器、拍攝光線等因素產生的<strong>輕微色差屬正常範圍</strong>，不視為質量問題。', '2. Colours are based on the colour card or sample confirmed by both parties. Minor colour differences caused by monitors or lighting conditions are normal and shall not be deemed quality issues.')}<br>
-                ${T('3. 紗網材質、五金配件以訂單確認為準。', '3. Mesh materials and hardware are subject to order confirmation.')}
+                <strong>📐 產品規格說明 / Product Specifications</strong><br>
+                1. 所有尺寸以買方確認的訂單數據為準，生產公差為 <strong>±3mm</strong>。<br>
+                2. 顏色以雙方確認的色卡或樣品為準，因顯示器、拍攝光線等因素產生的<strong>輕微色差屬正常範圍</strong>，不視為質量問題。<br>
+                3. 紗網材質、五金配件以訂單確認為準。
+                <span class="en-term">1. All dimensions are based on the order data confirmed by the Buyer, with a production tolerance of ±3mm.<br>2. Colours are based on the colour card or sample confirmed by both parties. Minor colour differences caused by monitors or lighting conditions are normal and shall not be deemed quality issues.<br>3. Mesh materials and hardware are subject to order confirmation.</span>
             </p>
         </div>
 
         <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
             <p style="margin-bottom:6px;">
-                <strong>✅ ${T('質量驗收', 'Quality Inspection')}</strong><br>
-                ${T('買方應在收到貨物後 <strong>7 個自然日內</strong> 完成驗收。如有質量問題，應以<strong>書面形式</strong>（含照片/影片）提出。逾期未提出書面異議的，視為驗收合格。', 'The Buyer shall complete inspection within 7 calendar days after receiving the goods. Any quality issues shall be raised in writing (with photos/videos). If no written objection is raised within the period, the goods shall be deemed accepted.')}
+                <strong>✅ 質量驗收 / Quality Inspection</strong><br>
+                買方應在收到貨物後 <strong>7 個自然日內</strong> 完成驗收。如有質量問題，應以<strong>書面形式</strong>（含照片/影片）提出。逾期未提出書面異議的，視為驗收合格。
+                <span class="en-term">The Buyer shall complete inspection within 7 calendar days after receiving the goods. Any quality issues shall be raised in writing (with photos/videos). If no written objection is raised within the period, the goods shall be deemed accepted.</span>
             </p>
         </div>
 
         <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
             <p style="margin-bottom:6px;">
-                <strong>🚫 ${T('定制產品', 'Custom-Made Products')}</strong><br>
-                ${T('本訂單為定制產品，買方支付全款或定金後，訂單即進入生產流程，<strong>不接受取消或退款</strong>。如因買方原因取消訂單，已付款項不予退還。', 'This is a custom-made order. Once the Buyer pays the full amount or deposit, the order enters production and cannot be canceled or refunded. If the order is canceled for reasons attributable to the Buyer, payments already made shall not be refunded.')}
+                <strong>🚫 定制產品 / Custom-Made Products</strong><br>
+                本訂單為定制產品，買方支付全款或定金後，訂單即進入生產流程，<strong>不接受取消或退款</strong>。如因買方原因取消訂單，已付款項不予退還。
+                <span class="en-term">This is a custom-made order. Once the Buyer pays the full amount or deposit, the order enters production and cannot be canceled or refunded. If the order is canceled for reasons attributable to the Buyer, payments already made shall not be refunded.</span>
             </p>
         </div>
 
@@ -1262,33 +1445,37 @@
         </div>
 
         <div class="compliance-box">
-            <div class="box-title">⚠️ ${T('資金來源與合規聲明', 'Fund Source & Compliance Statement')}</div>
+            <div class="box-title">⚠️ 資金來源與合規聲明 / Fund Source & Compliance</div>
             <div class="box-note">
-                ${T('本條款為國際銀行及支付平台之標準合規要求，適用於所有跨境交易。如付款正常且資金來源合法，不影響訂單執行。', 'This clause is a standard compliance requirement of international banks and payment platforms, applicable to all cross-border transactions. If payment is normal and the source of funds is legitimate, order execution will not be affected.')}
+                本條款為國際銀行及支付平台之標準合規要求，適用於所有跨境交易。如付款正常且資金來源合法，不影響訂單執行。<br>
+                <span style="font-size:12px;">This clause is a standard compliance requirement of international banks and payment platforms, applicable to all cross-border transactions.</span>
             </div>
-            <p><strong>1.</strong> ${T('買方保證支付本訂單之所有款項均來源於合法所得，不涉及任何非法活動（包括但不限於洗錢、詐騙、貪污、走私、恐怖融資等）。', 'The Buyer guarantees that all payments for this order are from legitimate sources and do not involve any illegal activities (including but not limited to money laundering, fraud, corruption, smuggling, terrorist financing, etc.).')}</p>
-            <p><strong>2.</strong> ${T('買方須以本人或本公司帳戶支付。如使用第三方代付，須提前告知並獲得賣方同意。', 'The Buyer shall pay from his/her own or the company\'s account. If a third party makes the payment, prior notice and the Seller\'s consent are required.')}</p>
-            <p><strong>3.</strong> ${T('如因買方資金來源或第三方代付導致賣方帳戶被凍結、資金被退回或限制使用，本訂單自動失效，賣方有權取消訂單；因買方原因造成賣方損失的，買方須承擔賠償責任。', 'If the Seller\'s account is frozen, funds are returned, or its use is restricted due to the Buyer\'s fund source or third-party payment, this order shall automatically become invalid, and the Seller has the right to cancel the order. The Buyer shall be liable for any losses caused to the Seller.')}</p>
+            <p><strong>1.</strong> 買方保證支付本訂單之所有款項均來源於合法所得，不涉及任何非法活動（包括但不限於洗錢、詐騙、貪污、走私、恐怖融資等）。</p>
+            <p><strong>2.</strong> 買方須以本人或本公司帳戶支付。如使用第三方代付，須提前告知並獲得賣方同意。</p>
+            <p><strong>3.</strong> 如因買方資金來源或第三方代付導致賣方帳戶被凍結、資金被退回或限制使用，本訂單自動失效，賣方有權取消訂單；因買方原因造成賣方損失的，買方須承擔賠償責任。</p>
         </div>
 
         <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
             <p style="margin-bottom:6px;">
-                <strong>⚖️ ${T('爭議解決', 'Dispute Resolution')}</strong><br>
-                ${T('本訂單適用中華人民共和國法律。雙方因本訂單發生爭議，應首先通過友好協商解決；協商不成的，任何一方均可提交<strong>廣東省佛山市有管轄權的人民法院</strong>訴訟解決。雙方同意由賣方所在地法院管轄。', 'This order shall be governed by the laws of the People\'s Republic of China. Any dispute arising from this order shall first be resolved through friendly negotiation. If negotiation fails, either party may submit the dispute to the competent People\'s Court in Foshan, Guangdong Province, China. Both parties agree that the court at the Seller\'s location shall have jurisdiction.')}
+                <strong>⚖️ 爭議解決 / Dispute Resolution</strong><br>
+                本訂單適用中華人民共和國法律。雙方因本訂單發生爭議，應首先通過友好協商解決；協商不成的，任何一方均可提交<strong>廣東省佛山市有管轄權的人民法院</strong>訴訟解決。雙方同意由賣方所在地法院管轄。
+                <span class="en-term">This order shall be governed by the laws of the People's Republic of China. Any dispute arising from this order shall first be resolved through friendly negotiation. If negotiation fails, either party may submit the dispute to the competent People's Court in Foshan, Guangdong Province, China. Both parties agree that the court at the Seller's location shall have jurisdiction.</span>
             </p>
         </div>
 
         <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
             <p style="margin-bottom:6px;">
-                <strong>🌪️ ${T('不可抗力', 'Force Majeure')}</strong><br>
-                ${T('因不可抗力（包括但不限於自然災害、疫情、政府行為、海關查驗、罷工、戰爭等）導致交期延誤或無法履行本訂單的，賣方不承擔違約責任，但應及時通知買方並盡力協調解決。', 'If the performance of this order is delayed or prevented by force majeure (including but not limited to natural disasters, epidemics, government acts, customs inspection, strikes, wars, etc.), the Seller shall not be liable for breach of contract, but shall notify the Buyer promptly and make every effort to coordinate a solution.')}
+                <strong>🌪️ 不可抗力 / Force Majeure</strong><br>
+                因不可抗力（包括但不限於自然災害、疫情、政府行為、海關查驗、罷工、戰爭等）導致交期延誤或無法履行本訂單的，賣方不承擔違約責任，但應及時通知買方並盡力協調解決。
+                <span class="en-term">If the performance of this order is delayed or prevented by force majeure (including but not limited to natural disasters, epidemics, government acts, customs inspection, strikes, wars, etc.), the Seller shall not be liable for breach of contract, but shall notify the Buyer promptly and make every effort to coordinate a solution.</span>
             </p>
         </div>
 
         <div class="payment-account-box">
-            <div class="box-title">💳 ${T('收款帳戶', 'Payment Account')}</div>
+            <div class="box-title">💳 收款帳戶 / Payment Account</div>
             <div class="box-sub">
-                ${T('收款帳戶資訊將另行提供，請聯絡我們取得帳戶詳情。', 'Payment account details will be provided separately. Please contact us for the account information.')}
+                收款帳戶資訊將另行提供，請聯絡我們取得帳戶詳情。<br>
+                <span style="font-size:12.5px;">Payment account details will be provided separately. Please contact us for the account information.</span>
             </div>
 
             <div class="channel-badges">
@@ -1298,8 +1485,8 @@
                         <path d="M22 14.5c0-2.7-2.6-4.9-5.8-4.9s-5.8 2.2-5.8 4.9 2.6 4.9 5.8 4.9c.7 0 1.3-.1 1.9-.3l2 1-.6-1.8c1.5-.9 2.5-2.3 2.5-3.8zm-7.7-1.2c.4 0 .8.3.8.8s-.3.8-.8.8-.8-.3-.8-.8.3-.8.8-.8zm3.8 0c.4 0 .8.3.8.8s-.3.8-.8.8-.8-.3-.8-.8.3-.8.8-.8z"/>
                     </svg>
                     <span>
-                        <span class="badge-title">${T('微信支付', 'WeChat Pay')}</span>
-                        <span class="badge-note">${T('僅支持人民幣', 'CNY Only')}</span>
+                        <span class="badge-title">微信支付 / WeChat Pay</span>
+                        <span class="badge-note">僅支持人民幣 / CNY Only</span>
                     </span>
                 </span>
 
@@ -1309,8 +1496,8 @@
                         <path d="M12 6c-3.3 0-6 2.7-6 6s2.7 6 6 6c1.2 0 2.4-.4 3.3-1l1.2 1 .6-2c.6-.9.9-2 .9-3 0-3.3-2.7-6-6-6zm3.4 8.4c-.5.9-1.5 1.5-2.7 1.5-1.9 0-3.4-1.4-3.6-3.2.6.3 1.3.5 2 .5 1.4 0 2.6-.7 3.3-1.8.1.2.2.4.2.6 0 .8-.4 1.6-1 2.1l.6.6-.6.6-.4-.4c-.5.3-1 .5-1.6.5-.4 0-.8-.1-1.1-.3.6-.2 1.1-.5 1.5-1 .3.1.6.1.9.1.7 0 1.4-.2 2-.5l.5.7z"/>
                     </svg>
                     <span>
-                        <span class="badge-title">${T('支付寶', 'Alipay')}</span>
-                        <span class="badge-note">${T('支持人民幣、美元、英鎊、澳元、港幣、新加坡幣', 'Supports CNY, USD, GBP, AUD, HKD, SGD')}</span>
+                        <span class="badge-title">支付寶 / Alipay</span>
+                        <span class="badge-note">支持人民幣、美元、英鎊、澳元、港幣、新加坡幣<br>Supports CNY, USD, GBP, AUD, HKD, SGD</span>
                     </span>
                 </span>
 
@@ -1321,45 +1508,55 @@
                     </svg>
                     <span>
                         <span class="badge-title">PINGPONG</span>
-                        <span class="badge-note">${T('公司對公司 · 跨境結算', 'B2B · Cross-border Settlement')}</span>
+                        <span class="badge-note">公司對公司 · 跨境結算 · B2B Cross-border</span>
                     </span>
                 </span>
             </div>
         </div>
 
         <div style="background:#fff3cd; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
-            <strong>📝 ${T('匯款備註', 'Payment Reference')}：</strong> ${buyerCompany || buyerName || T('[買方姓名]', '[Buyer Name]')} ${orderNo}
+            <strong>📝 匯款備註 / Payment Reference：</strong> ${d.buyerCompany || d.buyerName || '[買方姓名]'} ${d.orderNo}
         </div>
 
         <div class="sign-row">
             <div class="sign-box">
-                <div class="label">${T('賣方簽名', 'Seller Signature')}</div>
-                <div class="name">${T('鄧金閃', 'Deng Jinshan')}</div>
-                <div class="date">${T('日期', 'Date')}：${dateVal}</div>
+                <div class="label">賣方簽名 / Seller Signature</div>
+                <div class="name">鄧金閃 / Deng Jinshan</div>
+                <div class="date">日期 / Date：${d.dateVal}</div>
             </div>
             <div class="sign-box" style="text-align:right;">
-                <div class="label">${T('買方簽名', 'Buyer Signature')}</div>
+                <div class="label">買方簽名 / Buyer Signature</div>
                 <div class="name" style="border-bottom-color:#b0c8e0; min-width:140px;">________________</div>
-                <div class="date">${T('日期', 'Date')}：___________</div>
+                <div class="date">日期 / Date：___________</div>
             </div>
         </div>
 
         <div class="footer-note">
-            ${T('本訂購單一式兩份，雙方各執一份，具有同等法律效力。', 'This order is issued in duplicate, each party holds one copy with equal legal effect.')}
+            本訂購單一式兩份，雙方各執一份，具有同等法律效力。<br>
+            <span style="font-size:12px;">This order is issued in duplicate, each party holds one copy with equal legal effect.</span>
         </div>
         `;
 
         const output = document.getElementById('quoteOutput');
         output.innerHTML = html;
         output.classList.add('show');
-        // 中文模式时加 zh-only 类
-        if (!isBoth) {
-            output.classList.add('zh-only');
-        } else {
-            output.classList.remove('zh-only');
-        }
+
+        // 隱藏報價單輸出（如已生成）
+        document.getElementById('quotationOutput').classList.remove('show');
+
         document.getElementById('printBtn').style.display = 'inline-flex';
         output.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ============================================================
+    // 統一入口
+    // ============================================================
+    function generateQuote(type) {
+        if (type === 'quote') {
+            generateQuotation();
+        } else if (type === 'both') {
+            generateProformaInvoice();
+        }
     }
 
     window.onload = function() {

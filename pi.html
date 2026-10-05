@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>PI 報價單生成 · MBORMC 曼伯歐羅</title>
+    <title>PI 報價單生成器 · MBORMC 曼伯歐羅</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
@@ -492,7 +492,7 @@
             </div>
             <div class="form-group">
                 <label>日期 / Date</label>
-                <input type="text" id="dateVal" placeholder="2026年10月6日">
+                <input type="text" id="dateVal">
             </div>
             <div class="form-group">
                 <label>貿易條款 / Trade Terms</label>
@@ -516,10 +516,11 @@
         <div class="form-row">
             <div class="form-group">
                 <label>生產週期 / Lead Time</label>
-                <input type="text" id="leadTime" placeholder="收到款項後15-20天" value="收到款項後15-20天 / 15-20 days after payment">
+                <input type="text" id="leadTime" value="收到款項後15-20天 / 15-20 days after payment">
             </div>
             <div class="form-group">
                 <label>木箱體積／重量 / Wooden Case Size & Weight</label>
+                <input type="text" id="woodenCaseInfo">
             </div>
         </div>
 
@@ -527,19 +528,19 @@
         <div class="form-row">
             <div class="form-group">
                 <label>客戶姓名 / Buyer Name</label>
-                <input type="text" id="buyerName" placeholder="客戶姓名">
+                <input type="text" id="buyerName">
             </div>
             <div class="form-group">
                 <label>客戶國家／城市 / Country & City</label>
-                <input type="text" id="buyerCity" placeholder="例如：英國 · 倫敦">
+                <input type="text" id="buyerCity">
             </div>
             <div class="form-group">
                 <label>客戶信箱／電話 / Contact</label>
-                <input type="text" id="buyerContact" placeholder="信箱或電話">
+                <input type="text" id="buyerContact">
             </div>
             <div class="form-group">
                 <label>收貨地址 / Delivery Address</label>
-                <input type="text" id="buyerAddress" placeholder="完整收貨地址">
+                <input type="text" id="buyerAddress">
             </div>
         </div>
 
@@ -603,7 +604,7 @@
         <div class="form-row">
             <div class="form-group" style="grid-column: 1 / -1;">
                 <label>備註 / Remark</label>
-                <input type="text" id="remark" placeholder="例如：不足1㎡按1㎡計算">
+                <input type="text" id="remark">
             </div>
         </div>
 
@@ -702,7 +703,7 @@
                 </div>
                 <div class="form-group" style="grid-column: span 2;">
                     <label>產品名稱 / Product Name</label>
-                    <input type="text" class="p-name" placeholder="例如：折疊式紗門（單開）">
+                    <input type="text" class="p-name">
                 </div>
             </div>
 
@@ -724,19 +725,19 @@
             <div class="row">
                 <div class="form-group">
                     <label>高度（mm）/ Height</label>
-                    <input type="number" class="p-height" placeholder="" oninput="calcCard(${idx})">
+                    <input type="number" class="p-height" oninput="calcCard(${idx})">
                 </div>
                 <div class="form-group">
                     <label>寬度（mm）/ Width</label>
-                    <input type="number" class="p-width" placeholder="" oninput="calcCard(${idx})">
+                    <input type="number" class="p-width" oninput="calcCard(${idx})">
                 </div>
                 <div class="form-group">
                     <label>數量 / Qty</label>
-                    <input type="number" class="p-qty" placeholder="1" value="1" min="1" oninput="calcCard(${idx})">
+                    <input type="number" class="p-qty" value="1" min="1" oninput="calcCard(${idx})">
                 </div>
                 <div class="form-group">
                     <label>單價（元/㎡）/ Unit Price</label>
-                    <input type="number" class="p-unit" placeholder="" oninput="calcCard(${idx})">
+                    <input type="number" class="p-unit" oninput="calcCard(${idx})">
                 </div>
                 <div class="form-group">
                     <label>金額 / Amount</label>
@@ -747,11 +748,11 @@
             <div class="row">
                 <div class="form-group" style="grid-column: span 2;">
                     <label>紗網／材質說明 / Mesh & Material</label>
-                    <input type="text" class="p-mesh" placeholder="例如：304#不鏽鋼防寵物絲網">
+                    <input type="text" class="p-mesh">
                 </div>
                 <div class="form-group" style="grid-column: span 2;">
                     <label>備註 / Remark</label>
-                    <input type="text" class="p-remark" placeholder="例如：含安裝五金配件">
+                    <input type="text" class="p-remark">
                 </div>
             </div>
         `;

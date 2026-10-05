@@ -130,6 +130,18 @@
             margin-top: 18px;
         }
 
+        /* ===== 汇率状态提示 ===== */
+        .rate-status {
+            font-size: 12px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+        .rate-status.loading { background: #e3f2fd; color: #1565c0; }
+        .rate-status.success { background: #e8f5e9; color: #2e7d32; }
+        .rate-status.fail { background: #fff3e0; color: #e65100; }
+
         /* ===== PI 输出区域 ===== */
         .quote-output {
             background: #ffffff;
@@ -416,7 +428,8 @@
         </div>
 
         <!-- 汇率设置 -->
-        <h3>💱 汇率设置（用于多币种显示）</h3>
+        <h3>💱 汇率设置（自动获取，可手动修改）</h3>
+        <div id="rateStatus" class="rate-status loading">正在获取当天实时汇率...</div>
         <div class="form-row">
             <div class="form-group">
                 <label>1 HKD = ? CNY</label>
@@ -487,6 +500,36 @@
         '入户门纱门 / Entrance Door Screen',
         '其他产品 / Other Products'
     ];
+
+    // ===== 自动获取实时汇率 =====
+    async function fetchRates() {
+        const statusEl = document.getElementById('rateStatus');
+        try {
+            statusEl.className = 'rate-status loading';
+            statusEl.textContent = '正在获取当天实时汇率...';
+
+            const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/cny.json');
+            const data = await res.json();
+            const rates = data.cny;
+
+            const rateHKD = rates.hkd ? (1 / rates.hkd) : 0.8584;
+            const rateUSD = rates.usd ? (1 / rates.usd) : 6.7050;
+            const rateGBP = rates.gbp ? (1 / rates.gbp) : 8.8920;
+
+            document.getElementById('rateHKD').value = rateHKD.toFixed(4);
+            document.getElementById('rateUSD').value = rateUSD.toFixed(4);
+            document.getElementById('rateGBP').value = rateGBP.toFixed(4);
+
+            const now = new Date();
+            const timeStr = now.toLocaleString('zh-CN', { hour12: false });
+            statusEl.className = 'rate-status success';
+            statusEl.textContent = `✅ 已获取实时汇率（${timeStr}）· 1 USD ≈ ${rateUSD.toFixed(4)} CNY · 1 GBP ≈ ${rateGBP.toFixed(4)} CNY · 1 HKD ≈ ${rateHKD.toFixed(4)} CNY`;
+        } catch (e) {
+            console.warn('汇率获取失败，使用默认值', e);
+            statusEl.className = 'rate-status fail';
+            statusEl.textContent = '⚠️ 实时汇率获取失败，已使用默认汇率，请手动确认。';
+        }
+    }
 
     function addProductCard() {
         const container = document.getElementById('productCards');
@@ -645,7 +688,6 @@
 
         const grandTotal = productTotal + woodenCase + otherFee - discount;
 
-        // 多币种换算
         const totalHKD = rateHKD > 0 ? (grandTotal / rateHKD) : 0;
         const totalUSD = rateUSD > 0 ? (grandTotal / rateUSD) : 0;
         const totalGBP = rateGBP > 0 ? (grandTotal / rateGBP) : 0;
@@ -879,6 +921,9 @@
         const m = String(now.getMonth() + 1).padStart(2, '0');
         const d = String(now.getDate()).padStart(2, '0');
         document.getElementById('dateVal').value = `${y}年${m}月${d}日`;
+
+        // 自动获取汇率
+        fetchRates();
     });
 </script>
 </body>

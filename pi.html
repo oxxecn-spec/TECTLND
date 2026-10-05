@@ -544,10 +544,18 @@
             </div>
         </div>
 
-        <!-- 付款方式 -->
+        <!-- 付款方式（雙模式：結構 + 渠道） -->
         <div class="form-row">
             <div class="form-group">
-                <label>付款方式 / Payment Method</label>
+                <label>付款方式（結構）/ Payment Structure</label>
+                <select id="paymentStructure">
+                    <option value="A|100% 全款預付|100% 全款預付，下單時一次性付清，收款後安排生產。|100% payment in advance. Full payment is made at the time of order, and production is arranged upon receipt.">A：100% 全款預付 / 100% Full Payment</option>
+                    <option value="B|70% 定金 + 30% 尾款|下單時支付 70% 定金，生產完成後拍照確認，支付 30% 尾款後發貨。|70% deposit at order, 30% balance after production photos are confirmed, before shipment.">B：70% 定金 + 30% 尾款 / 70% Deposit + 30% Balance</option>
+                    <option value="C|50% 定金 + 50% 尾款|下單時支付 50% 定金，生產完成後拍照確認，支付 50% 尾款後發貨。|50% deposit at order, 50% balance after production photos are confirmed, before shipment.">C：50% 定金 + 50% 尾款 / 50% Deposit + 50% Balance</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>付款渠道 / Payment Channel</label>
                 <select id="paymentMethod">
                     <option value="微信 / WeChat Pay">微信 / WeChat Pay</option>
                     <option value="支付寶 / Alipay">支付寶 / Alipay</option>
@@ -786,6 +794,8 @@
         const leadTime = document.getElementById('leadTime').value || '';
         const woodenCaseInfo = document.getElementById('woodenCaseInfo').value || '';
         const paymentMethod = document.getElementById('paymentMethod').value;
+        const paymentStructureRaw = document.getElementById('paymentStructure').value;
+        const [payCode, payTitle] = paymentStructureRaw.split('|');
         const buyerName = document.getElementById('buyerName').value || '';
         const buyerCity = document.getElementById('buyerCity').value || '';
         const buyerContact = document.getElementById('buyerContact').value || '';
@@ -842,11 +852,30 @@
         const totalUSD = rateUSD > 0 ? (grandTotal / rateUSD) : 0;
         const totalGBP = rateGBP > 0 ? (grandTotal / rateGBP) : 0;
 
+        // 定金/尾款金额
+        let depositAmount = 0, balanceAmount = 0, depositRate = '', balanceRate = '';
+        if (payCode === 'A') {
+            depositRate = '100%';
+            depositAmount = grandTotal;
+            balanceRate = '0%';
+            balanceAmount = 0;
+        } else if (payCode === 'B') {
+            depositRate = '70%';
+            depositAmount = grandTotal * 0.7;
+            balanceRate = '30%';
+            balanceAmount = grandTotal * 0.3;
+        } else if (payCode === 'C') {
+            depositRate = '50%';
+            depositAmount = grandTotal * 0.5;
+            balanceRate = '50%';
+            balanceAmount = grandTotal * 0.5;
+        }
+
         const titleName = buyerName || '客戶';
         const titleCity = buyerCity || '';
         document.title = `${titleName} ${titleCity} PI`.trim();
 
-        // ===== 動態保險條款（已投保 / 未投保）=====
+        // ===== 動態保險條款 =====
         let insuranceHtml = '';
         if (freightInsurance > 0) {
             insuranceHtml = `
@@ -891,6 +920,41 @@
                 3. We recommend that you arrange your own insurance or choose a logistics option that includes insurance.<br>
                 4. Please inspect the goods upon delivery. If any abnormality is found, take photos immediately and note it with the carrier for future claims.
                 </p>
+            `;
+        }
+
+        // ===== 動態付款條款 =====
+        let paymentTermsHtml = '';
+        let balanceTriggerHtml = '';
+        if (payCode === 'A') {
+            paymentTermsHtml = `
+                <p style="margin-bottom:6px;">
+                    <strong>📌 付款條件 / Payment Terms（方式 A）</strong><br>
+                    <strong>100% 全款預付</strong>，下單時一次性付清全款，收款後安排生產。本訂單為訂製產品，確認後不可取消或退貨。
+                    <span class="en-term">100% payment in advance. Full payment is made at the time of order, and production is arranged upon receipt. This is a custom order, non-cancelable and non-returnable after confirmation.</span>
+                </p>
+            `;
+        } else if (payCode === 'B' || payCode === 'C') {
+            const depPct = payCode === 'B' ? '70%' : '50%';
+            const balPct = payCode === 'B' ? '30%' : '50%';
+            paymentTermsHtml = `
+                <p style="margin-bottom:6px;">
+                    <strong>📌 付款條件 / Payment Terms（方式 ${payCode}）</strong><br>
+                    下單時支付 <strong>${depPct} 定金（RMB ${depositAmount.toFixed(2)}）</strong>，生產完成後拍照確認，支付 <strong>${balPct} 尾款（RMB ${balanceAmount.toFixed(2)}）</strong>後發貨。定金一經支付，不予退還。本訂單為訂製產品，確認後不可取消或退貨。
+                    <span class="en-term">${depPct} deposit (RMB ${depositAmount.toFixed(2)}) at order, ${balPct} balance (RMB ${balanceAmount.toFixed(2)}) after production photos are confirmed, before shipment. The deposit is non-refundable. This is a custom order, non-cancelable and non-returnable after confirmation.</span>
+                </p>
+            `;
+            balanceTriggerHtml = `
+                <div class="terms-box" style="background:#fff8e1; border-left-color:#ffc107;">
+                    <p style="margin-bottom:6px;">
+                        <strong>📸 生產確認與尾款 / Production Approval & Balance Payment</strong><br>
+                        1. 生產完成後，賣方拍攝產品照片/影片發送給買方確認。<br>
+                        2. 買方應在收到照片後 <strong>3 個工作日內</strong> 確認或提出書面異議。<br>
+                        3. 買方確認後（或逾期未回覆視為確認），應在 <strong>3 個工作日內</strong> 支付尾款。<br>
+                        4. 尾款到帳後安排發貨。
+                        <span class="en-term">1. Upon completion of production, the Seller will send product photos/videos to the Buyer for confirmation.<br>2. The Buyer shall confirm or raise written objections within 3 working days after receiving the photos.<br>3. After confirmation (or deemed confirmed if no reply within the period), the Buyer shall pay the balance within 3 working days.<br>4. Shipment will be arranged after the balance is received.</span>
+                    </p>
+                </div>
             `;
         }
 
@@ -1009,6 +1073,22 @@
                         <td colspan="9" style="text-align:right; font-size:15px; padding-right:20px;">✅ 合計 / TOTAL</td>
                         <td style="font-size:20px; font-weight:700; color:#003d7a;">RMB ${grandTotal.toFixed(2)}</td>
                     </tr>
+        `;
+
+        if (payCode === 'B' || payCode === 'C') {
+            html += `
+                    <tr class="bg-sub">
+                        <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">定金（${depositRate}）/ Deposit</td>
+                        <td style="font-weight:600;">${depositAmount.toFixed(2)}</td>
+                    </tr>
+                    <tr class="bg-sub">
+                        <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#b8860b;">尾款（${balanceRate}）/ Balance</td>
+                        <td style="font-weight:600; color:#b8860b;">${balanceAmount.toFixed(2)}</td>
+                    </tr>
+            `;
+        }
+
+        html += `
                 </tbody>
             </table>
         </div>
@@ -1056,7 +1136,7 @@
             <div class="info-item"><span class="tag">貿易條款 / Trade Terms</span><span>${tradeTerms}</span></div>
             <div class="info-item"><span class="tag">運輸時效 / Shipping Time</span><span>${shippingTime}</span></div>
             <div class="info-item"><span class="tag">生產週期 / Lead Time</span><span>${leadTime}</span></div>
-            <div class="info-item"><span class="tag">付款方式 / Payment Method</span><span>${paymentMethod}</span></div>
+            <div class="info-item"><span class="tag">付款方式 / Payment</span><span>${payTitle}（渠道：${paymentMethod}）</span></div>
             <div class="info-item"><span class="tag">結算幣種 / Currency</span><span>人民幣 RMB（可接受港幣／美元／英鎊）</span></div>
             <div class="info-item"><span class="tag">交貨方式 / Delivery</span><span>含運費、關稅、VAT、派送到門（DDP）</span></div>
             <div class="info-item"><span class="tag">保修配件 / Warranty</span><span>1 年 / 1 year</span></div>
@@ -1064,11 +1144,7 @@
         </div>
 
         <div class="terms-box">
-            <p style="margin-bottom:6px;">
-                <strong>📌 付款條件 / Payment Terms</strong><br>
-                100% 全款預付，收到款項後安排生產。本訂單為訂製產品，確認後不可取消或退貨。
-                <span class="en-term">100% payment in advance before production. This is a custom order, non-cancelable and non-returnable after confirmation.</span>
-            </p>
+            ${paymentTermsHtml}
             <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
                 <strong>🚚 運輸備註 / Shipping Note</strong><br>
                 DDP 包稅到門 — 包含運輸、清關、關稅、VAT、派送。收貨時無需支付任何額外費用。
@@ -1076,7 +1152,42 @@
             </p>
         </div>
 
-        <!-- 動態保險條款 -->
+        ${balanceTriggerHtml}
+
+        <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+            <p style="margin-bottom:6px;">
+                <strong>📐 產品規格說明 / Product Specifications</strong><br>
+                1. 所有尺寸以買方確認的訂單數據為準，生產公差為 <strong>±3mm</strong>。<br>
+                2. 顏色以雙方確認的色卡或樣品為準，因顯示器、拍攝光線等因素產生的<strong>輕微色差屬正常範圍</strong>，不視為質量問題。<br>
+                3. 紗網材質、五金配件以訂單確認為準。
+                <span class="en-term">1. All dimensions are based on the order data confirmed by the Buyer, with a production tolerance of ±3mm.<br>2. Colours are based on the colour card or sample confirmed by both parties. Minor colour differences caused by monitors or lighting conditions are normal and shall not be deemed quality issues.<br>3. Mesh materials and hardware are subject to order confirmation.</span>
+            </p>
+        </div>
+
+        <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+            <p style="margin-bottom:6px;">
+                <strong>✅ 質量驗收 / Quality Inspection</strong><br>
+                買方應在收到貨物後 <strong>7 個自然日內</strong> 完成驗收。如有質量問題，應以<strong>書面形式</strong>（含照片/影片）提出。逾期未提出書面異議的，視為驗收合格。
+                <span class="en-term">The Buyer shall complete inspection within 7 calendar days after receiving the goods. Any quality issues shall be raised in writing (with photos/videos). If no written objection is raised within the period, the goods shall be deemed accepted.</span>
+            </p>
+        </div>
+
+        <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+            <p style="margin-bottom:6px;">
+                <strong>🚫 定制產品 / Custom-Made Products</strong><br>
+                本訂單為定制產品，買方支付全款或定金後，訂單即進入生產流程，<strong>不接受取消或退款</strong>。如因買方原因取消訂單，已付款項不予退還。
+                <span class="en-term">This is a custom-made order. Once the Buyer pays the full amount or deposit, the order enters production and cannot be canceled or refunded. If the order is canceled for reasons attributable to the Buyer, payments already made shall not be refunded.</span>
+            </p>
+        </div>
+
+        <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+            <p style="margin-bottom:6px;">
+                <strong>⚖️ 法律適用 / Governing Law</strong><br>
+                本訂單適用中華人民共和國法律。雙方因本訂單發生爭議，應友好協商；協商不成的，提交<strong>廣東省佛山市有管轄權的人民法院</strong>解決。
+                <span class="en-term">This order shall be governed by the laws of the People's Republic of China. Any dispute shall first be resolved through friendly negotiation. If negotiation fails, it shall be submitted to the competent People's Court in Foshan, Guangdong Province, China.</span>
+            </p>
+        </div>
+
         <div class="terms-box" style="background:#f0f7ff; border-left-color:#1e5a8a;">
             ${insuranceHtml}
         </div>
@@ -1091,7 +1202,6 @@
             <p><strong>3.</strong> 如因買方資金來源或第三方代付導致賣方帳戶被凍結、資金被退回或限制使用，本訂單自動失效，賣方有權取消訂單；因買方原因造成賣方損失的，買方須承擔賠償責任。</p>
         </div>
 
-        <!-- ===== 爭議解決（新增） ===== -->
         <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
             <p style="margin-bottom:6px;">
                 <strong>⚖️ 爭議解決 / Dispute Resolution</strong><br>
@@ -1100,7 +1210,6 @@
             </p>
         </div>
 
-        <!-- ===== 不可抗力（新增） ===== -->
         <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
             <p style="margin-bottom:6px;">
                 <strong>🌪️ 不可抗力 / Force Majeure</strong><br>

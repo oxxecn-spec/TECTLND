@@ -169,7 +169,6 @@
         }
         .quote-output.show { display: block; }
 
-        /* ===== 報價單專用樣式 ===== */
         .quotation-output {
             background: #ffffff;
             border-radius: 18px;
@@ -178,6 +177,26 @@
             display: none;
         }
         .quotation-output.show { display: block; }
+
+        /* ===== 報價單專用標題 ===== */
+        .quotation-title {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #b8860b;
+        }
+        .quotation-title h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0b1a33;
+            letter-spacing: 4px;
+            margin-bottom: 6px;
+        }
+        .quotation-title .subtitle {
+            font-size: 14px;
+            color: #5d708b;
+            letter-spacing: 2px;
+        }
 
         .brand-row {
             display: flex;
@@ -400,7 +419,6 @@
             line-height: 1.7;
         }
 
-        /* ===== 收款帳戶區塊 ===== */
         .payment-account-box {
             background: #f0f7ff;
             border: 1px solid #b8d4e8;
@@ -479,6 +497,8 @@
             .btn-group { flex-direction: column; }
             .btn-group .btn { width: 100%; }
             .quote-output, .quotation-output { padding: 20px 14px; border-radius: 14px; }
+            .quotation-title h1 { font-size: 20px; letter-spacing: 2px; }
+            .quotation-title .subtitle { font-size: 12px; }
             .brand-row { flex-direction: column; align-items: stretch; gap: 10px; }
             .brand-name { font-size: 22px; }
             .invoice-meta { text-align: left; width: 100%; }
@@ -532,7 +552,7 @@
             table { min-width: 100%; font-size: 10px; }
             th { font-size: 9px; padding: 6px 4px; }
             td { font-size: 10px; padding: 6px 4px; }
-            .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row, .payment-account-box { page-break-inside: avoid; }
+            .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row, .payment-account-box, .quotation-title { page-break-inside: avoid; }
             table { page-break-inside: auto; }
             tr { page-break-inside: avoid; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -886,7 +906,6 @@
         card.querySelector('.p-amount').value = amount ? amount.toFixed(2) : '';
     }
 
-    // 收集表單資料（共用）
     function collectFormData() {
         const orderNo = document.getElementById('orderNo').value || '';
         const dateVal = document.getElementById('dateVal').value || '';
@@ -954,7 +973,7 @@
     }
 
     // ============================================================
-    // 生成報價單（極簡，繁體中文）
+    // 生成報價單（極簡，繁體中文，含公司信息）
     // ============================================================
     function generateQuotation() {
         const d = collectFormData();
@@ -976,6 +995,11 @@
         const validStr = `${validDate.getFullYear()}年${String(validDate.getMonth() + 1).padStart(2, '0')}月${String(validDate.getDate()).padStart(2, '0')}日`;
 
         let html = `
+        <div class="quotation-title">
+            <h1>產 品 報 價 估 價 單</h1>
+            <div class="subtitle">QUOTATION / ESTIMATE</div>
+        </div>
+
         <div class="brand-row">
             <div class="brand-left">
                 <div class="brand-name">MBORMC 曼伯歐羅 <small>®</small></div>
@@ -988,16 +1012,27 @@
             </div>
         </div>
 
-        ${d.buyerName || d.buyerCity ? `
         <div class="address-panel">
+            <div class="address-box">
+                <div class="label">賣方 / Seller</div>
+                <div class="content">
+                    <strong>佛山市德鉑歐羅門窗有限公司</strong><br>
+                    Foshan Debo Ouluo Doors and Windows Co., LTD<br>
+                    聯絡人 / Contact：鄧金閃 / Deng Jinshan<br>
+                    <span class="phone">WhatsApp：+86 135 3660 0067</span><br>
+                    <span class="phone">微信 / WeChat：FSMBOR</span><br>
+                    地址 / Address：中國廣東佛山南海區大瀝鎮<br>
+                    網站 / Web：<a href="http://www.mbormc.com" target="_blank" class="web-link">www.mbormc.com</a>
+                </div>
+            </div>
             <div class="address-box">
                 <div class="label">客戶 / Customer</div>
                 <div class="content">
                     <strong>${d.buyerName || '—'}</strong>${d.buyerCity ? '<br>' + d.buyerCity : ''}
+                    ${d.buyerContact ? '<br>' + d.buyerContact : ''}
                 </div>
             </div>
         </div>
-        ` : ''}
 
         <div class="table-wrap">
             <table>
@@ -1107,10 +1142,7 @@
         const output = document.getElementById('quotationOutput');
         output.innerHTML = html;
         output.classList.add('show');
-
-        // 隱藏正式 PI 輸出（如已生成）
         document.getElementById('quoteOutput').classList.remove('show');
-
         document.getElementById('printBtn').style.display = 'inline-flex';
         output.scrollIntoView({ behavior: 'smooth' });
     }
@@ -1130,7 +1162,6 @@
         const totalUSD = d.rateUSD > 0 ? (d.grandTotal / d.rateUSD) : 0;
         const totalGBP = d.rateGBP > 0 ? (d.grandTotal / d.rateGBP) : 0;
 
-        // 定金/尾款
         let depositAmount = 0, balanceAmount = 0, depositRate = '', balanceRate = '';
         if (d.payCode === 'A') {
             depositRate = '100%'; depositAmount = d.grandTotal;
@@ -1143,7 +1174,6 @@
             balanceRate = '50%'; balanceAmount = d.grandTotal * 0.5;
         }
 
-        // 買方欄位
         let buyerHtml = '';
         if (d.buyerCompany) {
             buyerHtml = `<strong>${d.buyerCompany}</strong><br>`;
@@ -1159,7 +1189,6 @@
             if (d.buyerAddress) buyerHtml += d.buyerAddress;
         }
 
-        // 保險條款
         let insuranceHtml = '';
         if (d.freightInsurance > 0) {
             insuranceHtml = `
@@ -1177,7 +1206,6 @@
                 3. 未經拍照評估、自行處理或超過期限才反映者，我們仍會盡力協助，但無法保證按保險條款全額處理。
                 </p>
                 <p class="en-term">
-                ✅ This order is covered by Freight Insurance (RMB ${d.freightInsurance.toFixed(2)}).<br>
                 1. Please inspect the packaging and products upon delivery. If any damage is found, take photos/videos first (including outer packaging, damaged area, overall and close-up shots) and send them to us within 7 working days.<br>
                 2. Upon receiving the photos, we will conduct a professional assessment based on the cause, location, and severity of the damage:<br>
                 &nbsp;&nbsp;&nbsp;• Structural, functional, or safety impact → We will reproduce the damaged product free of charge, and the second shipping cost shall be borne by the Seller.<br>
@@ -1208,7 +1236,6 @@
             `;
         }
 
-        // 付款條款
         let paymentTermsHtml = '';
         let balanceTriggerHtml = '';
         if (d.payCode === 'A') {
@@ -1540,17 +1567,11 @@
         const output = document.getElementById('quoteOutput');
         output.innerHTML = html;
         output.classList.add('show');
-
-        // 隱藏報價單輸出（如已生成）
         document.getElementById('quotationOutput').classList.remove('show');
-
         document.getElementById('printBtn').style.display = 'inline-flex';
         output.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // ============================================================
-    // 統一入口
-    // ============================================================
     function generateQuote(type) {
         if (type === 'quote') {
             generateQuotation();

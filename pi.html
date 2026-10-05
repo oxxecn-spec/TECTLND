@@ -846,7 +846,7 @@
         const titleCity = buyerCity || '';
         document.title = `${titleName} ${titleCity} PI`.trim();
 
-        // ===== 動態保險條款（已修改：先評估，按程度處理）=====
+        // ===== 動態保險條款（已投保 / 未投保）=====
         let insuranceHtml = '';
         if (freightInsurance > 0) {
             insuranceHtml = `
@@ -860,7 +860,7 @@
                 &nbsp;&nbsp;&nbsp;• <strong>影響結構、功能或安全</strong> → 安排<strong>免費重做</strong>受損產品，二次運輸費用由賣方承擔。<br>
                 &nbsp;&nbsp;&nbsp;• <strong>僅外觀輕微受壓、不影響使用</strong> → 可安排<strong>補發配件</strong>（如紗網、膠條、五金件等）或提供<strong>維修方案</strong>，無需整件重做。<br>
                 &nbsp;&nbsp;&nbsp;• <strong>可現場簡易修復</strong> → 我們會提供<strong>維修指導</strong>，必要時補發小配件。<br>
-                3. 未經拍照評估、自行處理或超過期限才反映者，恕無法按保險條款處理，但我們仍會協助您與承運方溝通索賠。
+                3. 未經拍照評估、自行處理或超過期限才反映者，我們仍會盡力協助，但無法保證按保險條款全額處理。
                 </p>
                 <p class="en-term">
                 ✅ This order is covered by Freight Insurance (RMB ${freightInsurance.toFixed(2)}).<br>
@@ -869,7 +869,7 @@
                 &nbsp;&nbsp;&nbsp;• <strong>Structural, functional, or safety impact</strong> → We will <strong>reproduce the damaged product free of charge</strong>, and the second shipping cost shall be borne by the Seller.<br>
                 &nbsp;&nbsp;&nbsp;• <strong>Minor cosmetic compression only, no impact on use</strong> → We may <strong>send replacement parts</strong> (mesh, seals, hardware, etc.) or provide a <strong>repair solution</strong> instead of full reproduction.<br>
                 &nbsp;&nbsp;&nbsp;• <strong>On-site simple repair possible</strong> → We will provide <strong>repair guidance</strong> and send small parts if necessary.<br>
-                3. Claims without prior photo assessment, self-handled repairs, or reports beyond the deadline will not be covered under the insurance terms, but we will still assist you in filing a claim with the carrier.
+                3. Claims without prior photo assessment, self-handled repairs, or reports beyond the deadline will still receive our best assistance, but full coverage under the insurance terms cannot be guaranteed.
                 </p>
             `;
         } else {
@@ -881,13 +881,15 @@
                 <p>
                 1. 若貨物在運輸途中因運輸原因損壞或丟失，我司將協助您向承運方索賠。<br>
                 2. 我司不承擔免費重做或二次運輸費用。<br>
-                3. 建議您自行投保，或選擇含保險的物流方案。
+                3. 建議您自行投保，或選擇含保險的物流方案。<br>
+                4. 建議收貨時當場開箱檢查，如有異常請立即拍照並向承運方備註，以便後續索賠。
                 </p>
                 <p class="en-term">
                 ⚠️ This order is not covered by Freight Insurance.<br>
                 1. If damaged or lost during transit, we will assist you in filing a claim with the carrier.<br>
                 2. We will not be responsible for free reproduction or the second shipping cost.<br>
-                3. We recommend that you arrange your own insurance or choose a logistics option that includes insurance.
+                3. We recommend that you arrange your own insurance or choose a logistics option that includes insurance.<br>
+                4. Please inspect the goods upon delivery. If any abnormality is found, take photos immediately and note it with the carrier for future claims.
                 </p>
             `;
         }
@@ -1087,6 +1089,24 @@
             <p><strong>1.</strong> 買方保證支付本訂單之所有款項均來源於合法所得，不涉及任何非法活動（包括但不限於洗錢、詐騙、貪污、走私、恐怖融資等）。</p>
             <p><strong>2.</strong> 買方須以本人或本公司帳戶支付。如使用第三方代付，須提前告知並獲得賣方同意。</p>
             <p><strong>3.</strong> 如因買方資金來源或第三方代付導致賣方帳戶被凍結、資金被退回或限制使用，本訂單自動失效，賣方有權取消訂單；因買方原因造成賣方損失的，買方須承擔賠償責任。</p>
+        </div>
+
+        <!-- ===== 爭議解決（新增） ===== -->
+        <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+            <p style="margin-bottom:6px;">
+                <strong>⚖️ 爭議解決 / Dispute Resolution</strong><br>
+                本訂單適用中華人民共和國法律。雙方因本訂單發生爭議，應首先通過友好協商解決；協商不成的，任何一方均可提交<strong>廣東省佛山市有管轄權的人民法院</strong>訴訟解決。雙方同意由賣方所在地法院管轄。
+                <span class="en-term">This order shall be governed by the laws of the People's Republic of China. Any dispute arising from this order shall first be resolved through friendly negotiation. If negotiation fails, either party may submit the dispute to the competent People's Court in Foshan, Guangdong Province, China. Both parties agree that the court at the Seller's location shall have jurisdiction.</span>
+            </p>
+        </div>
+
+        <!-- ===== 不可抗力（新增） ===== -->
+        <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+            <p style="margin-bottom:6px;">
+                <strong>🌪️ 不可抗力 / Force Majeure</strong><br>
+                因不可抗力（包括但不限於自然災害、疫情、政府行為、海關查驗、罷工、戰爭等）導致交期延誤或無法履行本訂單的，賣方不承擔違約責任，但應及時通知買方並盡力協調解決。
+                <span class="en-term">If the performance of this order is delayed or prevented by force majeure (including but not limited to natural disasters, epidemics, government acts, customs inspection, strikes, wars, etc.), the Seller shall not be liable for breach of contract, but shall notify the Buyer promptly and make every effort to coordinate a solution.</span>
+            </p>
         </div>
 
         <div style="background:#f0f7ff; border:1px solid #b8d4e8; border-radius:10px; padding:14px 18px; margin:12px 0 8px; font-size:13.5px; color:#1a3c62;">

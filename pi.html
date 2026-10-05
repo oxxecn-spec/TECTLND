@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>PI 報價單生成 · MBORMC 曼伯歐羅</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -431,12 +432,10 @@
             .product-card .row { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* ===== 列印 / PDF 輸出：A4 橫式 ===== */
         @media print {
             body { background: white; padding: 0; }
             .form-panel { display: none !important; }
             .mobile-pdf-hint { display: none !important; }
-
             .quote-output {
                 display: block !important;
                 box-shadow: none;
@@ -447,28 +446,18 @@
                 width: 100%;
                 max-width: 100%;
             }
-
-            /* 表格在列印時全部展開 */
             .table-wrap { overflow: visible; border: 1px solid #ccc; }
             table { min-width: 100%; font-size: 10px; }
             th { font-size: 9px; padding: 6px 4px; }
             td { font-size: 10px; padding: 6px 4px; }
-
-            /* 防止分頁斷裂 */
             .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row { page-break-inside: avoid; }
             table { page-break-inside: auto; }
             tr { page-break-inside: avoid; }
-
-            /* 顏色列印 */
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-
-            /* ===== 關鍵：A4 橫式 ===== */
             @page { 
                 margin: 8mm; 
-                size: A4 landscape;  /* 橫式 */
+                size: A4 landscape;
             }
-
-            /* 簽名區橫式排版 */
             .sign-row {
                 display: flex;
                 flex-wrap: nowrap;
@@ -628,9 +617,8 @@
         <!-- 手機端 PDF 提示 -->
         <div class="mobile-pdf-hint" id="mobilePdfHint">
             📱 <strong>手機生成 PDF 提示：</strong><br>
-            • <strong>iPhone / Safari</strong>：點擊「列印」，在預覽頁面用雙指「放大」手勢，即可將整頁縮放為 PDF，再點右上角「分享」→「儲存到檔案」。<br>
-            • <strong>Android / Chrome</strong>：點擊「列印」，選擇「儲存為 PDF」即可。<br>
-            • 如表格未完整顯示，請在列印預覽中選擇「橫向」或「縮放至適合頁面」。
+            • <strong>Android / Chrome</strong>：點擊「列印」，在「目標印表機」選「另存為 PDF」即可。<br>
+            • <strong>iPhone / Safari</strong>：點擊「列印」，在預覽頁面用雙指放大，再點右上角「分享」→「儲存到檔案」。
         </div>
     </div>
 

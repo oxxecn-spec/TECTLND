@@ -2,14 +2,15 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>PI 報價單生成器 · MBORMC 曼伯歐羅</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             background: #e6e9ef;
             font-family: 'Microsoft JhengHei', 'PingFang TC', 'Segoe UI', Arial, sans-serif;
             padding: 30px 20px;
+            -webkit-text-size-adjust: 100%;
         }
         .container { max-width: 1300px; margin: 0 auto; }
 
@@ -51,13 +52,14 @@
             letter-spacing: 0.3px;
         }
         .form-group input, .form-group select {
-            padding: 8px 10px;
+            padding: 10px 12px;
             border: 1px solid #dce5ec;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 15px;
             color: #1b293b;
             transition: border 0.2s;
             font-family: inherit;
+            width: 100%;
         }
         .form-group input:focus, .form-group select:focus {
             outline: none;
@@ -100,23 +102,26 @@
         .product-card .row:last-child { margin-bottom: 0; }
         .product-card .form-group label { font-size: 11px; }
         .product-card .form-group input,
-        .product-card .form-group select { padding: 6px 8px; font-size: 13px; }
+        .product-card .form-group select { padding: 8px 10px; font-size: 14px; }
 
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
             border-radius: 10px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
+            -webkit-appearance: none;
         }
         .btn-primary { background: #1e5a8a; color: white; }
-        .btn-primary:hover { background: #0f3b5c; transform: translateY(-1px); }
+        .btn-primary:hover { background: #0f3b5c; }
+        .btn-primary:active { transform: scale(0.98); }
         .btn-outline {
             background: white;
             border: 1.5px solid #1e5a8a;
@@ -126,8 +131,8 @@
         .btn-danger {
             background: #e74c3c;
             color: white;
-            padding: 6px 12px;
-            font-size: 12px;
+            padding: 8px 14px;
+            font-size: 13px;
             border-radius: 6px;
         }
         .btn-danger:hover { background: #c0392b; }
@@ -145,6 +150,7 @@
             border-radius: 8px;
             margin-bottom: 12px;
             display: inline-block;
+            line-height: 1.6;
         }
         .rate-status.loading { background: #e3f2fd; color: #1565c0; }
         .rate-status.success { background: #e8f5e9; color: #2e7d32; }
@@ -168,6 +174,7 @@
             padding-bottom: 16px;
             margin-bottom: 22px;
             flex-wrap: wrap;
+            gap: 12px;
         }
         .brand-left { display: flex; flex-direction: column; }
         .brand-name {
@@ -217,7 +224,7 @@
         .address-box .content .phone { font-weight: 500; color: #0f2b4f; }
         .web-link { color: #0059b3; text-decoration: none; border-bottom: 1px dotted #b3c9e0; }
 
-        .table-wrap { overflow-x: auto; margin: 18px 0 20px; border-radius: 16px; border: 1px solid #e3e9f2; }
+        .table-wrap { overflow-x: auto; margin: 18px 0 20px; border-radius: 16px; border: 1px solid #e3e9f2; -webkit-overflow-scrolling: touch; }
         table { width: 100%; border-collapse: collapse; font-size: 12.5px; background: white; min-width: 950px; }
         th {
             background: #1a2b4c;
@@ -354,8 +361,9 @@
             margin: 28px 0 10px;
             padding-top: 12px;
             border-top: 2px solid #dfe7f2;
+            gap: 16px;
         }
-        .sign-box { min-width: 180px; padding: 6px 0; }
+        .sign-box { min-width: 180px; padding: 6px 0; flex: 1 1 200px; }
         .sign-box .label { font-size: 13px; color: #475e7c; font-weight: 500; }
         .sign-box .name { font-size: 18px; font-weight: 600; color: #0b1a33; margin-top: 4px; border-bottom: 1px solid #bacfe0; padding-bottom: 6px; display: inline-block; }
         .sign-box .date { font-size: 14px; color: #2e4a6b; margin-top: 8px; }
@@ -369,19 +377,132 @@
             padding-top: 16px;
         }
 
-        @media (max-width: 768px) {
-            .product-card .row { grid-template-columns: 1fr 1fr; }
-            .quote-output { padding: 20px 18px; }
-            .brand-row { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .invoice-meta { text-align: left; width: 100%; }
-            .info-grid { grid-template-columns: 1fr; }
-            .sign-row { flex-direction: column; gap: 16px; }
+        /* ===== 手機端 PDF 提示 ===== */
+        .mobile-pdf-hint {
+            display: none;
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 13px;
+            color: #0d47a1;
+            line-height: 1.7;
         }
 
+        /* ===== 手機端適配 ===== */
+        @media (max-width: 768px) {
+            body { padding: 12px 8px; }
+            .container { max-width: 100%; }
+
+            .form-panel { padding: 18px 16px; border-radius: 14px; margin-bottom: 14px; }
+            .form-panel h2 { font-size: 17px; }
+            .form-panel h3 { font-size: 14px; }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .form-group label { font-size: 12px; }
+            .form-group input, .form-group select { font-size: 16px; padding: 10px 12px; }
+
+            .product-card { padding: 14px 12px; border-radius: 10px; }
+            .product-card .row { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .product-card .card-title { font-size: 13px; }
+
+            .btn { padding: 12px 18px; font-size: 14px; }
+            .btn-group { flex-direction: column; }
+            .btn-group .btn { width: 100%; }
+
+            /* 手機端 PI 輸出 */
+            .quote-output { padding: 20px 14px; border-radius: 14px; }
+
+            .brand-row { flex-direction: column; align-items: stretch; gap: 10px; }
+            .brand-name { font-size: 22px; }
+            .invoice-meta { text-align: left; width: 100%; }
+
+            .address-panel { flex-direction: column; gap: 16px; padding: 14px 16px; }
+            .address-box .content { font-size: 14px; }
+
+            /* 表格橫向滑動 */
+            .table-wrap { border-radius: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            table { font-size: 11px; min-width: 700px; }
+            th { padding: 8px 5px; font-size: 10px; }
+            td { padding: 8px 5px; }
+
+            .info-grid { grid-template-columns: 1fr; gap: 10px; padding: 14px 16px; }
+            .info-item { font-size: 13px; }
+            .info-item .tag { min-width: 100px; font-size: 12px; }
+
+            .currency-box { padding: 14px 16px; }
+            .currency-box .title { font-size: 14px; }
+            .currency-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .currency-item { padding: 10px 8px; }
+            .currency-item .c-value { font-size: 16px; }
+            .currency-item.main .c-value { font-size: 18px; }
+
+            .terms-box { padding: 14px 16px; font-size: 13px; }
+            .compliance-box { padding: 12px 14px; font-size: 12px; }
+            .compliance-box .box-title { font-size: 13px; }
+
+            .sign-row { flex-direction: column; gap: 14px; }
+            .sign-box { width: 100%; }
+            .sign-box .name { font-size: 16px; }
+
+            /* 手機端 PDF 提示 */
+            .mobile-pdf-hint { display: block; }
+        }
+
+        /* ===== 平板適配 ===== */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .form-row { grid-template-columns: repeat(2, 1fr); }
+            .product-card .row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ===== 列印 / PDF 輸出 ===== */
         @media print {
             body { background: white; padding: 0; }
+
+            /* 隱藏表單和按鈕 */
             .form-panel { display: none !important; }
-            .quote-output { display: block !important; box-shadow: none; padding: 20px 25px; border: 1px solid #ccc; }
+            .mobile-pdf-hint { display: none !important; }
+
+            /* 顯示 PI */
+            .quote-output {
+                display: block !important;
+                box-shadow: none;
+                padding: 15px 20px;
+                border: none;
+                border-radius: 0;
+                margin: 0;
+            }
+
+            /* 表格在列印時全部展開 */
+            .table-wrap { overflow: visible; border: 1px solid #ccc; }
+            table { min-width: 100%; font-size: 10px; }
+            th { font-size: 9px; padding: 6px 4px; }
+            td { font-size: 10px; padding: 6px 4px; }
+
+            /* 防止分頁斷裂 */
+            .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row { page-break-inside: avoid; }
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; }
+
+            /* 顏色列印 */
+            * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+            /* 邊距設定 */
+            @page { margin: 10mm; size: A4; }
+        }
+
+        /* ===== 極小屏幕（手機豎屏）===== */
+        @media (max-width: 420px) {
+            .form-panel { padding: 14px 12px; }
+            .form-panel h2 { font-size: 16px; }
+            .product-card .row { grid-template-columns: 1fr; }
+            .currency-grid { grid-template-columns: 1fr; }
+            .brand-name { font-size: 20px; }
+            .info-item .tag { min-width: 80px; }
         }
     </style>
 </head>
@@ -517,6 +638,14 @@
             <button class="btn btn-primary" onclick="generateQuote()">📄 生成 PI / Generate PI</button>
             <button class="btn btn-outline" onclick="window.print()" id="printBtn" style="display:none;">🖨️ 列印 / 另存為 PDF</button>
         </div>
+
+        <!-- 手機端 PDF 提示 -->
+        <div class="mobile-pdf-hint" id="mobilePdfHint">
+            📱 <strong>手機生成 PDF 提示：</strong><br>
+            • <strong>iPhone / Safari</strong>：點擊「列印」，在預覽頁面用雙指「放大」手勢，即可將整頁縮放為 PDF，再點右上角「分享」→「儲存到檔案」。<br>
+            • <strong>Android / Chrome</strong>：點擊「列印」，選擇「儲存為 PDF」即可。<br>
+            • 如表格未完整顯示，請在列印預覽中選擇「橫向」或「縮放至適合頁面」。
+        </div>
     </div>
 
     <!-- ===== PI 輸出區域 ===== -->
@@ -571,7 +700,7 @@
             const now = new Date();
             const timeStr = now.toLocaleString('zh-TW', { hour12: false });
             statusEl.className = 'rate-status success';
-            statusEl.textContent = `✅ 已取得即時匯率（${timeStr}）· 1 USD ≈ ${rateUSD.toFixed(4)} CNY · 1 GBP ≈ ${rateGBP.toFixed(4)} CNY · 1 HKD ≈ ${rateHKD.toFixed(4)} CNY`;
+            statusEl.textContent = `✅ 已取得即時匯率（${timeStr}）· 1 USD ≈ ${rateUSD.toFixed(4)} · 1 GBP ≈ ${rateGBP.toFixed(4)} · 1 HKD ≈ ${rateHKD.toFixed(4)}`;
         } catch (e) {
             console.warn('匯率取得失敗，使用預設值', e);
             statusEl.className = 'rate-status fail';

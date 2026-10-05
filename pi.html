@@ -229,6 +229,7 @@
             letter-spacing: 0.3px;
             white-space: nowrap;
         }
+        th .en-head { font-weight: 300; font-size: 10px; color: #c7d6ed; display: block; margin-top: 2px; }
         td { padding: 10px 8px; border-bottom: 1px solid #eef2f8; text-align: center; vertical-align: middle; background: white; }
         tr:last-child td { border-bottom: none; }
         .text-left { text-align: left; padding-left: 12px; }
@@ -313,8 +314,9 @@
             color: #0f263f;
         }
         .terms-box strong { color: #002856; }
+        .terms-box .en-term { font-size: 12.5px; color: #4f6a8a; display: block; margin-top: 3px; font-weight: 400; }
 
-        /* ===== 資金來源與合規聲明（精簡版）===== */
+        /* ===== 資金來源與合規聲明（只中文）===== */
         .compliance-box {
             background: #fff5f5;
             border: 2px solid #e74c3c;
@@ -388,32 +390,32 @@
 
     <!-- ===== 表單區域 ===== -->
     <div class="form-panel">
-        <h2>📝 填寫 PI 資料</h2>
+        <h2>📝 填寫 PI 資料 / Fill PI Information</h2>
 
         <!-- 基本資料 -->
         <div class="form-row">
             <div class="form-group">
-                <label>訂單編號（自動生成）</label>
+                <label>訂單編號（自動生成）/ Invoice No.（Auto）</label>
                 <input type="text" id="orderNo" readonly>
             </div>
             <div class="form-group">
-                <label>日期</label>
+                <label>日期 / Date</label>
                 <input type="text" id="dateVal" placeholder="2026年10月6日">
             </div>
             <div class="form-group">
-                <label>貿易條款</label>
+                <label>貿易條款 / Trade Terms</label>
                 <select id="tradeTerms">
-                    <option value="DDP（雙清包稅到門）">DDP（雙清包稅到門）</option>
-                    <option value="DDP（空運包稅到門）">DDP（空運包稅到門）</option>
-                    <option value="DDP（海運包稅到門）">DDP（海運包稅到門）</option>
-                    <option value="EXW 佛山（出廠價）">EXW 佛山（出廠價）</option>
+                    <option value="DDP（雙清包稅到門）/ DDP (All-Inclusive)">DDP（雙清包稅到門）</option>
+                    <option value="DDP 空運（包稅到門）/ DDP Air Freight">DDP 空運（包稅到門）</option>
+                    <option value="DDP 海運（包稅到門）/ DDP Sea Freight">DDP 海運（包稅到門）</option>
+                    <option value="EXW 佛山（出廠價）/ EXW Foshan">EXW 佛山（出廠價）</option>
                 </select>
             </div>
             <div class="form-group">
-                <label>運輸時效</label>
+                <label>運輸時效 / Shipping Time</label>
                 <select id="shippingTime">
-                    <option value="空運約15天">空運約15天</option>
-                    <option value="海運約45天" selected>海運約45天</option>
+                    <option value="空運約15天 / Air approx. 15 days">空運約15天</option>
+                    <option value="海運約45天 / Sea approx. 45 days" selected>海運約45天</option>
                 </select>
             </div>
         </div>
@@ -421,11 +423,11 @@
         <!-- 生產週期 & 木箱體積 -->
         <div class="form-row">
             <div class="form-group">
-                <label>生產週期</label>
-                <input type="text" id="leadTime" placeholder="收到款項後15-20天" value="收到款項後15-20天">
+                <label>生產週期 / Lead Time</label>
+                <input type="text" id="leadTime" placeholder="收到款項後15-20天" value="收到款項後15-20天 / 15-20 days after payment">
             </div>
             <div class="form-group">
-                <label>木箱體積／重量</label>
+                <label>木箱體積／重量 / Wooden Case Size & Weight</label>
                 <input type="text" id="woodenCaseInfo" placeholder="2200×500×500mm · 60KG">
             </div>
         </div>
@@ -433,19 +435,19 @@
         <!-- 客戶資料 -->
         <div class="form-row">
             <div class="form-group">
-                <label>客戶姓名</label>
+                <label>客戶姓名 / Buyer Name</label>
                 <input type="text" id="buyerName" placeholder="客戶姓名">
             </div>
             <div class="form-group">
-                <label>客戶國家／城市</label>
+                <label>客戶國家／城市 / Country & City</label>
                 <input type="text" id="buyerCity" placeholder="例如：英國 · 倫敦">
             </div>
             <div class="form-group">
-                <label>客戶信箱／電話</label>
+                <label>客戶信箱／電話 / Contact</label>
                 <input type="text" id="buyerContact" placeholder="信箱或電話">
             </div>
             <div class="form-group">
-                <label>收貨地址</label>
+                <label>收貨地址 / Delivery Address</label>
                 <input type="text" id="buyerAddress" placeholder="完整收貨地址">
             </div>
         </div>
@@ -453,51 +455,51 @@
         <!-- 付款方式 -->
         <div class="form-row">
             <div class="form-group">
-                <label>付款方式</label>
+                <label>付款方式 / Payment Method</label>
                 <select id="paymentMethod">
-                    <option value="微信 / WeChat Pay">微信</option>
-                    <option value="支付寶 / Alipay">支付寶</option>
-                    <option value="國際公司帳號">國際公司帳號</option>
+                    <option value="微信 / WeChat Pay">微信 / WeChat Pay</option>
+                    <option value="支付寶 / Alipay">支付寶 / Alipay</option>
+                    <option value="國際公司帳號 / International Company Account">國際公司帳號 / International Company Account</option>
                 </select>
             </div>
         </div>
 
         <!-- 匯率設定 -->
-        <h3>💱 匯率設定（自動取得，可手動修改）</h3>
-        <div id="rateStatus" class="rate-status loading">正在取得當天即時匯率...</div>
+        <h3>💱 匯率設定（自動取得，可手動修改）/ Exchange Rate Settings</h3>
+        <div id="rateStatus" class="rate-status loading">正在取得當天即時匯率... / Fetching live rates...</div>
         <div class="form-row">
             <div class="form-group">
-                <label>1 港幣 = ? 人民幣</label>
+                <label>1 港幣 = ? 人民幣 / 1 HKD = ? CNY</label>
                 <input type="number" id="rateHKD" value="0.8584" step="0.0001" min="0">
             </div>
             <div class="form-group">
-                <label>1 美元 = ? 人民幣</label>
+                <label>1 美元 = ? 人民幣 / 1 USD = ? CNY</label>
                 <input type="number" id="rateUSD" value="6.7050" step="0.0001" min="0">
             </div>
             <div class="form-group">
-                <label>1 英鎊 = ? 人民幣</label>
+                <label>1 英鎊 = ? 人民幣 / 1 GBP = ? CNY</label>
                 <input type="number" id="rateGBP" value="8.8920" step="0.0001" min="0">
             </div>
         </div>
 
         <!-- 產品明細 -->
-        <h3>📦 產品明細</h3>
+        <h3>📦 產品明細 / Product Details</h3>
         <div id="productCards"></div>
-        <button class="btn btn-outline" onclick="addProductCard()" style="margin-top:6px;">+ 新增一項產品</button>
+        <button class="btn btn-outline" onclick="addProductCard()" style="margin-top:6px;">+ 新增一項產品 / Add Product</button>
 
         <!-- 額外費用 -->
-        <h3>💰 額外費用（可選）</h3>
+        <h3>💰 額外費用（可選）/ Additional Charges (Optional)</h3>
         <div class="form-row">
             <div class="form-group">
-                <label>木箱包裝費（人民幣）</label>
+                <label>木箱包裝費（人民幣）/ Wooden Case (RMB)</label>
                 <input type="number" id="woodenCase" placeholder="0" value="0" min="0">
             </div>
             <div class="form-group">
-                <label>其他費用（人民幣）</label>
+                <label>其他費用（人民幣）/ Other Fees (RMB)</label>
                 <input type="number" id="otherFee" placeholder="0" value="0" min="0">
             </div>
             <div class="form-group">
-                <label>折扣（人民幣）</label>
+                <label>折扣（人民幣）/ Discount (RMB)</label>
                 <input type="number" id="discount" placeholder="0" value="0" min="0">
             </div>
         </div>
@@ -505,14 +507,14 @@
         <!-- 備註 -->
         <div class="form-row">
             <div class="form-group" style="grid-column: 1 / -1;">
-                <label>備註</label>
+                <label>備註 / Remark</label>
                 <input type="text" id="remark" placeholder="例如：不足1㎡按1㎡計算">
             </div>
         </div>
 
         <!-- 按鈕 -->
         <div class="btn-group">
-            <button class="btn btn-primary" onclick="generateQuote()">📄 生成 PI</button>
+            <button class="btn btn-primary" onclick="generateQuote()">📄 生成 PI / Generate PI</button>
             <button class="btn btn-outline" onclick="window.print()" id="printBtn" style="display:none;">🖨️ 列印 / 另存為 PDF</button>
         </div>
     </div>
@@ -526,14 +528,14 @@
     let productIndex = 0;
 
     const COLOR_OPTIONS = [
-        '白色',
-        '灰色'
+        '白色 / White',
+        '灰色 / Grey'
     ];
 
     const PRODUCT_TYPE_OPTIONS = [
-        '防寵物紗窗',
-        '入戶門紗門',
-        '其他產品'
+        '防寵物紗窗 / Pet-Proof Window Screen',
+        '入戶門紗門 / Entrance Door Screen',
+        '其他產品 / Other Products'
     ];
 
     // ===== 自動生成訂單編號（MB + 年月日時分）=====
@@ -552,7 +554,7 @@
         const statusEl = document.getElementById('rateStatus');
         try {
             statusEl.className = 'rate-status loading';
-            statusEl.textContent = '正在取得當天即時匯率...';
+            statusEl.textContent = '正在取得當天即時匯率... / Fetching live rates...';
 
             const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/cny.json');
             const data = await res.json();
@@ -569,11 +571,11 @@
             const now = new Date();
             const timeStr = now.toLocaleString('zh-TW', { hour12: false });
             statusEl.className = 'rate-status success';
-            statusEl.textContent = `✅ 已取得即時匯率（${timeStr}）· 1 美元 ≈ ${rateUSD.toFixed(4)} 人民幣 · 1 英鎊 ≈ ${rateGBP.toFixed(4)} 人民幣 · 1 港幣 ≈ ${rateHKD.toFixed(4)} 人民幣`;
+            statusEl.textContent = `✅ 已取得即時匯率（${timeStr}）· 1 USD ≈ ${rateUSD.toFixed(4)} CNY · 1 GBP ≈ ${rateGBP.toFixed(4)} CNY · 1 HKD ≈ ${rateHKD.toFixed(4)} CNY`;
         } catch (e) {
             console.warn('匯率取得失敗，使用預設值', e);
             statusEl.className = 'rate-status fail';
-            statusEl.textContent = '⚠️ 即時匯率取得失敗，已使用預設匯率，請手動確認。';
+            statusEl.textContent = '⚠️ 即時匯率取得失敗，已使用預設匯率，請手動確認。/ Failed to fetch live rates. Default rates used.';
         }
     }
 
@@ -589,66 +591,66 @@
 
         card.innerHTML = `
             <div class="card-header">
-                <span class="card-title">產品 #${idx + 1}</span>
-                <button class="btn btn-danger" onclick="removeProductCard(${idx})">刪除</button>
+                <span class="card-title">產品 #${idx + 1} / Product #${idx + 1}</span>
+                <button class="btn btn-danger" onclick="removeProductCard(${idx})">刪除 / Delete</button>
             </div>
 
             <div class="row">
                 <div class="form-group" style="grid-column: span 2;">
-                    <label>產品類型</label>
+                    <label>產品類型 / Product Type</label>
                     <select class="p-type">${typeOptions}</select>
                 </div>
                 <div class="form-group" style="grid-column: span 2;">
-                    <label>產品名稱</label>
+                    <label>產品名稱 / Product Name</label>
                     <input type="text" class="p-name" placeholder="例如：折疊式紗門（單開）">
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group">
-                    <label>框顏色</label>
+                    <label>框顏色 / Colour</label>
                     <select class="p-color">${colorOptions}</select>
                 </div>
                 <div class="form-group">
-                    <label>開啟方式</label>
+                    <label>開啟方式 / Opening</label>
                     <select class="p-opening">
-                        <option value="左單開">左單開</option>
-                        <option value="右單開">右單開</option>
-                        <option value="對開式">對開式</option>
+                        <option value="左單開 / Left Single Opening">左單開 / Left Single</option>
+                        <option value="右單開 / Right Single Opening">右單開 / Right Single</option>
+                        <option value="對開式 / Double Opening">對開式 / Double</option>
                     </select>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group">
-                    <label>高度（mm）</label>
+                    <label>高度（mm）/ Height</label>
                     <input type="number" class="p-height" placeholder="" oninput="calcCard(${idx})">
                 </div>
                 <div class="form-group">
-                    <label>寬度（mm）</label>
+                    <label>寬度（mm）/ Width</label>
                     <input type="number" class="p-width" placeholder="" oninput="calcCard(${idx})">
                 </div>
                 <div class="form-group">
-                    <label>數量</label>
+                    <label>數量 / Qty</label>
                     <input type="number" class="p-qty" placeholder="1" value="1" min="1" oninput="calcCard(${idx})">
                 </div>
                 <div class="form-group">
-                    <label>單價（元/㎡）</label>
+                    <label>單價（元/㎡）/ Unit Price</label>
                     <input type="number" class="p-unit" placeholder="" oninput="calcCard(${idx})">
                 </div>
                 <div class="form-group">
-                    <label>金額</label>
+                    <label>金額 / Amount</label>
                     <input type="text" class="p-amount" readonly style="background:#f4f7fc; font-weight:600; color:#0b1a33;">
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group" style="grid-column: span 2;">
-                    <label>紗網／材質說明</label>
+                    <label>紗網／材質說明 / Mesh & Material</label>
                     <input type="text" class="p-mesh" placeholder="例如：304#不鏽鋼防寵物絲網">
                 </div>
                 <div class="form-group" style="grid-column: span 2;">
-                    <label>備註</label>
+                    <label>備註 / Remark</label>
                     <input type="text" class="p-remark" placeholder="例如：含安裝五金配件">
                 </div>
             </div>
@@ -728,7 +730,7 @@
         });
 
         if (products.length === 0) {
-            alert('請至少填寫一項完整的產品資料！');
+            alert('請至少填寫一項完整的產品資料！/ Please fill at least one complete product.');
             return;
         }
 
@@ -738,7 +740,6 @@
         const totalUSD = rateUSD > 0 ? (grandTotal / rateUSD) : 0;
         const totalGBP = rateGBP > 0 ? (grandTotal / rateGBP) : 0;
 
-        // ===== 動態設定頁面標題 = 客戶姓名 + 地區 + PI =====
         const titleName = buyerName || '客戶';
         const titleCity = buyerCity || '';
         document.title = `${titleName} ${titleCity} PI`.trim();
@@ -747,29 +748,30 @@
         <div class="brand-row">
             <div class="brand-left">
                 <div class="brand-name">MBORMC 曼伯歐羅 <small>®</small></div>
-                <div class="brand-tagline">全球紗窗品牌</div>
+                <div class="brand-tagline">全球紗窗品牌 / Global Screen Brand</div>
             </div>
             <div class="invoice-meta">
-                <div><strong>發票編號</strong> ${orderNo}</div>
-                <div><strong>日期</strong> ${dateVal}</div>
-                <div><strong>貿易條款</strong> ${tradeTerms}</div>
+                <div><strong>發票編號 / Invoice No.</strong> ${orderNo}</div>
+                <div><strong>日期 / Date</strong> ${dateVal}</div>
+                <div><strong>貿易條款 / Trade Terms</strong> ${tradeTerms}</div>
             </div>
         </div>
 
         <div class="address-panel">
             <div class="address-box">
-                <div class="label">賣方</div>
+                <div class="label">賣方 / Seller</div>
                 <div class="content">
                     <strong>佛山市德鉑歐羅門窗有限公司</strong><br>
-                    聯絡人：鄧金閃<br>
+                    Foshan Debo Ouluo Doors and Windows Co., LTD<br>
+                    聯絡人 / Contact：鄧金閃 / Deng Jinshan<br>
                     <span class="phone">WhatsApp：+86 135 3660 0067</span><br>
-                    <span class="phone">微信：FSMBOR</span><br>
-                    地址：中國廣東佛山南海區大瀝鎮<br>
-                    網站：<a href="http://www.mbormc.com" target="_blank" class="web-link">www.mbormc.com</a>
+                    <span class="phone">微信 / WeChat：FSMBOR</span><br>
+                    地址 / Address：中國廣東佛山南海區大瀝鎮<br>
+                    網站 / Web：<a href="http://www.mbormc.com" target="_blank" class="web-link">www.mbormc.com</a>
                 </div>
             </div>
             <div class="address-box">
-                <div class="label">買方</div>
+                <div class="label">買方 / Buyer</div>
                 <div class="content">
                     <strong>${buyerName || '—'}</strong><br>
                     ${buyerCity || ''}<br>
@@ -783,16 +785,16 @@
             <table>
                 <thead>
                     <tr>
-                        <th>序號</th>
-                        <th>產品類型</th>
-                        <th style="text-align:left; padding-left:12px;">產品名稱</th>
-                        <th>顏色</th>
-                        <th>開啟方式</th>
-                        <th>尺寸（mm）</th>
-                        <th>面積（㎡）</th>
-                        <th>數量</th>
-                        <th>單價（元）</th>
-                        <th>金額（元）</th>
+                        <th>序號<br><span class="en-head">No.</span></th>
+                        <th>產品類型<br><span class="en-head">Product Type</span></th>
+                        <th style="text-align:left; padding-left:12px;">產品名稱<br><span class="en-head">Product Description</span></th>
+                        <th>顏色<br><span class="en-head">Colour</span></th>
+                        <th>開啟方式<br><span class="en-head">Opening</span></th>
+                        <th>尺寸（mm）<br><span class="en-head">Size (mm)</span></th>
+                        <th>面積（㎡）<br><span class="en-head">Area (m²)</span></th>
+                        <th>數量<br><span class="en-head">Qty</span></th>
+                        <th>單價（元）<br><span class="en-head">Unit Price (RMB)</span></th>
+                        <th>金額（元）<br><span class="en-head">Amount (RMB)</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -822,7 +824,7 @@
         if (woodenCase > 0) {
             html += `
                 <tr class="bg-sub">
-                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">木箱包裝費</td>
+                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">木箱包裝費 / Wooden Case Packaging</td>
                     <td>${woodenCase.toFixed(2)}</td>
                 </tr>
             `;
@@ -830,7 +832,7 @@
         if (otherFee > 0) {
             html += `
                 <tr class="bg-sub">
-                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">其他費用</td>
+                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600;">其他費用 / Other Charges</td>
                     <td>${otherFee.toFixed(2)}</td>
                 </tr>
             `;
@@ -838,7 +840,7 @@
         if (discount > 0) {
             html += `
                 <tr class="bg-sub">
-                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#c0392b;">折扣優惠</td>
+                    <td colspan="9" style="text-align:right; padding-right:20px; font-weight:600; color:#c0392b;">折扣優惠 / Discount</td>
                     <td style="color:#c0392b;">-${discount.toFixed(2)}</td>
                 </tr>
             `;
@@ -846,39 +848,39 @@
 
         html += `
                     <tr class="bg-total">
-                        <td colspan="9" style="text-align:right; font-size:15px; padding-right:20px;">✅ 合計</td>
-                        <td style="font-size:20px; font-weight:700; color:#003d7a;">人民幣 ${grandTotal.toFixed(2)}</td>
+                        <td colspan="9" style="text-align:right; font-size:15px; padding-right:20px;">✅ 合計 / TOTAL</td>
+                        <td style="font-size:20px; font-weight:700; color:#003d7a;">RMB ${grandTotal.toFixed(2)}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         `;
 
-        // ===== 多幣種顯示框 =====
         html += `
         <div class="currency-box">
-            <div class="title">💱 多幣種參考報價</div>
+            <div class="title">💱 多幣種參考報價 / Multi-Currency Reference</div>
             <div class="currency-grid">
                 <div class="currency-item main">
-                    <div class="c-label">人民幣</div>
+                    <div class="c-label">人民幣 / RMB</div>
                     <div class="c-value">¥ ${grandTotal.toFixed(2)}</div>
                 </div>
                 <div class="currency-item">
-                    <div class="c-label">港幣</div>
+                    <div class="c-label">港幣 / HKD</div>
                     <div class="c-value">HK$ ${totalHKD.toFixed(2)}</div>
                 </div>
                 <div class="currency-item">
-                    <div class="c-label">美元</div>
+                    <div class="c-label">美元 / USD</div>
                     <div class="c-value">$ ${totalUSD.toFixed(2)}</div>
                 </div>
                 <div class="currency-item">
-                    <div class="c-label">英鎊</div>
+                    <div class="c-label">英鎊 / GBP</div>
                     <div class="c-value">£ ${totalGBP.toFixed(2)}</div>
                 </div>
             </div>
             <div class="currency-note">
-                ⚠️ <strong>匯率說明：</strong><br>
-                以上外幣金額僅供參考，按本發票日期匯率折算。最終金額以付款當日銀行實際匯率為準。
+                ⚠️ <strong>匯率說明 / Exchange Rate Note：</strong><br>
+                以上外幣金額僅供參考，按本發票日期匯率折算。最終金額以付款當日銀行實際匯率為準。<br>
+                The above foreign currency amounts are for reference only. The final amount will be based on the actual bank exchange rate on the payment date.
             </div>
         </div>
         `;
@@ -886,41 +888,44 @@
         if (remark) {
             html += `
                 <div style="background:#fff8e1; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
-                    📌 <strong>備註：</strong>${remark}
+                    📌 <strong>備註 / Remark：</strong>${remark}
                 </div>
             `;
         }
 
         html += `
         <div class="info-grid">
-            <div class="info-item"><span class="tag">貿易條款</span><span>${tradeTerms}</span></div>
-            <div class="info-item"><span class="tag">運輸時效</span><span>${shippingTime}</span></div>
-            <div class="info-item"><span class="tag">生產週期</span><span>${leadTime}</span></div>
-            <div class="info-item"><span class="tag">付款方式</span><span>${paymentMethod}</span></div>
-            <div class="info-item"><span class="tag">結算幣種</span><span>人民幣（可接受港幣／美元／英鎊）</span></div>
-            <div class="info-item"><span class="tag">交貨方式</span><span>含運費、關稅、VAT、派送到門（DDP）</span></div>
-            <div class="info-item"><span class="tag">保修配件</span><span>1 年</span></div>
-            ${woodenCaseInfo ? `<div class="info-item"><span class="tag">木箱體積</span><span>${woodenCaseInfo}</span></div>` : ''}
+            <div class="info-item"><span class="tag">貿易條款 / Trade Terms</span><span>${tradeTerms}</span></div>
+            <div class="info-item"><span class="tag">運輸時效 / Shipping Time</span><span>${shippingTime}</span></div>
+            <div class="info-item"><span class="tag">生產週期 / Lead Time</span><span>${leadTime}</span></div>
+            <div class="info-item"><span class="tag">付款方式 / Payment Method</span><span>${paymentMethod}</span></div>
+            <div class="info-item"><span class="tag">結算幣種 / Currency</span><span>人民幣 RMB（可接受港幣／美元／英鎊）</span></div>
+            <div class="info-item"><span class="tag">交貨方式 / Delivery</span><span>含運費、關稅、VAT、派送到門（DDP）</span></div>
+            <div class="info-item"><span class="tag">保修配件 / Warranty</span><span>1 年 / 1 year</span></div>
+            ${woodenCaseInfo ? `<div class="info-item"><span class="tag">木箱體積 / Wooden Case</span><span>${woodenCaseInfo}</span></div>` : ''}
         </div>
 
         <div class="terms-box">
             <p style="margin-bottom:6px;">
-                <strong>📌 付款條件</strong><br>
+                <strong>📌 付款條件 / Payment Terms</strong><br>
                 100% 全款預付，收到款項後安排生產。本訂單為訂製產品，確認後不可取消或退貨。
+                <span class="en-term">100% payment in advance before production. This is a custom order, non-cancelable and non-returnable after confirmation.</span>
             </p>
             <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
-                <strong>🚚 運輸備註</strong><br>
+                <strong>🚚 運輸備註 / Shipping Note</strong><br>
                 DDP 包稅到門 — 包含運輸、清關、關稅、VAT、派送。收貨時無需支付任何額外費用。
+                <span class="en-term">DDP – includes shipping, customs clearance, duties, VAT, and door-to-door delivery. No additional charges upon arrival.</span>
             </p>
             <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
-                <strong>🛡️ 保險及破損保障</strong><br>
+                <strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong><br>
                 1. 本訂單已含運輸保險。<br>
                 2. 若貨物在運輸途中因運輸原因破損而無法使用，我司將免費重新生產受損產品，並承擔二次運輸費用。<br>
                 3. 請於收貨時檢查，如有破損請 7 個工作日內拍照聯絡我們。
+                <span class="en-term">1. Shipping insurance is included. 2. If damaged during transit, we will reproduce free of charge and cover the second shipping cost. 3. Please inspect upon arrival and contact us within 7 working days.</span>
             </p>
         </div>
 
-        <!-- ===== 資金來源與合規聲明（精簡版）===== -->
+        <!-- ===== 資金來源與合規聲明（只中文）===== -->
         <div class="compliance-box">
             <div class="box-title">⚠️ 資金來源與合規聲明</div>
             <div class="box-note">
@@ -932,29 +937,31 @@
         </div>
 
         <div style="background:#f0f7ff; border:1px solid #b8d4e8; border-radius:10px; padding:14px 18px; margin:12px 0 8px; font-size:13.5px; color:#1a3c62;">
-            <strong>💳 收款帳戶</strong><br>
-            收款帳戶資訊將另行提供，請聯絡我們取得帳戶詳情。
+            <strong>💳 收款帳戶 / Payment Account</strong><br>
+            收款帳戶資訊將另行提供，請聯絡我們取得帳戶詳情。<br>
+            <span style="font-size:13px; color:#2f4f74;">Payment account details will be provided separately. Please contact us for the account information.</span>
         </div>
 
         <div style="background:#fff3cd; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
-            <strong>📝 匯款備註：</strong> ${buyerName || '[買方姓名]'} ${orderNo}
+            <strong>📝 匯款備註 / Payment Reference：</strong> ${buyerName || '[買方姓名]'} ${orderNo}
         </div>
 
         <div class="sign-row">
             <div class="sign-box">
-                <div class="label">賣方簽名</div>
-                <div class="name">鄧金閃</div>
-                <div class="date">日期：${dateVal}</div>
+                <div class="label">賣方簽名 / Seller Signature</div>
+                <div class="name">鄧金閃 / Deng Jinshan</div>
+                <div class="date">日期 / Date：${dateVal}</div>
             </div>
             <div class="sign-box" style="text-align:right;">
-                <div class="label">買方簽名</div>
+                <div class="label">買方簽名 / Buyer Signature</div>
                 <div class="name" style="border-bottom-color:#b0c8e0; min-width:140px;">________________</div>
-                <div class="date">日期：___________</div>
+                <div class="date">日期 / Date：___________</div>
             </div>
         </div>
 
         <div class="footer-note">
-            本訂購單一式兩份，雙方各執一份，具有同等法律效力。
+            本訂購單一式兩份，雙方各執一份，具有同等法律效力。<br>
+            This order is issued in duplicate, each party holds one copy with equal legal effect.
         </div>
         `;
 
@@ -967,7 +974,6 @@
 
     // ===== 初始化 =====
     window.onload = function() {
-        // 自動生成訂單編號
         const orderInput = document.getElementById('orderNo');
         if (orderInput) {
             orderInput.value = generateOrderNo();
@@ -982,10 +988,8 @@
         const d = String(now.getDate()).padStart(2, '0');
         document.getElementById('dateVal').value = `${y}年${m}月${d}日`;
 
-        // 自動取得匯率
         fetchRates();
 
-        // 即時更新頁面標題
         const buyerNameEl = document.getElementById('buyerName');
         const buyerCityEl = document.getElementById('buyerCity');
         function updateTitle() {

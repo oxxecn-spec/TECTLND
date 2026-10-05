@@ -431,10 +431,12 @@
             .product-card .row { grid-template-columns: repeat(2, 1fr); }
         }
 
+        /* ===== 列印 / PDF 輸出：A4 橫式 ===== */
         @media print {
             body { background: white; padding: 0; }
             .form-panel { display: none !important; }
             .mobile-pdf-hint { display: none !important; }
+
             .quote-output {
                 display: block !important;
                 box-shadow: none;
@@ -442,16 +444,38 @@
                 border: none;
                 border-radius: 0;
                 margin: 0;
+                width: 100%;
+                max-width: 100%;
             }
+
+            /* 表格在列印時全部展開 */
             .table-wrap { overflow: visible; border: 1px solid #ccc; }
             table { min-width: 100%; font-size: 10px; }
             th { font-size: 9px; padding: 6px 4px; }
             td { font-size: 10px; padding: 6px 4px; }
+
+            /* 防止分頁斷裂 */
             .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row { page-break-inside: avoid; }
             table { page-break-inside: auto; }
             tr { page-break-inside: avoid; }
+
+            /* 顏色列印 */
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            @page { margin: 10mm; size: A4; }
+
+            /* ===== 關鍵：A4 橫式 ===== */
+            @page { 
+                margin: 8mm; 
+                size: A4 landscape;  /* 橫式 */
+            }
+
+            /* 簽名區橫式排版 */
+            .sign-row {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                gap: 40px;
+            }
+            .sign-box { flex: 1 1 45%; }
         }
 
         @media (max-width: 420px) {

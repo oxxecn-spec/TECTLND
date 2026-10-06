@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>PI 報價單生成 · MBORMC 曼伯歐羅</title>
+    <title>PI 報價單生成器 · MBORMC 曼伯歐羅</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
@@ -178,7 +178,6 @@
         }
         .quotation-output.show { display: block; }
 
-        /* ===== 報價單專用標題 ===== */
         .quotation-title {
             text-align: center;
             margin-bottom: 24px;
@@ -538,7 +537,6 @@
             body { background: white; padding: 0; }
             .form-panel { display: none !important; }
             .mobile-pdf-hint { display: none !important; }
-            /* ★ 关键修复：只有 .active 的容器才显示，另一个保持隐藏 */
             .quote-output.active,
             .quotation-output.active {
                 display: block !important;
@@ -588,7 +586,6 @@
 <body>
 <div class="container">
 
-    <!-- ===== 表單區域 ===== -->
     <div class="form-panel">
         <h2>📝 填寫資料 / Fill Information</h2>
 
@@ -732,10 +729,7 @@
         </div>
     </div>
 
-    <!-- ===== 正式 PI 輸出區域 ===== -->
     <div class="quote-output" id="quoteOutput"></div>
-
-    <!-- ===== 報價單輸出區域 ===== -->
     <div class="quotation-output" id="quotationOutput"></div>
 
 </div>
@@ -745,6 +739,7 @@
 
     const COLOR_OPTIONS = [
         '白色 / White',
+        '咖啡色 / Coffee',
         '灰色 / Grey'
     ];
 
@@ -967,9 +962,6 @@
         };
     }
 
-    // ============================================================
-    // 生成報價單（極簡，繁體中文，含公司信息）
-    // ============================================================
     function generateQuotation() {
         const d = collectFormData();
 
@@ -1135,15 +1127,12 @@
 
         const output = document.getElementById('quotationOutput');
         output.innerHTML = html;
-        output.classList.add('show', 'active');  // ★ 加 active
-        document.getElementById('quoteOutput').classList.remove('show', 'active');  // ★ 移除 active
+        output.classList.add('show', 'active');
+        document.getElementById('quoteOutput').classList.remove('show', 'active');
         document.getElementById('printBtn').style.display = 'inline-flex';
         output.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // ============================================================
-    // 生成正式 PI（雙語，完整條款）
-    // ============================================================
     function generateProformaInvoice() {
         const d = collectFormData();
 
@@ -1560,8 +1549,8 @@
 
         const output = document.getElementById('quoteOutput');
         output.innerHTML = html;
-        output.classList.add('show', 'active');  // ★ 加 active
-        document.getElementById('quotationOutput').classList.remove('show', 'active');  // ★ 移除 active
+        output.classList.add('show', 'active');
+        document.getElementById('quotationOutput').classList.remove('show', 'active');
         document.getElementById('printBtn').style.display = 'inline-flex';
         output.scrollIntoView({ behavior: 'smooth' });
     }

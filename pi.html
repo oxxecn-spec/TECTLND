@@ -1,882 +1,1273 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>PI 報價單生成器 · MBORMC 曼伯歐羅</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body {
-            background: #e6e9ef;
-            font-family: 'Microsoft JhengHei', 'PingFang TC', 'Segoe UI', Arial, sans-serif;
-            padding: 30px 20px;
-            -webkit-text-size-adjust: 100%;
-        }
-        .container { max-width: 1300px; margin: 0 auto; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="robots" content="noindex, nofollow">
+<title>PI 報價單生成器 · MBORMC 曼伯歐羅</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+    background: #e6e9ef;
+    font-family: 'Microsoft JhengHei', 'PingFang TC', 'Segoe UI', Arial, sans-serif;
+    padding: 30px 20px;
+    -webkit-text-size-adjust: 100%;
+}
+.container { max-width: 1300px; margin: 0 auto; }
+.form-panel {
+    background: #fff; border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    padding: 28px 32px; margin-bottom: 24px;
+}
+.form-panel h2 {
+    font-size: 20px; color: #0b1a33;
+    margin-bottom: 18px; border-bottom: 2px solid #1a2b4c; padding-bottom: 10px;
+}
+.form-panel h3 { font-size: 15px; color: #0b1a33; margin: 18px 0 8px; }
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px 20px; margin-bottom: 14px;
+}
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group label { font-size: 12px; font-weight: 600; color: #5d708b; letter-spacing: 0.3px; }
+.form-group input, .form-group select {
+    padding: 10px 12px; border: 1px solid #dce5ec; border-radius: 8px;
+    font-size: 15px; color: #1b293b; transition: border 0.2s;
+    font-family: inherit; width: 100%;
+}
+.form-group input:focus, .form-group select:focus {
+    outline: none; border-color: #1e5a8a;
+    box-shadow: 0 0 0 3px rgba(30,90,138,0.1);
+}
+.form-group input[readonly] {
+    background: #f4f7fc; color: #1e5a8a; font-weight: 600; cursor: not-allowed;
+}
+.product-card {
+    background: #f8fafd; border: 1px solid #e3e9f2;
+    border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; position: relative;
+}
+.product-card .card-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+}
+.product-card .card-title { font-size: 14px; font-weight: 600; color: #1e5a8a; }
+.product-card .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px 14px; margin-bottom: 8px;
+}
+.product-card .row:last-child { margin-bottom: 0; }
+.product-card .form-group label { font-size: 11px; }
+.product-card .form-group input,
+.product-card .form-group select { padding: 8px 10px; font-size: 14px; }
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px 24px; border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; font-family: inherit; -webkit-appearance: none;
+}
+.btn-primary { background: #1e5a8a; color: #fff; }
+.btn-primary:hover { background: #0f3b5c; }
+.btn-primary:active { transform: scale(0.98); }
+.btn-outline { background: #fff; border: 1.5px solid #1e5a8a; color: #1e5a8a; }
+.btn-outline:hover { background: #1e5a8a; color: #fff; }
+.btn-quote { background: #fff; border: 2px solid #b8860b; color: #b8860b; }
+.btn-quote:hover { background: #b8860b; color: #fff; }
+.btn-danger { background: #e74c3c; color: #fff; padding: 8px 14px; font-size: 13px; border-radius: 6px; }
+.btn-danger:hover { background: #c0392b; }
+.btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.rate-status {
+    font-size: 12px; padding: 8px 14px; border-radius: 8px;
+    margin-bottom: 12px; display: inline-block; line-height: 1.6;
+}
+.rate-status.loading { background: #e3f2fd; color: #1565c0; }
+.rate-status.success { background: #e8f5e9; color: #2e7d32; }
+.rate-status.fail { background: #fff3e0; color: #e65100; }
+.quote-output, .quotation-output {
+    background: #fff; border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    padding: 45px 50px; display: none;
+}
+.quote-output.show, .quotation-output.show { display: block; }
+.quotation-title {
+    text-align: center; margin-bottom: 24px;
+    padding-bottom: 16px; border-bottom: 2px solid #b8860b;
+}
+.quotation-title h1 {
+    font-size: 26px; font-weight: 700; color: #0b1a33;
+    letter-spacing: 4px; margin-bottom: 6px;
+}
+.quotation-title .subtitle { font-size: 14px; color: #5d708b; letter-spacing: 2px; }
+.brand-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 3px solid #1a2b4c; padding-bottom: 16px;
+    margin-bottom: 22px; flex-wrap: wrap; gap: 12px;
+}
+.brand-left { display: flex; flex-direction: column; }
+.brand-name { font-size: 28px; font-weight: 700; color: #0b1a33; letter-spacing: 1px; }
+.brand-name small { font-weight: 400; font-size: 14px; color: #3d4f6a; margin-left: 10px; }
+.brand-tagline {
+    font-size: 13px; color: #3d5a73; background: #eaf3ed;
+    display: inline-block; padding: 2px 14px; border-radius: 30px; margin-top: 4px;
+}
+.invoice-meta { text-align: right; background: #f4f7fc; padding: 10px 18px; border-radius: 16px; }
+.invoice-meta div { font-size: 14px; color: #1f2a3f; line-height: 1.6; }
+.invoice-meta strong { font-weight: 600; color: #0b1a33; }
+.address-panel {
+    display: flex; flex-wrap: wrap; gap: 30px 40px;
+    background: #f9fafc; padding: 18px 22px; border-radius: 18px;
+    margin-bottom: 24px; border: 1px solid #e9edf4;
+}
+.address-box { flex: 1 1 200px; }
+.address-box .label {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.8px;
+    color: #5d708b; margin-bottom: 5px;
+}
+.address-box .content { font-size: 15px; line-height: 1.6; color: #1b293b; }
+.address-box .content .phone { font-weight: 500; color: #0f2b4f; }
+.web-link { color: #0059b3; text-decoration: none; border-bottom: 1px dotted #b3c9e0; }
 
-        .form-panel {
-            background: #ffffff;
-            border-radius: 18px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            padding: 28px 32px;
-            margin-bottom: 24px;
-        }
-        .form-panel h2 {
-            font-size: 20px;
-            color: #0b1a33;
-            margin-bottom: 18px;
-            border-bottom: 2px solid #1a2b4c;
-            padding-bottom: 10px;
-        }
-        .form-panel h3 {
-            font-size: 15px;
-            color: #0b1a33;
-            margin: 18px 0 8px;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px 20px;
-            margin-bottom: 14px;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .form-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #5d708b;
-            letter-spacing: 0.3px;
-        }
-        .form-group input, .form-group select {
-            padding: 10px 12px;
-            border: 1px solid #dce5ec;
-            border-radius: 8px;
-            font-size: 15px;
-            color: #1b293b;
-            transition: border 0.2s;
-            font-family: inherit;
-            width: 100%;
-        }
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #1e5a8a;
-            box-shadow: 0 0 0 3px rgba(30,90,138,0.1);
-        }
-        .form-group input[readonly] {
-            background: #f4f7fc;
-            color: #1e5a8a;
-            font-weight: 600;
-            cursor: not-allowed;
-        }
+/* 图片上传预览 */
+.p-image-preview { margin-top: 8px; }
+.p-image-preview .thumb {
+    position: relative; display: inline-block; width: 90px; height: 90px;
+    border-radius: 8px; overflow: hidden; border: 1px solid #dce5ec; background: #fff;
+}
+.p-image-preview .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p-image-preview .thumb .del {
+    position: absolute; top: 3px; right: 3px; width: 20px; height: 20px;
+    border-radius: 50%; background: rgba(231,76,60,0.9); color: #fff;
+    font-size: 13px; line-height: 20px; text-align: center;
+    cursor: pointer; border: none; padding: 0;
+}
 
-        .product-card {
-            background: #f8fafd;
-            border: 1px solid #e3e9f2;
-            border-radius: 12px;
-            padding: 16px 18px;
-            margin-bottom: 14px;
-            position: relative;
-        }
-        .product-card .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .product-card .card-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1e5a8a;
-        }
-        .product-card .row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px 14px;
-            margin-bottom: 8px;
-        }
-        .product-card .row:last-child { margin-bottom: 0; }
-        .product-card .form-group label { font-size: 11px; }
-        .product-card .form-group input,
-        .product-card .form-group select { padding: 8px 10px; font-size: 14px; }
+/* 卡片式产品区 */
+.product-list {
+    margin: 18px 0 20px;
+    display: flex; flex-direction: column; gap: 16px;
+}
+.product-item {
+    display: flex; gap: 20px;
+    background: #f8fafd; border: 1px solid #e3e9f2;
+    border-radius: 14px; padding: 18px 20px;
+    page-break-inside: avoid; break-inside: avoid;
+}
+.product-item .pi-img {
+    flex: 0 0 auto; width: 300px; height: 300px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid #dce5ec; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.product-item .pi-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.product-item .pi-img.no-img {
+    background: #f1f4f8; border: 1px dashed #c7d2e0;
+    color: #9aa9bd; font-size: 14px; text-align: center; line-height: 1.6;
+}
+.product-item .pi-info {
+    flex: 1 1 auto; min-width: 0;
+    display: flex; flex-direction: column; gap: 10px;
+}
+.product-item .pi-title {
+    font-size: 16px; font-weight: 700; color: #0b1a33;
+    padding-bottom: 8px; border-bottom: 1px dashed #dbe4f0; line-height: 1.5;
+}
+.product-item .pi-title .pi-no {
+    display: inline-block; background: #1a2b4c; color: #fff;
+    font-size: 12px; font-weight: 700; padding: 2px 9px;
+    border-radius: 20px; margin-right: 8px; vertical-align: middle; letter-spacing: 0.5px;
+}
+.product-item .pi-title .pi-type {
+    display: block; font-size: 12px; font-weight: 400; color: #5d708b; margin-top: 3px;
+}
+.product-item .pi-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px 24px; font-size: 13.5px; line-height: 1.65; color: #1b293b;
+}
+.product-item .pi-grid .pi-field { display: flex; gap: 6px; align-items: baseline; }
+.product-item .pi-grid .pi-field .k { color: #5d708b; flex: 0 0 auto; font-weight: 500; }
+.product-item .pi-grid .pi-field .v { color: #0b1a33; font-weight: 600; word-break: break-word; }
+.product-item .pi-grid .pi-field.full { grid-column: 1 / -1; }
+.product-item .pi-grid .pi-field .v.money { color: #b8860b; font-size: 15px; font-weight: 700; }
+.product-item .pi-grid .pi-field .v.amount { color: #003d7a; font-size: 16px; font-weight: 700; }
+.product-item .pi-grid .pi-note { font-size: 12px; color: #c0722a; grid-column: 1 / -1; }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-            -webkit-appearance: none;
-        }
-        .btn-primary { background: #1e5a8a; color: white; }
-        .btn-primary:hover { background: #0f3b5c; }
-        .btn-primary:active { transform: scale(0.98); }
-        .btn-outline {
-            background: white;
-            border: 1.5px solid #1e5a8a;
-            color: #1e5a8a;
-        }
-        .btn-outline:hover { background: #1e5a8a; color: white; }
-        .btn-quote {
-            background: white;
-            border: 2px solid #b8860b;
-            color: #b8860b;
-        }
-        .btn-quote:hover { background: #b8860b; color: white; }
-        .btn-danger {
-            background: #e74c3c;
-            color: white;
-            padding: 8px 14px;
-            font-size: 13px;
-            border-radius: 6px;
-        }
-        .btn-danger:hover { background: #c0392b; }
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 18px;
-        }
+/* 汇总表 */
+.summary-wrap {
+    margin: 8px 0 20px; border-radius: 16px;
+    border: 1px solid #e3e9f2; overflow: hidden;
+}
+.summary-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; }
+.summary-wrap td { padding: 10px 18px; border-bottom: 1px solid #eef2f8; text-align: right; }
+.summary-wrap td:last-child { width: 220px; text-align: right; font-weight: 600; color: #0b1a33; }
+.summary-wrap tr:last-child td { border-bottom: none; }
+.summary-wrap .row-total td { background: #e9eff9; font-weight: 700; font-size: 17px; }
+.summary-wrap .row-total td:last-child { font-size: 20px; color: #003d7a; }
+.summary-wrap .row-sub td { background: #f8f9fa; }
+.summary-wrap .row-sub.green td:last-child { color: #1a5e1a; }
+.summary-wrap .row-sub.red td:last-child { color: #c0392b; }
+.summary-wrap .row-sub.gold td:last-child { color: #b8860b; }
 
-        .rate-status {
-            font-size: 12px;
-            padding: 8px 14px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            display: inline-block;
-            line-height: 1.6;
-        }
-        .rate-status.loading { background: #e3f2fd; color: #1565c0; }
-        .rate-status.success { background: #e8f5e9; color: #2e7d32; }
-        .rate-status.fail { background: #fff3e0; color: #e65100; }
+.info-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px 30px;
+    background: #f8fafd; padding: 18px 22px; border-radius: 18px;
+    margin: 18px 0 16px; border: 1px solid #e6ecf5;
+}
+.info-item { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 14px; line-height: 1.6; }
+.info-item .tag { font-weight: 600; color: #26436a; min-width: 140px; }
+.currency-box {
+    background: #f0f7ff; border: 2px solid #b8d4e8;
+    border-radius: 16px; padding: 20px 24px; margin: 18px 0;
+}
+.currency-box .title { font-size: 15px; font-weight: 700; color: #003d7a; margin-bottom: 14px; letter-spacing: 0.5px; }
+.currency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px 24px; }
+.currency-item {
+    background: #fff; border: 1px solid #dce9f5;
+    border-radius: 12px; padding: 12px 16px; text-align: center;
+}
+.currency-item .c-label { font-size: 12px; color: #5d708b; font-weight: 600; margin-bottom: 4px; }
+.currency-item .c-value { font-size: 20px; font-weight: 700; color: #003d7a; }
+.currency-item.main .c-value { color: #b8860b; font-size: 22px; }
+.currency-note {
+    margin-top: 14px; font-size: 12px; color: #856404;
+    background: #fff8e1; border: 1px solid #ffc107;
+    border-radius: 10px; padding: 10px 14px; line-height: 1.7;
+}
+.terms-box {
+    background: #f2f6fe; border-left: 5px solid #1a2b4c;
+    padding: 16px 22px; border-radius: 14px;
+    margin: 20px 0 16px; font-size: 14px; line-height: 1.8; color: #0f263f;
+}
+.terms-box strong { color: #002856; }
+.terms-box .en-term { font-size: 12.5px; color: #4f6a8a; display: block; margin-top: 3px; font-weight: 400; }
+.compliance-box {
+    background: #fff5f5; border: 2px solid #e74c3c;
+    border-radius: 14px; padding: 14px 20px; margin: 18px 0 14px;
+    font-size: 12.5px; line-height: 1.8; color: #7a1f1f;
+}
+.compliance-box .box-title { font-size: 14px; font-weight: 700; color: #c0392b; margin-bottom: 8px; letter-spacing: 0.3px; }
+.compliance-box .box-note {
+    background: #fff0f0; border-radius: 8px; padding: 8px 12px;
+    margin-bottom: 10px; font-size: 12px; color: #a05252; line-height: 1.7;
+}
+.compliance-box p { margin-bottom: 6px; }
+.sign-row {
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    margin: 28px 0 10px; padding-top: 12px;
+    border-top: 2px solid #dfe7f2; gap: 16px;
+}
+.sign-box { min-width: 180px; padding: 6px 0; flex: 1 1 200px; }
+.sign-box .label { font-size: 13px; color: #475e7c; font-weight: 500; }
+.sign-box .name {
+    font-size: 18px; font-weight: 600; color: #0b1a33;
+    margin-top: 4px; border-bottom: 1px solid #bacfe0;
+    padding-bottom: 6px; display: inline-block;
+}
+.sign-box .date { font-size: 14px; color: #2e4a6b; margin-top: 8px; }
+.footer-note {
+    text-align: center; font-size: 13px; color: #4f688b;
+    margin-top: 18px; border-top: 1px solid #e2eaf5; padding-top: 16px;
+}
+.payment-account-box {
+    background: #f0f7ff; border: 1px solid #b8d4e8;
+    border-radius: 12px; padding: 18px 22px; margin: 12px 0 8px;
+    font-size: 13.5px; color: #1a3c62; line-height: 1.7;
+}
+.payment-account-box .box-title { font-size: 15px; font-weight: 700; color: #003d7a; margin-bottom: 6px; }
+.payment-account-box .box-sub { font-size: 13px; color: #2f4f74; margin-bottom: 14px; }
+.channel-badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.badge {
+    display: inline-flex; align-items: flex-start; gap: 10px;
+    padding: 12px 16px; border-radius: 10px;
+    font-size: 13px; font-weight: 600; border: 1.5px solid;
+    background: #fff; min-width: 220px;
+}
+.badge svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px; }
+.badge .badge-title { font-size: 13.5px; font-weight: 700; display: block; }
+.badge .badge-note { font-size: 11.5px; font-weight: 400; color: #6b7a8d; display: block; margin-top: 3px; line-height: 1.5; }
+.badge-wechat { border-color: #4caf50; color: #2e7d32; }
+.badge-alipay { border-color: #2196f3; color: #1565c0; }
+.badge-pingpong { border-color: #ff9800; color: #e65100; }
 
-        .quote-output {
-            background: #ffffff;
-            border-radius: 18px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            padding: 45px 50px;
-            display: none;
-        }
-        .quote-output.show { display: block; }
-
-        .quotation-output {
-            background: #ffffff;
-            border-radius: 18px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            padding: 45px 50px;
-            display: none;
-        }
-        .quotation-output.show { display: block; }
-
-        .quotation-title {
-            text-align: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #b8860b;
-        }
-        .quotation-title h1 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #0b1a33;
-            letter-spacing: 4px;
-            margin-bottom: 6px;
-        }
-        .quotation-title .subtitle {
-            font-size: 14px;
-            color: #5d708b;
-            letter-spacing: 2px;
-        }
-
-        .brand-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 3px solid #1a2b4c;
-            padding-bottom: 16px;
-            margin-bottom: 22px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .brand-left { display: flex; flex-direction: column; }
-        .brand-name {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0b1a33;
-            letter-spacing: 1px;
-        }
-        .brand-name small { font-weight: 400; font-size: 14px; color: #3d4f6a; margin-left: 10px; }
-        .brand-tagline {
-            font-size: 13px;
-            color: #3d5a73;
-            background: #eaf3ed;
-            display: inline-block;
-            padding: 2px 14px;
-            border-radius: 30px;
-            margin-top: 4px;
-        }
-        .invoice-meta {
-            text-align: right;
-            background: #f4f7fc;
-            padding: 10px 18px;
-            border-radius: 16px;
-        }
-        .invoice-meta div { font-size: 14px; color: #1f2a3f; line-height: 1.6; }
-        .invoice-meta strong { font-weight: 600; color: #0b1a33; }
-
-        .address-panel {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px 40px;
-            background: #f9fafc;
-            padding: 18px 22px;
-            border-radius: 18px;
-            margin-bottom: 24px;
-            border: 1px solid #e9edf4;
-        }
-        .address-box { flex: 1 1 200px; }
-        .address-box .label {
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.8px;
-            color: #5d708b;
-            margin-bottom: 5px;
-        }
-        .address-box .content { font-size: 15px; line-height: 1.6; color: #1b293b; }
-        .address-box .content .phone { font-weight: 500; color: #0f2b4f; }
-        .web-link { color: #0059b3; text-decoration: none; border-bottom: 1px dotted #b3c9e0; }
-
-        /* ===== 图片功能：表单里的预览 ===== */
-        .p-image-preview { margin-top: 8px; }
-        .p-image-preview .thumb {
-            position: relative;
-            display: inline-block;
-            width: 90px;
-            height: 90px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #dce5ec;
-            background: #fff;
-        }
-        .p-image-preview .thumb img {
-            width: 100%; height: 100%;
-            object-fit: cover; display: block;
-        }
-        .p-image-preview .thumb .del {
-            position: absolute;
-            top: 3px; right: 3px;
-            width: 20px; height: 20px;
-            border-radius: 50%;
-            background: rgba(231,76,60,0.9);
-            color: #fff;
-            font-size: 13px;
-            line-height: 20px;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            padding: 0;
-        }
-
-        /* ===== 卡片式产品区（报价单 / PI 输出用）===== */
-        .product-list {
-            margin: 18px 0 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .product-item {
-            display: flex;
-            gap: 20px;
-            background: #f8fafd;
-            border: 1px solid #e3e9f2;
-            border-radius: 14px;
-            padding: 18px 20px;
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-        .product-item .pi-img {
-            flex: 0 0 auto;
-            width: 300px;
-            height: 300px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid #dce5ec;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-        .product-item .pi-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .product-item .pi-img.no-img {
-            background: #f1f4f8;
-            border: 1px dashed #c7d2e0;
-            color: #9aa9bd;
-            font-size: 14px;
-            text-align: center;
-            line-height: 1.6;
-        }
-        .product-item .pi-info {
-            flex: 1 1 auto;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .product-item .pi-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #0b1a33;
-            padding-bottom: 8px;
-            border-bottom: 1px dashed #dbe4f0;
-            line-height: 1.5;
-        }
-        .product-item .pi-title .pi-no {
-            display: inline-block;
-            background: #1a2b4c;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 2px 9px;
-            border-radius: 20px;
-            margin-right: 8px;
-            vertical-align: middle;
-            letter-spacing: 0.5px;
-        }
-        .product-item .pi-title .pi-type {
-            display: block;
-            font-size: 12px;
-            font-weight: 400;
-            color: #5d708b;
-            margin-top: 3px;
-        }
-        .product-item .pi-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px 24px;
-            font-size: 13.5px;
-            line-height: 1.65;
-            color: #1b293b;
-        }
-        .product-item .pi-grid .pi-field {
-            display: flex;
-            gap: 6px;
-            align-items: baseline;
-        }
-        .product-item .pi-grid .pi-field .k {
-            color: #5d708b;
-            flex: 0 0 auto;
-            font-weight: 500;
-        }
-        .product-item .pi-grid .pi-field .v {
-            color: #0b1a33;
-            font-weight: 600;
-            word-break: break-word;
-        }
-        .product-item .pi-grid .pi-field.full {
-            grid-column: 1 / -1;
-        }
-        .product-item .pi-grid .pi-field .v.money {
-            color: #b8860b;
-            font-size: 15px;
-            font-weight: 700;
-        }
-        .product-item .pi-grid .pi-field .v.amount {
-            color: #003d7a;
-            font-size: 16px;
-            font-weight: 700;
-        }
-        .product-item .pi-grid .pi-note {
-            font-size: 12px;
-            color: #c0722a;
-            grid-column: 1 / -1;
-        }
-
-        /* 汇总表（额外费用 + 合计）*/
-        .summary-wrap {
-            margin: 8px 0 20px;
-            border-radius: 16px;
-            border: 1px solid #e3e9f2;
-            overflow: hidden;
-        }
-        .summary-wrap table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            background: white;
-        }
-        .summary-wrap td {
-            padding: 10px 18px;
-            border-bottom: 1px solid #eef2f8;
-            text-align: right;
-        }
-        .summary-wrap td:last-child {
-            width: 220px;
-            text-align: right;
-            font-weight: 600;
-            color: #0b1a33;
-        }
-        .summary-wrap tr:last-child td { border-bottom: none; }
-        .summary-wrap .row-total td {
-            background: #e9eff9;
-            font-weight: 700;
-            font-size: 17px;
-        }
-        .summary-wrap .row-total td:last-child {
-            font-size: 20px;
-            color: #003d7a;
-        }
-        .summary-wrap .row-sub td { background: #f8f9fa; }
-        .summary-wrap .row-sub.green td:last-child { color: #1a5e1a; }
-        .summary-wrap .row-sub.red td:last-child { color: #c0392b; }
-        .summary-wrap .row-sub.gold td:last-child { color: #b8860b; }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px 30px;
-            background: #f8fafd;
-            padding: 18px 22px;
-            border-radius: 18px;
-            margin: 18px 0 16px;
-            border: 1px solid #e6ecf5;
-        }
-        .info-item { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 14px; line-height: 1.6; }
-        .info-item .tag { font-weight: 600; color: #26436a; min-width: 140px; }
-
-        .currency-box {
-            background: #f0f7ff;
-            border: 2px solid #b8d4e8;
-            border-radius: 16px;
-            padding: 20px 24px;
-            margin: 18px 0;
-        }
-        .currency-box .title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #003d7a;
-            margin-bottom: 14px;
-            letter-spacing: 0.5px;
-        }
-        .currency-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 14px 24px;
-        }
-        .currency-item {
-            background: #ffffff;
-            border: 1px solid #dce9f5;
-            border-radius: 12px;
-            padding: 12px 16px;
-            text-align: center;
-        }
-        .currency-item .c-label {
-            font-size: 12px;
-            color: #5d708b;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .currency-item .c-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #003d7a;
-        }
-        .currency-item.main .c-value {
-            color: #b8860b;
-            font-size: 22px;
-        }
-        .currency-note {
-            margin-top: 14px;
-            font-size: 12px;
-            color: #856404;
-            background: #fff8e1;
-            border: 1px solid #ffc107;
-            border-radius: 10px;
-            padding: 10px 14px;
-            line-height: 1.7;
-        }
-
-        .terms-box {
-            background: #f2f6fe;
-            border-left: 5px solid #1a2b4c;
-            padding: 16px 22px;
-            border-radius: 14px;
-            margin: 20px 0 16px;
-            font-size: 14px;
-            line-height: 1.8;
-            color: #0f263f;
-        }
-        .terms-box strong { color: #002856; }
-        .terms-box .en-term { font-size: 12.5px; color: #4f6a8a; display: block; margin-top: 3px; font-weight: 400; }
-
-        .compliance-box {
-            background: #fff5f5;
-            border: 2px solid #e74c3c;
-            border-radius: 14px;
-            padding: 14px 20px;
-            margin: 18px 0 14px;
-            font-size: 12.5px;
-            line-height: 1.8;
-            color: #7a1f1f;
-        }
-        .compliance-box .box-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #c0392b;
-            margin-bottom: 8px;
-            letter-spacing: 0.3px;
-        }
-        .compliance-box .box-note {
-            background: #fff0f0;
-            border-radius: 8px;
-            padding: 8px 12px;
-            margin-bottom: 10px;
-            font-size: 12px;
-            color: #a05252;
-            line-height: 1.7;
-        }
-        .compliance-box p { margin-bottom: 6px; }
-
-        .sign-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin: 28px 0 10px;
-            padding-top: 12px;
-            border-top: 2px solid #dfe7f2;
-            gap: 16px;
-        }
-        .sign-box { min-width: 180px; padding: 6px 0; flex: 1 1 200px; }
-        .sign-box .label { font-size: 13px; color: #475e7c; font-weight: 500; }
-        .sign-box .name { font-size: 18px; font-weight: 600; color: #0b1a33; margin-top: 4px; border-bottom: 1px solid #bacfe0; padding-bottom: 6px; display: inline-block; }
-        .sign-box .date { font-size: 14px; color: #2e4a6b; margin-top: 8px; }
-
-        .footer-note {
-            text-align: center;
-            font-size: 13px;
-            color: #4f688b;
-            margin-top: 18px;
-            border-top: 1px solid #e2eaf5;
-            padding-top: 16px;
-        }
-
-        .payment-account-box {
-            background: #f0f7ff;
-            border: 1px solid #b8d4e8;
-            border-radius: 12px;
-            padding: 18px 22px;
-            margin: 12px 0 8px;
-            font-size: 13.5px;
-            color: #1a3c62;
-            line-height: 1.7;
-        }
-        .payment-account-box .box-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #003d7a;
-            margin-bottom: 6px;
-        }
-        .payment-account-box .box-sub {
-            font-size: 13px;
-            color: #2f4f74;
-            margin-bottom: 14px;
-        }
-        .channel-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 8px;
-        }
-        .badge {
-            display: inline-flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1.5px solid;
-            background: #ffffff;
-            min-width: 220px;
-        }
-        .badge svg {
-            width: 22px;
-            height: 22px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-        .badge .badge-title { font-size: 13.5px; font-weight: 700; display: block; }
-        .badge .badge-note { font-size: 11.5px; font-weight: 400; color: #6b7a8d; display: block; margin-top: 3px; line-height: 1.5; }
-        .badge-wechat { border-color: #4caf50; color: #2e7d32; }
-        .badge-alipay { border-color: #2196f3; color: #1565c0; }
-        .badge-pingpong { border-color: #ff9800; color: #e65100; }
-
-        /* ===== 响应式 ===== */
-        @media (max-width: 768px) {
-            body { padding: 12px 8px; }
-            .container { max-width: 100%; }
-            .form-panel { padding: 18px 16px; border-radius: 14px; margin-bottom: 14px; }
-            .form-panel h2 { font-size: 17px; }
-            .form-panel h3 { font-size: 14px; }
-            .form-row { grid-template-columns: 1fr; gap: 10px; }
-            .form-group label { font-size: 12px; }
-            .form-group input, .form-group select { font-size: 16px; padding: 10px 12px; }
-            .product-card { padding: 14px 12px; border-radius: 10px; }
-            .product-card .row { grid-template-columns: 1fr 1fr; gap: 8px; }
-            .product-card .card-title { font-size: 13px; }
-            .btn { padding: 12px 18px; font-size: 14px; }
-            .btn-group { flex-direction: column; }
-            .btn-group .btn { width: 100%; }
-            .quote-output, .quotation-output { padding: 20px 14px; border-radius: 14px; }
-            .quotation-title h1 { font-size: 20px; letter-spacing: 2px; }
-            .quotation-title .subtitle { font-size: 12px; }
-            .brand-row { flex-direction: column; align-items: stretch; gap: 10px; }
-            .brand-name { font-size: 22px; }
-            .invoice-meta { text-align: left; width: 100%; }
-            .address-panel { flex-direction: column; gap: 16px; padding: 14px 16px; }
-            .address-box .content { font-size: 14px; }
-            .info-grid { grid-template-columns: 1fr; gap: 10px; padding: 14px 16px; }
-            .info-item { font-size: 13px; }
-            .info-item .tag { min-width: 100px; font-size: 12px; }
-            .currency-box { padding: 14px 16px; }
-            .currency-box .title { font-size: 14px; }
-            .currency-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .currency-item { padding: 10px 8px; }
-            .currency-item .c-value { font-size: 16px; }
-            .currency-item.main .c-value { font-size: 18px; }
-            .terms-box { padding: 14px 16px; font-size: 13px; }
-            .compliance-box { padding: 12px 14px; font-size: 12px; }
-            .compliance-box .box-title { font-size: 13px; }
-            .sign-row { flex-direction: column; gap: 14px; }
-            .sign-box { width: 100%; }
-            .sign-box .name { font-size: 16px; }
-            .payment-account-box { padding: 14px 16px; }
-            .channel-badges { flex-direction: column; gap: 8px; }
-            .badge { min-width: 100%; }
-            /* 产品卡片在手机上改成竖排 */
-            .product-item { flex-direction: column; gap: 14px; padding: 14px; }
-            .product-item .pi-img { width: 100%; height: auto; aspect-ratio: 1 / 1; max-width: 300px; margin: 0 auto; }
-            .product-item .pi-grid { grid-template-columns: 1fr; gap: 6px; }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .form-row { grid-template-columns: repeat(2, 1fr); }
-            .product-card .row { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        /* ===== 打印 ===== */
-        @media print {
-            body { background: white; padding: 0; }
-            .form-panel { display: none !important; }
-            .quote-output.active,
-            .quotation-output.active {
-                display: block !important;
-                box-shadow: none;
-                padding: 15px 20px;
-                border: none;
-                border-radius: 0;
-                margin: 0;
-                width: 100%;
-                max-width: 100%;
-            }
-            .quote-output:not(.active),
-            .quotation-output:not(.active) {
-                display: none !important;
-            }
-            .product-item {
-                page-break-inside: avoid;
-                break-inside: avoid;
-                box-shadow: none;
-            }
-            .product-item .pi-img {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row, .payment-account-box, .quotation-title { page-break-inside: avoid; }
-            * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            @page { 
-                margin: 8mm; 
-                size: A4 landscape;
-            }
-            .sign-row {
-                display: flex;
-                flex-wrap: nowrap;
-                justify-content: space-between;
-                gap: 40px;
-            }
-            .sign-box { flex: 1 1 45%; }
-        }
-
-        @media (max-width: 420px) {
-            .form-panel { padding: 14px 12px; }
-            .form-panel h2 { font-size: 16px; }
-            .product-card .row { grid-template-columns: 1fr; }
-            .currency-grid { grid-template-columns: 1fr; }
-            .brand-name { font-size: 20px; }
-            .info-item .tag { min-width: 80px; }
-        }
-    </style>
+@media (max-width: 768px) {
+    body { padding: 12px 8px; }
+    .container { max-width: 100%; }
+    .form-panel { padding: 18px 16px; border-radius: 14px; margin-bottom: 14px; }
+    .form-panel h2 { font-size: 17px; }
+    .form-panel h3 { font-size: 14px; }
+    .form-row { grid-template-columns: 1fr; gap: 10px; }
+    .form-group label { font-size: 12px; }
+    .form-group input, .form-group select { font-size: 16px; padding: 10px 12px; }
+    .product-card { padding: 14px 12px; border-radius: 10px; }
+    .product-card .row { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .product-card .card-title { font-size: 13px; }
+    .btn { padding: 12px 18px; font-size: 14px; }
+    .btn-group { flex-direction: column; }
+    .btn-group .btn { width: 100%; }
+    .quote-output, .quotation-output { padding: 20px 14px; border-radius: 14px; }
+    .quotation-title h1 { font-size: 20px; letter-spacing: 2px; }
+    .quotation-title .subtitle { font-size: 12px; }
+    .brand-row { flex-direction: column; align-items: stretch; gap: 10px; }
+    .brand-name { font-size: 22px; }
+    .invoice-meta { text-align: left; width: 100%; }
+    .address-panel { flex-direction: column; gap: 16px; padding: 14px 16px; }
+    .address-box .content { font-size: 14px; }
+    .info-grid { grid-template-columns: 1fr; gap: 10px; padding: 14px 16px; }
+    .info-item { font-size: 13px; }
+    .info-item .tag { min-width: 100px; font-size: 12px; }
+    .currency-box { padding: 14px 16px; }
+    .currency-box .title { font-size: 14px; }
+    .currency-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .currency-item { padding: 10px 8px; }
+    .currency-item .c-value { font-size: 16px; }
+    .currency-item.main .c-value { font-size: 18px; }
+    .terms-box { padding: 14px 16px; font-size: 13px; }
+    .compliance-box { padding: 12px 14px; font-size: 12px; }
+    .compliance-box .box-title { font-size: 13px; }
+    .sign-row { flex-direction: column; gap: 14px; }
+    .sign-box { width: 100%; }
+    .sign-box .name { font-size: 16px; }
+    .payment-account-box { padding: 14px 16px; }
+    .channel-badges { flex-direction: column; gap: 8px; }
+    .badge { min-width: 100%; }
+    .product-item { flex-direction: column; gap: 14px; padding: 14px; }
+    .product-item .pi-img { width: 100%; height: auto; aspect-ratio: 1 / 1; max-width: 300px; margin: 0 auto; }
+    .product-item .pi-grid { grid-template-columns: 1fr; gap: 6px; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+    .form-row { grid-template-columns: repeat(2, 1fr); }
+    .product-card .row { grid-template-columns: repeat(2, 1fr); }
+}
+@media print {
+    body { background: #fff; padding: 0; }
+    .form-panel { display: none !important; }
+    .quote-output.active, .quotation-output.active {
+        display: block !important; box-shadow: none;
+        padding: 15px 20px; border: none; border-radius: 0;
+        margin: 0; width: 100%; max-width: 100%;
+    }
+    .quote-output:not(.active), .quotation-output:not(.active) { display: none !important; }
+    .product-item {
+        page-break-inside: avoid; break-inside: avoid; box-shadow: none;
+    }
+    .product-item .pi-img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row,
+    .payment-account-box, .quotation-title { page-break-inside: avoid; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    @page { margin: 8mm; size: A4 landscape; }
+    .sign-row { display: flex; flex-wrap: nowrap; justify-content: space-between; gap: 40px; }
+    .sign-box { flex: 1 1 45%; }
+}
+@media (max-width: 420px) {
+    .form-panel { padding: 14px 12px; }
+    .form-panel h2 { font-size: 16px; }
+    .product-card .row { grid-template-columns: 1fr; }
+    .currency-grid { grid-template-columns: 1fr; }
+    .brand-name { font-size: 20px; }
+    .info-item .tag { min-width: 80px; }
+}
+</style>
 </head>
 <body>
 <div class="container">
 
-    <div class="form-panel">
-        <h2>📝 填寫資料 / Fill Information</h2>
+<div class="form-panel">
+<h2>📝 填寫資料 / Fill Information</h2>
 
-        <div class="form-row">
+<div class="form-row">
+<div class="form-group">
+<label>單號（自動生成）/ No.（Auto）</label>
+<input type="text" id="orderNo" readonly>
+</div>
+<div class="form-group">
+<label>日期 / Date</label>
+<input type="text" id="dateVal">
+</div>
+<div class="form-group">
+<label>貿易條款 / Trade Terms</label>
+<select id="tradeTerms">
+<option value="DDP（雙清包稅到門）/ DDP (All-Inclusive)">DDP（雙清包稅到門）</option>
+<option value="DDP 空運（包稅到門）/ DDP Air Freight">DDP 空運（包稅到門）</option>
+<option value="DDP 海運（包稅到門）/ DDP Sea Freight">DDP 海運（包稅到門）</option>
+<option value="EXW 佛山（出廠價）/ EXW Foshan">EXW 佛山（出廠價）</option>
+</select>
+</div>
+<div class="form-group">
+<label>運輸時效 / Shipping Time</label>
+<select id="shippingTime">
+<option value="空運約15天 / Air approx. 15 days">空運約15天</option>
+<option value="海運約45天 / Sea approx. 45 days" selected>海運約45天</option>
+</select>
+</div>
+</div>
+
+<div class="form-row">
+<div class="form-group">
+<label>生產週期 / Lead Time</label>
+<input type="text" id="leadTime" value="收到款項後15-20天 / 15-20 days after payment">
+</div>
+<div class="form-group">
+<label>木箱體積／重量 / Wooden Case Size & Weight</label>
+<input type="text" id="woodenCaseInfo">
+</div>
+</div>
+
+<div class="form-row">
+<div class="form-group">
+<label>客戶姓名 / Buyer Name</label>
+<input type="text" id="buyerName">
+</div>
+<div class="form-group">
+<label>客戶國家／城市 / Country & City</label>
+<input type="text" id="buyerCity">
+</div>
+<div class="form-group">
+<label>客戶信箱／電話 / Contact</label>
+<input type="text" id="buyerContact">
+</div>
+<div class="form-group">
+<label>收貨地址 / Delivery Address</label>
+<input type="text" id="buyerAddress">
+</div>
+</div>
+
+<div class="form-row">
+<div class="form-group">
+<label>公司名稱（可選）/ Company Name (Optional)</label>
+<input type="text" id="buyerCompany" placeholder="個人客戶可留空 / Leave blank for individual">
+</div>
+<div class="form-group">
+<label>公司稅號 / VAT Number（可選）</label>
+<input type="text" id="buyerVAT" placeholder="個人客戶可留空 / Leave blank for individual">
+</div>
+</div>
+
+<div class="form-row">
+<div class="form-group">
+<label>付款方式（結構）/ Payment Structure</label>
+<select id="paymentStructure">
+<option value="A|100% 全款預付">A：100% 全款預付 / 100% Full Payment</option>
+<option value="B|70% 定金 + 30% 尾款">B：70% 定金 + 30% 尾款 / 70% Deposit + 30% Balance</option>
+<option value="C|50% 定金 + 50% 尾款">C：50% 定金 + 50% 尾款 / 50% Deposit + 50% Balance</option>
+</select>
+</div>
+</div>
+
+<h3>💱 匯率設定（自動取得，可手動修改）/ Exchange Rate Settings</h3>
+<div id="rateStatus" class="rate-status loading">正在取得當天即時匯率... / Fetching live rates...</div>
+<div class="form-row">
+<div class="form-group">
+<label>1 港幣 = ? 人民幣 / 1 HKD = ? CNY</label>
+<input type="number" id="rateHKD" value="0.8584" step="0.0001" min="0">
+</div>
+<div class="form-group">
+<label>1 美元 = ? 人民幣 / 1 USD = ? CNY</label>
+<input type="number" id="rateUSD" value="6.7050" step="0.0001" min="0">
+</div>
+<div class="form-group">
+<label>1 英鎊 = ? 人民幣 / 1 GBP = ? CNY</label>
+<input type="number" id="rateGBP" value="8.8920" step="0.0001" min="0">
+</div>
+</div>
+
+<h3>📦 產品明細 / Product Details</h3>
+<div id="productCards"></div>
+<button class="btn btn-outline" onclick="addProductCard()" style="margin-top:6px;">+ 新增一項產品 / Add Product</button>
+
+<h3>💰 額外費用（可選）/ Additional Charges (Optional)</h3>
+<div class="form-row">
+<div class="form-group">
+<label>木箱包裝費（人民幣）/ Wooden Case (RMB)</label>
+<input type="number" id="woodenCase" placeholder="0" value="0" min="0">
+</div>
+<div class="form-group">
+<label>運費保險（人民幣，自定義金額）/ Freight Insurance (RMB)</label>
+<input type="number" id="freightInsurance" placeholder="0" value="0" min="0">
+</div>
+<div class="form-group">
+<label>其他費用（人民幣）/ Other Charges (RMB)</label>
+<input type="number" id="otherFee" placeholder="0" value="0" min="0">
+</div>
+<div class="form-group">
+<label>折扣（人民幣）/ Discount (RMB)</label>
+<input type="number" id="discount" placeholder="0" value="0" min="0">
+</div>
+</div>
+
+<div class="form-row">
+<div class="form-group" style="grid-column: 1 / -1;">
+<label>備註 / Remark</label>
+<input type="text" id="remark">
+</div>
+</div>
+
+<div class="btn-group">
+<button class="btn btn-quote" onclick="generateQuote('quote')">📋 生成報價單（繁體中文）</button>
+<button class="btn btn-primary" onclick="generateQuote('both')">📄 生成正式 PI（繁體 + English）</button>
+<button class="btn btn-outline" onclick="window.print()" id="printBtn" style="display:none;">🖨️ 列印 / 另存為 PDF</button>
+</div>
+</div>
+
+<div class="quote-output" id="quoteOutput"></div>
+<div class="quotation-output" id="quotationOutput"></div>
+
+</div>
+
+<script>
+let productIndex = 0;
+const productImages = {};
+
+const COLOR_OPTIONS = ['白色 / White', '咖啡色 / Coffee', '灰色 / Grey'];
+const PRODUCT_TYPE_OPTIONS = [
+    '防寵物紗窗 / Pet-Proof Window Screen',
+    '入戶門紗門 / Entrance Door Screen',
+    '其他產品 / Other Products'
+];
+
+function generateOrderNo() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    const h = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    return `MB${y}${m}${d}${h}${min}`;
+}
+
+function generateQuotationNo() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    const h = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    return `QT${y}${m}${d}${h}${min}`;
+}
+
+async function fetchRates() {
+    const statusEl = document.getElementById('rateStatus');
+    try {
+        statusEl.className = 'rate-status loading';
+        statusEl.textContent = '正在取得當天即時匯率... / Fetching live rates...';
+        const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/cny.json');
+        const data = await res.json();
+        const rates = data.cny;
+        const rateHKD = rates.hkd ? (1 / rates.hkd) : 0.8584;
+        const rateUSD = rates.usd ? (1 / rates.usd) : 6.7050;
+        const rateGBP = rates.gbp ? (1 / rates.gbp) : 8.8920;
+        document.getElementById('rateHKD').value = rateHKD.toFixed(4);
+        document.getElementById('rateUSD').value = rateUSD.toFixed(4);
+        document.getElementById('rateGBP').value = rateGBP.toFixed(4);
+        const now = new Date();
+        const timeStr = now.toLocaleString('zh-TW', { hour12: false });
+        statusEl.className = 'rate-status success';
+        statusEl.textContent = `✅ 已取得即時匯率（${timeStr}）· 1 USD ≈ ${rateUSD.toFixed(4)} · 1 GBP ≈ ${rateGBP.toFixed(4)} · 1 HKD ≈ ${rateHKD.toFixed(4)}`;
+    } catch (e) {
+        console.warn('匯率取得失敗', e);
+        statusEl.className = 'rate-status fail';
+        statusEl.textContent = '⚠️ 即時匯率取得失敗，已使用預設匯率，請手動確認。/ Failed to fetch live rates.';
+    }
+}
+
+function addProductCard() {
+    const container = document.getElementById('productCards');
+    const idx = productIndex++;
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.id = 'product-card-' + idx;
+
+    const colorOptions = COLOR_OPTIONS.map(c => `<option value="${c}">${c}</option>`).join('');
+    const typeOptions = PRODUCT_TYPE_OPTIONS.map(t => `<option value="${t}">${t}</option>`).join('');
+
+    card.innerHTML = `
+        <div class="card-header">
+            <span class="card-title">產品 #${idx + 1} / Product #${idx + 1}</span>
+            <button class="btn btn-danger" onclick="removeProductCard(${idx})">刪除 / Delete</button>
+        </div>
+        <div class="row">
+            <div class="form-group" style="grid-column: span 2;">
+                <label>產品類型 / Product Type</label>
+                <select class="p-type">${typeOptions}</select>
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+                <label>產品名稱 / Product Name</label>
+                <input type="text" class="p-name">
+            </div>
+        </div>
+        <div class="row">
             <div class="form-group">
-                <label>單號（自動生成）/ No.（Auto）</label>
-                <input type="text" id="orderNo" readonly>
+                <label>框顏色 / Colour</label>
+                <select class="p-color">${colorOptions}</select>
             </div>
             <div class="form-group">
-                <label>日期 / Date</label>
-                <input type="text" id="dateVal">
-            </div>
-            <div class="form-group">
-                <label>貿易條款 / Trade Terms</label>
-                <select id="tradeTerms">
-                    <option value="DDP（雙清包稅到門）/ DDP (All-Inclusive)">DDP（雙清包稅到門）</option>
-                    <option value="DDP 空運（包稅到門）/ DDP Air Freight">DDP 空運（包稅到門）</option>
-                    <option value="DDP 海運（包稅到門）/ DDP Sea Freight">DDP 海運（包稅到門）</option>
-                    <option value="EXW 佛山（出廠價）/ EXW Foshan">EXW 佛山（出廠價）</option>
+                <label>開啟方式 / Opening</label>
+                <select class="p-opening">
+                    <option value="左單開 / Left Single Opening">左單開 / Left Single</option>
+                    <option value="右單開 / Right Single Opening">右單開 / Right Single</option>
+                    <option value="對開式 / Double Opening">對開式 / Double</option>
                 </select>
             </div>
+        </div>
+        <div class="row">
             <div class="form-group">
-                <label>運輸時效 / Shipping Time</label>
-                <select id="shippingTime">
-                    <option value="空運約15天 / Air approx. 15 days">空運約15天</option>
-                    <option value="海運約45天 / Sea approx. 45 days" selected>海運約45天</option>
-                </select>
+                <label>高度（mm）/ Height</label>
+                <input type="number" class="p-height" oninput="calcCard(${idx})">
+            </div>
+            <div class="form-group">
+                <label>寬度（mm）/ Width</label>
+                <input type="number" class="p-width" oninput="calcCard(${idx})">
+            </div>
+            <div class="form-group">
+                <label>數量 / Qty</label>
+                <input type="number" class="p-qty" value="1" min="1" oninput="calcCard(${idx})">
+            </div>
+            <div class="form-group">
+                <label>單價（元/㎡）/ Unit Price</label>
+                <input type="number" class="p-unit" oninput="calcCard(${idx})">
+            </div>
+            <div class="form-group">
+                <label>金額 / Amount</label>
+                <input type="text" class="p-amount" readonly style="background:#f4f7fc; font-weight:600; color:#0b1a33;">
             </div>
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>生產週期 / Lead Time</label>
-                <input type="text" id="leadTime" value="收到款項後15-20天 / 15-20 days after payment">
+        <div class="row">
+            <div class="form-group" style="grid-column: span 2;">
+                <label>紗網／材質說明 / Mesh & Material</label>
+                <input type="text" class="p-mesh">
             </div>
-            <div class="form-group">
-                <label>木箱體積／重量 / Wooden Case Size & Weight</label>
-                <input type="text" id="woodenCaseInfo">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>客戶姓名 / Buyer Name</label>
-                <input type="text" id="buyerName">
-            </div>
-            <div class="form-group">
-                <label>客戶國家／城市 / Country & City</label>
-                <input type="text" id="buyerCity">
-            </div>
-            <div class="form-group">
-                <label>客戶信箱／電話 / Contact</label>
-                <input type="text" id="buyerContact">
-            </div>
-            <div class="form-group">
-                <label>收貨地址 / Delivery Address</label>
-                <input type="text" id="buyerAddress">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>公司名稱（可選）/ Company Name (Optional)</label>
-                <input type="text" id="buyerCompany" placeholder="個人客戶可留空 / Leave blank for individual">
-            </div>
-            <div class="form-group">
-                <label>公司稅號 / VAT Number（可選）</label>
-                <input type="text" id="buyerVAT" placeholder="個人客戶可留空 / Leave blank for individual">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>付款方式（結構）/ Payment Structure</label>
-                <select id="paymentStructure">
-                    <option value="A|100% 全款預付">A：100% 全款預付 / 100% Full Payment</option>
-                    <option value="B|70% 定金 + 30% 尾款">B：70% 定金 + 30% 尾款 / 70% Deposit + 30% Balance</option>
-                    <option value="C|50% 定金 + 50% 尾款">C：50% 定金 + 50% 尾款 / 50% Deposit + 50% Balance</option>
-                </select>
-            </div>
-        </div>
-
-        <h3>💱 匯率設定（自動取得，可手動修改）/ Exchange Rate Settings</h3>
-        <div id="rateStatus" class="rate-status loading">正在取得當天即時匯率... / Fetching live rates...</div>
-        <div class="form-row">
-            <div class="form-group">
-                <label>1 港幣 = ? 人民幣 / 1 HKD = ? CNY</label>
-                <input type="number" id="rateHKD" value="0.8584" step="0.0001" min="0">
-            </div>
-            <div class="form-group">
-                <label>1 美元 = ? 人民幣 / 1 USD = ? CNY</label>
-                <input type="number" id="rateUSD" value="6.7050" step="0.0001" min="0">
-            </div>
-            <div class="form-group">
-                <label>1 英鎊 = ? 人民幣 / 1 GBP = ? CNY</label>
-                <input type="number" id="rateGBP" value="8.8920" step="0.0001" min="0">
-            </div>
-        </div>
-
-        <h3>📦 產品明細 / Product Details</h3>
-        <div id="productCards"></div>
-        <button class="btn btn-outline" onclick="addProductCard()" style="margin-top:6px;">+ 新增一項產品 / Add Product</button>
-
-        <h3>💰 額外費用（可選）/ Additional Charges (Optional)</h3>
-        <div class="form-row">
-            <div class="form-group">
-                <label>木箱包裝費（人民幣）/ Wooden Case (RMB)</label>
-                <input type="number" id="woodenCase" placeholder="0" value="0" min="0">
-            </div>
-            <div class="form-group">
-                <label>運費保險（人民幣，自定義金額）/ Freight Insurance (RMB)</label>
-                <input type="number" id="freightInsurance" placeholder="0" value="0" min="0">
-            </div>
-            <div class="form-group">
-                <label>其他費用（人民幣）/ Other Charges (RMB)</label>
-                <input type="number" id="otherFee" placeholder="0" value="0" min="0">
-            </div>
-            <div class="form-group">
-                <label>折扣（人民幣）/ Discount (RMB)</label>
-                <input type="number" id="discount" placeholder="0" value="0" min="0">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group" style="grid-column: 1 / -1;">
+            <div class="form-group" style="grid-column: span 2;">
                 <label>備註 / Remark</label>
-                <input type="text" id="remark">
+                <input type="text" class="p-remark">
             </div>
         </div>
+        <div class="row">
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>產品圖片 / Product Image（單張，可重新選擇替換）</label>
+                <input type="file" class="p-image-input" accept="image/*" onchange="handleImageUpload(${idx}, this)">
+                <div class="p-image-preview" id="preview-${idx}"></div>
+            </div>
+        </div>
+    `;
+    container.appendChild(card);
+}
 
-        <div class="btn-group">
-            <button class="btn btn-quote" onclick="generateQuote('quote')">📋 生成報價單（繁體中文）</button>
-            <button class="btn btn-primary" onclick="generateQuote('both')">📄 生成正式 PI（繁體 + English）</button>
-            <button class="btn btn-outline" onclick="window.print()" id="printBtn" style="display:none;">🖨️ 列印 / 另存為 PDF</button>
+function removeProductCard(idx) {
+    const card = document.getElementById('product-card-' + idx);
+    if (card) card.remove();
+    delete productImages[idx];
+}
+
+function calcCard(idx) {
+    const card = document.getElementById('product-card-' + idx);
+    if (!card) return;
+    const h = parseFloat(card.querySelector('.p-height').value) || 0;
+    const w = parseFloat(card.querySelector('.p-width').value) || 0;
+    const qty = parseFloat(card.querySelector('.p-qty').value) || 0;
+    const unit = parseFloat(card.querySelector('.p-unit').value) || 0;
+    const areaPerPc = (h / 1000) * (w / 1000);
+    const billedAreaPerPc = areaPerPc < 1 ? 1 : areaPerPc;
+    const amount = billedAreaPerPc * qty * unit;
+    card.querySelector('.p-amount').value = amount ? amount.toFixed(2) : '';
+}
+
+function handleImageUpload(idx, input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    compressImage(file, 800, 0.8).then(base64 => {
+        productImages[idx] = base64;
+        renderImagePreview(idx);
+        input.value = '';
+    }).catch(err => {
+        console.warn('图片处理失败', err);
+        alert('圖片處理失敗，請改用 JPG / PNG 格式的圖片。');
+        input.value = '';
+    });
+}
+
+function compressImage(file, maxSize, quality) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => {
+            const img = new Image();
+            img.onload = () => {
+                let { width, height } = img;
+                if (width > maxSize || height > maxSize) {
+                    const ratio = Math.min(maxSize / width, maxSize / height);
+                    width = Math.round(width * ratio);
+                    height = Math.round(height * ratio);
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/jpeg', quality));
+            };
+            img.onerror = reject;
+            img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
+function renderImagePreview(idx) {
+    const box = document.getElementById('preview-' + idx);
+    if (!box) return;
+    const src = productImages[idx];
+    if (!src) { box.innerHTML = ''; return; }
+    box.innerHTML = `
+        <div class="thumb">
+            <img src="${src}" alt="">
+            <button type="button" class="del" onclick="removeImage(${idx})">×</button>
+        </div>
+    `;
+}
+
+function removeImage(idx) {
+    delete productImages[idx];
+    renderImagePreview(idx);
+}
+
+function collectFormData() {
+    const orderNo = document.getElementById('orderNo').value || '';
+    const dateVal = document.getElementById('dateVal').value || '';
+    const tradeTerms = document.getElementById('tradeTerms').value;
+    const shippingTime = document.getElementById('shippingTime').value;
+    const leadTime = document.getElementById('leadTime').value || '';
+    const woodenCaseInfo = document.getElementById('woodenCaseInfo').value || '';
+    const paymentStructureRaw = document.getElementById('paymentStructure').value;
+    const [payCode, payTitle] = paymentStructureRaw.split('|');
+    const buyerName = document.getElementById('buyerName').value || '';
+    const buyerCity = document.getElementById('buyerCity').value || '';
+    const buyerContact = document.getElementById('buyerContact').value || '';
+    const buyerAddress = document.getElementById('buyerAddress').value || '';
+    const buyerCompany = document.getElementById('buyerCompany').value.trim() || '';
+    const buyerVAT = document.getElementById('buyerVAT').value.trim() || '';
+    const woodenCase = parseFloat(document.getElementById('woodenCase').value) || 0;
+    const freightInsurance = parseFloat(document.getElementById('freightInsurance').value) || 0;
+    const otherFee = parseFloat(document.getElementById('otherFee').value) || 0;
+    const discount = parseFloat(document.getElementById('discount').value) || 0;
+    const remark = document.getElementById('remark').value || '';
+
+    const rateHKD = parseFloat(document.getElementById('rateHKD').value) || 0.8584;
+    const rateUSD = parseFloat(document.getElementById('rateUSD').value) || 6.7050;
+    const rateGBP = parseFloat(document.getElementById('rateGBP').value) || 8.8920;
+
+    const cards = document.querySelectorAll('.product-card');
+    const products = [];
+    let productTotal = 0;
+
+    cards.forEach(card => {
+        const idx = parseInt(card.id.replace('product-card-', ''), 10);
+        const type = card.querySelector('.p-type').value;
+        const name = card.querySelector('.p-name').value.trim();
+        const color = card.querySelector('.p-color').value;
+        const opening = card.querySelector('.p-opening').value;
+        const h = parseFloat(card.querySelector('.p-height').value) || 0;
+        const w = parseFloat(card.querySelector('.p-width').value) || 0;
+        const qty = parseFloat(card.querySelector('.p-qty').value) || 0;
+        const unit = parseFloat(card.querySelector('.p-unit').value) || 0;
+        const mesh = card.querySelector('.p-mesh').value.trim();
+        const pRemark = card.querySelector('.p-remark').value.trim();
+
+        if (!name || !h || !w || !qty || !unit) return;
+
+        const areaPerPc = (h / 1000) * (w / 1000);
+        const billedAreaPerPc = areaPerPc < 1 ? 1 : areaPerPc;
+        const amount = billedAreaPerPc * qty * unit;
+        productTotal += amount;
+
+        products.push({
+            type, name, color, opening, h, w, qty,
+            area: areaPerPc, billedArea: billedAreaPerPc,
+            unit, amount, mesh, pRemark,
+            image: productImages[idx] || ''
+        });
+    });
+
+    const grandTotal = productTotal + woodenCase + freightInsurance + otherFee - discount;
+
+    return {
+        orderNo, dateVal, tradeTerms, shippingTime, leadTime, woodenCaseInfo,
+        payCode, payTitle, buyerName, buyerCity, buyerContact, buyerAddress,
+        buyerCompany, buyerVAT, woodenCase, freightInsurance, otherFee, discount, remark,
+        rateHKD, rateUSD, rateGBP, products, productTotal, grandTotal
+    };
+}
+
+function buildProductCardsHtml(products) {
+    return `
+        <div class="product-list">
+            ${products.map((p, i) => {
+                const billedNote = p.billedArea > p.area + 0.001
+                    ? `（計費 ${p.billedArea.toFixed(2)} ㎡）` : '';
+                const imgBlock = p.image
+                    ? `<div class="pi-img"><img src="${p.image}" alt=""></div>`
+                    : `<div class="pi-img no-img">無圖<br>No Image</div>`;
+                return `
+                    <div class="product-item">
+                        ${imgBlock}
+                        <div class="pi-info">
+                            <div class="pi-title">
+                                <span class="pi-no">#${i + 1}</span>${p.name}
+                                <span class="pi-type">${p.type}</span>
+                            </div>
+                            <div class="pi-grid">
+                                <div class="pi-field"><span class="k">顏色 / Colour：</span><span class="v">${p.color}</span></div>
+                                <div class="pi-field"><span class="k">開啟方式 / Opening：</span><span class="v">${p.opening}</span></div>
+                                <div class="pi-field"><span class="k">尺寸 / Size：</span><span class="v">${p.h} × ${p.w} mm</span></div>
+                                <div class="pi-field"><span class="k">面積 / Area：</span><span class="v">${p.area.toFixed(2)} ㎡ ${billedNote}</span></div>
+                                <div class="pi-field"><span class="k">數量 / Qty：</span><span class="v">${p.qty}</span></div>
+                                <div class="pi-field"><span class="k">單價 / Unit Price：</span><span class="v money">¥ ${p.unit} /㎡</span></div>
+                                <div class="pi-field full"><span class="k">金額 / Amount：</span><span class="v amount">¥ ${p.amount.toFixed(2)}</span></div>
+                                ${p.mesh ? `<div class="pi-field full"><span class="k">紗網 / Mesh：</span><span class="v">${p.mesh}</span></div>` : ''}
+                                ${p.pRemark ? `<div class="pi-note">📝 備註 / Remark：${p.pRemark}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+function generateQuotation() {
+    const d = collectFormData();
+    if (d.products.length === 0) {
+        alert('請至少填寫一項完整的產品資料！/ Please fill at least one complete product.');
+        return;
+    }
+    const totalHKD = d.rateHKD > 0 ? (d.grandTotal / d.rateHKD) : 0;
+    const totalUSD = d.rateUSD > 0 ? (d.grandTotal / d.rateUSD) : 0;
+    const totalGBP = d.rateGBP > 0 ? (d.grandTotal / d.rateGBP) : 0;
+    const qtNo = generateQuotationNo();
+    const validDate = new Date();
+    validDate.setDate(validDate.getDate() + 7);
+    const validStr = `${validDate.getFullYear()}年${String(validDate.getMonth() + 1).padStart(2, '0')}月${String(validDate.getDate()).padStart(2, '0')}日`;
+
+    let html = `
+    <div class="quotation-title">
+        <h1>產 品 報 價 估 價 單</h1>
+        <div class="subtitle">QUOTATION / ESTIMATE</div>
+    </div>
+    <div class="brand-row">
+        <div class="brand-left">
+            <div class="brand-name">MBORMC 曼伯歐羅 <small>®</small></div>
+            <div class="brand-tagline">全球紗窗品牌</div>
+        </div>
+        <div class="invoice-meta">
+            <div><strong>報價單編號 / Quotation No.</strong> ${qtNo}</div>
+            <div><strong>日期 / Date</strong> ${d.dateVal}</div>
+            <div><strong>有效期至 / Valid Until</strong> ${validStr}</div>
         </div>
     </div>
+    <div class="address-panel">
+        <div class="address-box">
+            <div class="label">賣方 / Seller</div>
+            <div class="content">
+                <strong>佛山市德鉑歐羅門窗有限公司</strong><br>
+                Foshan Debo Ouluo Doors and Windows Co., LTD<br>
+                聯絡人 / Contact：鄧金閃 / Deng Jinshan<br>
+                <span class="phone">WhatsApp：+86 135 3660 0067</span><br>
+                <span class="phone">微信 / WeChat：FSMBOR</span><br>
+                地址 / Address：中國廣東佛山南海區大瀝鎮<br>
+                網站 / Web：<a href="http://www.mbormc.com" target="_blank" class="web-link">www.mbormc.com</a>
+            </div>
+        </div>
+        <div class="address-box">
+            <div class="label">客戶 / Customer</div>
+            <div class="content">
+                <strong>${d.buyerName || '—'}</strong>${d.buyerCity ? '<br>' + d.buyerCity : ''}
+                ${d.buyerContact ? '<br>' + d.buyerContact : ''}
+            </div>
+        </div>
+    </div>
+    ${buildProductCardsHtml(d.products)}
+    <div class="summary-wrap">
+        <table>
+            <tbody>
+                ${d.woodenCase > 0 ? `<tr class="row-sub"><td>木箱包裝費 / Wooden Case</td><td>¥ ${d.woodenCase.toFixed(2)}</td></tr>` : ''}
+                ${d.freightInsurance > 0 ? `<tr class="row-sub green"><td>運費保險 / Freight Insurance</td><td>¥ ${d.freightInsurance.toFixed(2)}</td></tr>` : ''}
+                ${d.otherFee > 0 ? `<tr class="row-sub"><td>其他費用 / Other Charges</td><td>¥ ${d.otherFee.toFixed(2)}</td></tr>` : ''}
+                ${d.discount > 0 ? `<tr class="row-sub red"><td>折扣優惠 / Discount</td><td>- ¥ ${d.discount.toFixed(2)}</td></tr>` : ''}
+                <tr class="row-sub"><td>產品小計 / Products Subtotal</td><td>¥ ${d.productTotal.toFixed(2)}</td></tr>
+                <tr class="row-total"><td>✅ 合計 / TOTAL</td><td>RMB ${d.grandTotal.toFixed(2)}</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="currency-box">
+        <div class="title">💱 多幣種參考報價</div>
+        <div class="currency-grid">
+            <div class="currency-item main"><div class="c-label">人民幣 / RMB</div><div class="c-value">¥ ${d.grandTotal.toFixed(2)}</div></div>
+            <div class="currency-item"><div class="c-label">港幣 / HKD</div><div class="c-value">HK$ ${totalHKD.toFixed(2)}</div></div>
+            <div class="currency-item"><div class="c-label">美元 / USD</div><div class="c-value">$ ${totalUSD.toFixed(2)}</div></div>
+            <div class="currency-item"><div class="c-label">英鎊 / GBP</div><div class="c-value">£ ${totalGBP.toFixed(2)}</div></div>
+        </div>
+        <div class="currency-note">
+            ⚠️ <strong>匯率說明：</strong>以上外幣金額僅供參考，按本報價單日期匯率折算。最終金額以付款當日銀行實際匯率為準。
+        </div>
+    </div>
+    `;
 
-    <div class="quote-output" id="quoteOutput"></div>
-    <div class="quotation-output" id="quotationOutput"></div>
+    if (d.remark) {
+        html += `<div style="background:#fff8e1; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
+            📌 <strong>備註：</strong>${d.remark}
+        </div>`;
+    }
 
-</div>
-    <div class="quote-output" id="quoteOutput"></div>
-    <div class="quotation-output" id="quotationOutput"></div>
+    html += `
+    <div class="footer-note" style="background:#f9fafc; padding:16px 20px; border-radius:12px; border:1px solid #e6ecf5; margin-top:20px;">
+        <strong>📋 本報價單僅供參考，最終交易以雙方簽署的正式 PI 為準。</strong><br>
+        <span style="font-size:12px; color:#6b7a8d;">This quotation is for reference only. The final transaction shall be subject to the signed Proforma Invoice.</span>
+        <br><br>
+        <span style="font-size:13px;">本報價有效期 7 天，逾期請重新確認價格。<br>This quotation is valid for 7 days. Please re-confirm the price after expiry.</span>
+    </div>
+    `;
 
-</div>
+    const output = document.getElementById('quotationOutput');
+    output.innerHTML = html;
+    output.classList.add('show', 'active');
+    document.getElementById('quoteOutput').classList.remove('show', 'active');
+    document.getElementById('printBtn').style.display = 'inline-flex';
+    output.scrollIntoView({ behavior: 'smooth' });
+}
+
+function generateProformaInvoice() {
+    const d = collectFormData();
+    if (d.products.length === 0) {
+        alert('請至少填寫一項完整的產品資料！/ Please fill at least one complete product.');
+        return;
+    }
+    const totalHKD = d.rateHKD > 0 ? (d.grandTotal / d.rateHKD) : 0;
+    const totalUSD = d.rateUSD > 0 ? (d.grandTotal / d.rateUSD) : 0;
+    const totalGBP = d.rateGBP > 0 ? (d.grandTotal / d.rateGBP) : 0;
+
+    let depositAmount = 0, balanceAmount = 0, depositRate = '', balanceRate = '';
+    if (d.payCode === 'A') {
+        depositRate = '100%'; depositAmount = d.grandTotal;
+        balanceRate = '0%'; balanceAmount = 0;
+    } else if (d.payCode === 'B') {
+        depositRate = '70%'; depositAmount = d.grandTotal * 0.7;
+        balanceRate = '30%'; balanceAmount = d.grandTotal * 0.3;
+    } else if (d.payCode === 'C') {
+        depositRate = '50%'; depositAmount = d.grandTotal * 0.5;
+        balanceRate = '50%'; balanceAmount = d.grandTotal * 0.5;
+    }
+
+    let buyerHtml = '';
+    if (d.buyerCompany) {
+        buyerHtml = `<strong>${d.buyerCompany}</strong><br>`;
+        if (d.buyerName) buyerHtml += `聯絡人 / Contact：${d.buyerName}<br>`;
+        if (d.buyerCity) buyerHtml += `${d.buyerCity}<br>`;
+        if (d.buyerVAT) buyerHtml += `VAT / 稅號：${d.buyerVAT}<br>`;
+        if (d.buyerContact) buyerHtml += `${d.buyerContact}<br>`;
+        if (d.buyerAddress) buyerHtml += d.buyerAddress;
+    } else {
+        buyerHtml = `<strong>${d.buyerName || '—'}</strong><br>`;
+        if (d.buyerCity) buyerHtml += `${d.buyerCity}<br>`;
+        if (d.buyerContact) buyerHtml += `${d.buyerContact}<br>`;
+        if (d.buyerAddress) buyerHtml += d.buyerAddress;
+    }
+
+    let insuranceHtml = '';
+    if (d.freightInsurance > 0) {
+        insuranceHtml = `
+            <p><strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong></p>
+            <p style="color:#1a5e1a; font-weight:600;">
+            ✅ 本訂單已投保運費保險（RMB ${d.freightInsurance.toFixed(2)}）。
+            <span class="en-term">This order is covered by Freight Insurance (RMB ${d.freightInsurance.toFixed(2)}).</span>
+            </p>
+            <p>
+            1. 收貨時請當場檢查外包裝及產品。如發現木箱或產品有破損，請<strong>先拍照或錄影</strong>，並於 <strong>7 個工作日內</strong> 將照片／影片發送給我們。<br>
+            2. 我們收到照片後會進行<strong>專業評估</strong>，根據損壞原因、位置及程度，判斷處理方式：<br>
+            &nbsp;&nbsp;&nbsp;• <strong>影響結構、功能或安全</strong> → 安排<strong>免費重做</strong>受損產品，二次運輸費用由賣方承擔。<br>
+            &nbsp;&nbsp;&nbsp;• <strong>僅外觀輕微受壓、不影響使用</strong> → 可安排<strong>補發配件</strong>或提供<strong>維修方案</strong>。<br>
+            &nbsp;&nbsp;&nbsp;• <strong>可現場簡易修復</strong> → 我們會提供<strong>維修指導</strong>。<br>
+            3. 未經拍照評估、自行處理或超過期限才反映者，我們仍會盡力協助，但無法保證按保險條款全額處理。
+            </p>
+            <p class="en-term">
+            1. Please inspect the packaging and products upon delivery. If any damage is found, take photos/videos first and send them to us within 7 working days.<br>
+            2. We will conduct a professional assessment:<br>
+            &nbsp;&nbsp;&nbsp;• Structural, functional, or safety impact → reproduce free of charge; second shipping borne by Seller.<br>
+            &nbsp;&nbsp;&nbsp;• Minor cosmetic compression → replacement parts or repair solution.<br>
+            &nbsp;&nbsp;&nbsp;• On-site simple repair → we will provide repair guidance.<br>
+            3. Claims without prior photo assessment may not be fully covered.
+            </p>
+        `;
+    } else {
+        insuranceHtml = `
+            <p><strong>🛡️ 保險及破損保障 / Insurance & Damage Guarantee</strong></p>
+            <p style="color:#c0392b; font-weight:600;">
+            ⚠️ 本訂單未投保運費保險，按正常運輸流程發貨。
+            <span class="en-term">This order is not covered by Freight Insurance.</span>
+            </p>
+            <p>
+            1. 若貨物在運輸途中因運輸原因損壞或丟失，我司將協助您向承運方索賠。<br>
+            2. 我司不承擔免費重做或二次運輸費用。<br>
+            3. 建議您自行投保，或選擇含保險的物流方案。<br>
+            4. 建議收貨時當場開箱檢查，如有異常請立即拍照並向承運方備註。
+            </p>
+            <p class="en-term">
+            1. If damaged or lost during transit, we will assist you in filing a claim with the carrier.<br>
+            2. We will not be responsible for free reproduction or the second shipping cost.<br>
+            3. We recommend that you arrange your own insurance.<br>
+            4. Please inspect the goods upon delivery.
+            </p>
+        `;
+    }
+
+    let paymentTermsHtml = '';
+    let balanceTriggerHtml = '';
+    if (d.payCode === 'A') {
+        paymentTermsHtml = `
+            <p style="margin-bottom:6px;">
+                <strong>📌 付款條件 / Payment Terms（方式 A）</strong><br>
+                <strong>100% 全款預付</strong>，下單時一次性付清全款，收款後安排生產。本訂單為訂製產品，確認後不可取消或退貨。
+                <span class="en-term">100% payment in advance. This is a custom order, non-cancelable and non-returnable after confirmation.</span>
+            </p>
+        `;
+    } else if (d.payCode === 'B' || d.payCode === 'C') {
+        const depPct = d.payCode === 'B' ? '70%' : '50%';
+        const balPct = d.payCode === 'B' ? '30%' : '50%';
+        paymentTermsHtml = `
+            <p style="margin-bottom:6px;">
+                <strong>📌 付款條件 / Payment Terms（方式 ${d.payCode}）</strong><br>
+                下單時支付 <strong>${depPct} 定金（RMB ${depositAmount.toFixed(2)}）</strong>，生產完成後拍照確認，支付 <strong>${balPct} 尾款（RMB ${balanceAmount.toFixed(2)}）</strong>後發貨。定金一經支付，不予退還。
+                <span class="en-term">${depPct} deposit (RMB ${depositAmount.toFixed(2)}) at order, ${balPct} balance (RMB ${balanceAmount.toFixed(2)}) after production photos confirmed. Deposit is non-refundable.</span>
+            </p>
+        `;
+        balanceTriggerHtml = `
+            <div class="terms-box" style="background:#fff8e1; border-left-color:#ffc107;">
+                <p style="margin-bottom:6px;">
+                    <strong>📸 生產確認與尾款 / Production Approval & Balance Payment</strong><br>
+                    1. 生產完成後，賣方拍攝產品照片/影片發送給買方確認。<br>
+                    2. 買方應在收到照片後 <strong>3 個工作日內</strong> 確認或提出書面異議。<br>
+                    3. 買方確認後（或逾期未回覆視為確認），應在 <strong>3 個工作日內</strong> 支付尾款。<br>
+                    4. 尾款到帳後安排發貨。
+                    <span class="en-term">1. Upon completion, the Seller will send product photos/videos to the Buyer.<br>2. The Buyer shall confirm within 3 working days.<br>3. After confirmation, the Buyer shall pay the balance within 3 working days.<br>4. Shipment after the balance is received.</span>
+                </p>
+            </div>
+        `;
+    }
+
+    let html = `
+    <div class="brand-row">
+        <div class="brand-left">
+            <div class="brand-name">MBORMC 曼伯歐羅 <small>®</small></div>
+            <div class="brand-tagline">全球紗窗品牌 / Global Screen Brand</div>
+        </div>
+        <div class="invoice-meta">
+            <div><strong>發票編號 / Invoice No.</strong> ${d.orderNo}</div>
+            <div><strong>日期 / Date</strong> ${d.dateVal}</div>
+            <div><strong>貿易條款 / Trade Terms</strong> ${d.tradeTerms}</div>
+        </div>
+    </div>
+    <div class="address-panel">
+        <div class="address-box">
+            <div class="label">賣方 / Seller</div>
+            <div class="content">
+                <strong>佛山市德鉑歐羅門窗有限公司</strong><br>
+                Foshan Debo Ouluo Doors and Windows Co., LTD<br>
+                聯絡人 / Contact：鄧金閃 / Deng Jinshan<br>
+                <span class="phone">WhatsApp：+86 135 3660 0067</span><br>
+                <span class="phone">微信 / WeChat：FSMBOR</span><br>
+                地址 / Address：中國廣東佛山南海區大瀝鎮<br>
+                網站 / Web：<a href="http://www.mbormc.com" target="_blank" class="web-link">www.mbormc.com</a>
+            </div>
+        </div>
+        <div class="address-box">
+            <div class="label">買方 / Buyer</div>
+            <div class="content">${buyerHtml}</div>
+        </div>
+    </div>
+    ${buildProductCardsHtml(d.products)}
+    <div class="summary-wrap">
+        <table>
+            <tbody>
+                ${d.woodenCase > 0 ? `<tr class="row-sub"><td>木箱包裝費 / Wooden Case</td><td>¥ ${d.woodenCase.toFixed(2)}</td></tr>` : ''}
+                ${d.freightInsurance > 0 ? `<tr class="row-sub green"><td>運費保險 / Freight Insurance</td><td>¥ ${d.freightInsurance.toFixed(2)}</td></tr>` : ''}
+                ${d.otherFee > 0 ? `<tr class="row-sub"><td>其他費用 / Other Charges</td><td>¥ ${d.otherFee.toFixed(2)}</td></tr>` : ''}
+                ${d.discount > 0 ? `<tr class="row-sub red"><td>折扣優惠 / Discount</td><td>- ¥ ${d.discount.toFixed(2)}</td></tr>` : ''}
+                <tr class="row-sub"><td>產品小計 / Products Subtotal</td><td>¥ ${d.productTotal.toFixed(2)}</td></tr>
+                <tr class="row-total"><td>✅ 合計 / TOTAL</td><td>RMB ${d.grandTotal.toFixed(2)}</td></tr>
+                ${d.payCode === 'B' || d.payCode === 'C' ? `
+                <tr class="row-sub"><td>定金（${depositRate}）/ Deposit</td><td>¥ ${depositAmount.toFixed(2)}</td></tr>
+                <tr class="row-sub gold"><td>尾款（${balanceRate}）/ Balance</td><td>¥ ${balanceAmount.toFixed(2)}</td></tr>
+                ` : ''}
+            </tbody>
+        </table>
+    </div>
+    <div class="currency-box">
+        <div class="title">💱 多幣種參考報價 / Multi-Currency Reference</div>
+        <div class="currency-grid">
+            <div class="currency-item main"><div class="c-label">人民幣 / RMB</div><div class="c-value">¥ ${d.grandTotal.toFixed(2)}</div></div>
+            <div class="currency-item"><div class="c-label">港幣 / HKD</div><div class="c-value">HK$ ${totalHKD.toFixed(2)}</div></div>
+            <div class="currency-item"><div class="c-label">美元 / USD</div><div class="c-value">$ ${totalUSD.toFixed(2)}</div></div>
+            <div class="currency-item"><div class="c-label">英鎊 / GBP</div><div class="c-value">£ ${totalGBP.toFixed(2)}</div></div>
+        </div>
+        <div class="currency-note">
+            ⚠️ <strong>匯率說明 / Exchange Rate Note：</strong><br>
+            以上外幣金額僅供參考，按本發票日期匯率折算。最終金額以付款當日銀行實際匯率為準。<br>
+            <span class="en-term">The above foreign currency amounts are for reference only. The final amount will be based on the actual bank exchange rate on the payment date.</span>
+        </div>
+    </div>
+    `;
+
+    if (d.remark) {
+        html += `<div style="background:#fff8e1; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
+            📌 <strong>備註 / Remark：</strong>${d.remark}
+        </div>`;
+    }
+
+    html += `
+    <div class="info-grid">
+        <div class="info-item"><span class="tag">貿易條款 / Trade Terms</span><span>${d.tradeTerms}</span></div>
+        <div class="info-item"><span class="tag">運輸時效 / Shipping Time</span><span>${d.shippingTime}</span></div>
+        <div class="info-item"><span class="tag">生產週期 / Lead Time</span><span>${d.leadTime}</span></div>
+        <div class="info-item"><span class="tag">付款方式 / Payment</span><span>${d.payTitle}</span></div>
+        <div class="info-item"><span class="tag">結算幣種 / Currency</span><span>人民幣 RMB（可接受港幣／美元／英鎊）</span></div>
+        <div class="info-item"><span class="tag">交貨方式 / Delivery</span><span>含運費、關稅、VAT、派送到門（DDP）</span></div>
+        <div class="info-item"><span class="tag">保修配件 / Warranty</span><span>1 年 / 1 year</span></div>
+        ${d.woodenCaseInfo ? `<div class="info-item"><span class="tag">木箱體積 / Wooden Case</span><span>${d.woodenCaseInfo}</span></div>` : ''}
+    </div>
+    <div class="terms-box">
+        ${paymentTermsHtml}
+        <p style="margin-top:10px; padding-top:10px; border-top:1px dashed #b7cee8;">
+            <strong>🚚 運輸備註 / Shipping Note</strong><br>
+            DDP 包稅到門 — 包含運輸、清關、關稅、VAT、派送。收貨時無需支付任何額外費用。
+            <span class="en-term">DDP – includes shipping, customs clearance, duties, VAT, and door-to-door delivery. No additional charges upon arrival.</span>
+        </p>
+    </div>
+    ${balanceTriggerHtml}
+    <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+        <p style="margin-bottom:6px;">
+            <strong>📐 產品規格說明 / Product Specifications</strong><br>
+            1. 所有尺寸以買方確認的訂單數據為準，生產公差為 <strong>±3mm</strong>。<br>
+            2. 顏色以雙方確認的色卡或樣品為準，輕微色差屬正常範圍。<br>
+            3. 紗網材質、五金配件以訂單確認為準。
+            <span class="en-term">1. All dimensions are based on the order data confirmed by the Buyer, with a production tolerance of ±3mm.<br>2. Colours are based on the colour card or sample confirmed by both parties.<br>3. Mesh materials and hardware are subject to order confirmation.</span>
+        </p>
+    </div>
+    <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+        <p style="margin-bottom:6px;">
+            <strong>✅ 質量驗收 / Quality Inspection</strong><br>
+            買方應在收到貨物後 <strong>7 個自然日內</strong> 完成驗收。如有質量問題，應以<strong>書面形式</strong>（含照片/影片）提出。逾期未提出書面異議的，視為驗收合格。
+            <span class="en-term">The Buyer shall complete inspection within 7 calendar days after receiving the goods. Any quality issues shall be raised in writing. If no written objection is raised within the period, the goods shall be deemed accepted.</span>
+        </p>
+    </div>
+    <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+        <p style="margin-bottom:6px;">
+            <strong>🚫 定制產品 / Custom-Made Products</strong><br>
+            本訂單為定制產品，買方支付全款或定金後，訂單即進入生產流程，<strong>不接受取消或退款</strong>。
+            <span class="en-term">This is a custom-made order. Once the Buyer pays the full amount or deposit, the order enters production and cannot be canceled or refunded.</span>
+        </p>
+    </div>
+    <div class="terms-box" style="background:#f0f7ff; border-left-color:#1e5a8a;">
+        ${insuranceHtml}
+    </div>
+    <div class="compliance-box">
+        <div class="box-title">⚠️ 資金來源與合規聲明 / Fund Source & Compliance</div>
+        <div class="box-note">
+            本條款為國際銀行及支付平台之標準合規要求，適用於所有跨境交易。如付款正常且資金來源合法，不影響訂單執行。
+        </div>
+        <p><strong>1.</strong> 買方保證支付本訂單之所有款項均來源於合法所得，不涉及任何非法活動。</p>
+        <p><strong>2.</strong> 買方須以本人或本公司帳戶支付。如使用第三方代付，須提前告知並獲得賣方同意。</p>
+        <p><strong>3.</strong> 如因買方資金來源或第三方代付導致賣方帳戶被凍結，本訂單自動失效，賣方有權取消訂單；因買方原因造成賣方損失的，買方須承擔賠償責任。</p>
+    </div>
+    <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+        <p style="margin-bottom:6px;">
+            <strong>⚖️ 爭議解決 / Dispute Resolution</strong><br>
+            本訂單適用中華人民共和國法律。雙方因本訂單發生爭議，應首先通過友好協商解決；協商不成的，任何一方均可提交<strong>廣東省佛山市有管轄權的人民法院</strong>訴訟解決。
+            <span class="en-term">This order shall be governed by the laws of the People's Republic of China. Any dispute shall be submitted to the competent People's Court in Foshan, Guangdong Province, China.</span>
+        </p>
+    </div>
+    <div class="terms-box" style="background:#f5f8f5; border-left-color:#2e7d32;">
+        <p style="margin-bottom:6px;">
+            <strong>🌪️ 不可抗力 / Force Majeure</strong><br>
+            因不可抗力導致交期延誤或無法履行本訂單的，賣方不承擔違約責任，但應及時通知買方並盡力協調解決。
+            <span class="en-term">If the performance of this order is delayed or prevented by force majeure, the Seller shall not be liable for breach of contract, but shall notify the Buyer promptly.</span>
+        </p>
+    </div>
+    <div class="payment-account-box">
+        <div class="box-title">💳 收款帳戶 / Payment Account</div>
+        <div class="box-sub">
+            收款帳戶資訊將另行提供，請聯絡我們取得帳戶詳情。<br>
+            <span style="font-size:12.5px;">Payment account details will be provided separately.</span>
+        </div>
+        <div class="channel-badges">
+            <span class="badge badge-wechat">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 4C4.9 4 2 6.6 2 9.8c0 1.8 1 3.4 2.5 4.5l-.7 2.1 2.4-1.2c.7.2 1.5.3 2.3.3h.4c-.1-.4-.2-.9-.2-1.3 0-3.1 3-5.6 6.7-5.6h.6C15.4 6 12.3 4 8.5 4zm-2.3 3.6c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9zm4.6 0c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9z"/><path d="M22 14.5c0-2.7-2.6-4.9-5.8-4.9s-5.8 2.2-5.8 4.9 2.6 4.9 5.8 4.9c.7 0 1.3-.1 1.9-.3l2 1-.6-1.8c1.5-.9 2.5-2.3 2.5-3.8zm-7.7-1.2c.4 0 .8.3.8.8s-.3.8-.8.8-.8-.3-.8-.8.3-.8.8-.8zm3.8 0c.4 0 .8.3.8.8s-.3.8-.8.8-.8-.3-.8-.8.3-.8.8-.8z"/></svg>
+                <span><span class="badge-title">微信支付 / WeChat Pay</span><span class="badge-note">僅支持人民幣 / CNY Only</span></span>
+            </span>
+            <span class="badge badge-alipay">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18.5c-4.7 0-8.5-3.8-8.5-8.5S7.3 3.5 12 3.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/><path d="M12 6c-3.3 0-6 2.7-6 6s2.7 6 6 6c1.2 0 2.4-.4 3.3-1l1.2 1 .6-2c.6-.9.9-2 .9-3 0-3.3-2.7-6-6-6zm3.4 8.4c-.5.9-1.5 1.5-2.7 1.5-1.9 0-3.4-1.4-3.6-3.2.6.3 1.3.5 2 .5 1.4 0 2.6-.7 3.3-1.8.1.2.2.4.2.6 0 .8-.4 1.6-1 2.1l.6.6-.6.6-.4-.4c-.5.3-1 .5-1.6.5-.4 0-.8-.1-1.1-.3.6-.2 1.1-.5 1.5-1 .3.1.6.1.9.1.7 0 1.4-.2 2-.5l.5.7z"/></svg>
+                <span><span class="badge-title">支付寶 / Alipay</span><span class="badge-note">支持人民幣、美元、英鎊、澳元、港幣、新加坡幣</span></span>
+            </span>
+            <span class="badge badge-pingpong">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="bold" fill="currentColor">PP</text></svg>
+                <span><span class="badge-title">PINGPONG</span><span class="badge-note">公司對公司 · 跨境結算 · B2B Cross-border</span></span>
+            </span>
+        </div>
+    </div>
+    <div style="background:#fff3cd; border:1px solid #ffc107; border-radius:10px; padding:12px 18px; margin:12px 0 8px; font-size:13px; color:#856404;">
+        <strong>📝 匯款備註 / Payment Reference：</strong> ${d.buyerCompany || d.buyerName || '[買方姓名]'} ${d.orderNo}
+    </div>
+    <div class="sign-row">
+        <div class="sign-box">
+            <div class="label">賣方簽名 / Seller Signature</div>
+            <div class="name">鄧金閃 / Deng Jinshan</div>
+            <div class="date">日期 / Date：${d.dateVal}</div>
+        </div>
+        <div class="sign-box" style="text-align:right;">
+            <div class="label">買方簽名 / Buyer Signature</div>
+            <div class="name" style="border-bottom-color:#b0c8e0; min-width:140px;">________________</div>
+            <div class="date">日期 / Date：___________</div>
+        </div>
+    </div>
+    <div class="footer-note">
+        本訂購單一式兩份，雙方各執一份，具有同等法律效力。<br>
+        <span style="font-size:12px;">This order is issued in duplicate, each party holds one copy with equal legal effect.</span>
+    </div>
+    `;
+
+    const output = document.getElementById('quoteOutput');
+    output.innerHTML = html;
+    output.classList.add('show', 'active');
+    document.getElementById('quotationOutput').classList.remove('show', 'active');
+    document.getElementById('printBtn').style.display = 'inline-flex';
+    output.scrollIntoView({ behavior: 'smooth' });
+}
+
+function generateQuote(type) {
+    if (type === 'quote') generateQuotation();
+    else if (type === 'both') generateProformaInvoice();
+}
+
+window.onload = function() {
+    const orderInput = document.getElementById('orderNo');
+    if (orderInput) orderInput.value = generateOrderNo();
+
+    addProductCard();
+    addProductCard();
+
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    document.getElementById('dateVal').value = `${y}年${m}月${d}日`;
+
+    fetchRates();
+
+    const buyerNameEl = document.getElementById('buyerName');
+    const buyerCityEl = document.getElementById('buyerCity');
+    function updateTitle() {
+        const name = buyerNameEl.value.trim() || '客戶';
+        const city = buyerCityEl.value.trim() || '';
+        document.title = `${name} ${city} PI`.trim();
+    }
+    buyerNameEl.addEventListener('input', updateTitle);
+    buyerCityEl.addEventListener('input', updateTitle);
+};
+</script>
+</body>
+</html>

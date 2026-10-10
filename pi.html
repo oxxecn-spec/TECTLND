@@ -113,8 +113,6 @@ body {
 .invoice-meta { text-align: right; background: #f4f7fc; padding: 10px 18px; border-radius: 16px; }
 .invoice-meta div { font-size: 14px; color: #1f2a3f; line-height: 1.6; }
 .invoice-meta strong { font-weight: 600; color: #0b1a33; }
-
-/* ===== 买卖双方：紧凑版 ===== */
 .address-panel {
     display: flex; flex-wrap: wrap;
     gap: 16px 24px;
@@ -130,8 +128,6 @@ body {
 .address-box .content { font-size: 14px; line-height: 1.55; color: #1b293b; }
 .address-box .content .phone { font-weight: 500; color: #0f2b4f; }
 .web-link { color: #0059b3; text-decoration: none; border-bottom: 1px dotted #b3c9e0; }
-
-/* 图片上传预览 */
 .p-image-preview { margin-top: 8px; }
 .p-image-preview .thumb {
     position: relative; display: inline-block; width: 90px; height: 90px;
@@ -144,8 +140,6 @@ body {
     font-size: 13px; line-height: 20px; text-align: center;
     cursor: pointer; border: none; padding: 0;
 }
-
-/* ===== 卡片式产品区 ===== */
 .product-list {
     margin: 10px 0 14px;
     display: flex; flex-direction: column; gap: 12px;
@@ -195,8 +189,6 @@ body {
 .product-item .pi-grid .pi-field .v.money { color: #b8860b; font-size: 15px; font-weight: 700; }
 .product-item .pi-grid .pi-field .v.amount { color: #003d7a; font-size: 16px; font-weight: 700; }
 .product-item .pi-grid .pi-note { font-size: 12px; color: #c0722a; grid-column: 1 / -1; }
-
-/* 汇总表 */
 .summary-wrap {
     margin: 8px 0 14px; border-radius: 16px;
     border: 1px solid #e3e9f2; overflow: hidden;
@@ -211,7 +203,6 @@ body {
 .summary-wrap .row-sub.green td:last-child { color: #1a5e1a; }
 .summary-wrap .row-sub.red td:last-child { color: #c0392b; }
 .summary-wrap .row-sub.gold td:last-child { color: #b8860b; }
-
 .info-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 14px 30px;
     background: #f8fafd; padding: 16px 22px; border-radius: 18px;
@@ -343,118 +334,187 @@ body {
     .product-card .row { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ===== 打印：紧凑排版 ===== */
+/* ===== 打印：极致紧凑 ===== */
 @media print {
     body { background: #fff; padding: 0; }
     .form-panel { display: none !important; }
     .quote-output.active, .quotation-output.active {
         display: block !important; box-shadow: none;
-        padding: 10px 14px; border: none; border-radius: 0;
+        padding: 6px 10px; border: none; border-radius: 0;
         margin: 0; width: 100%; max-width: 100%;
     }
     .quote-output:not(.active), .quotation-output:not(.active) { display: none !important; }
 
-    /* 标题紧凑 */
-    .quotation-title { margin-bottom: 12px !important; padding-bottom: 10px !important; }
-    .quotation-title h1 { font-size: 22px !important; letter-spacing: 3px !important; }
-    .quotation-title .subtitle { font-size: 12px !important; }
-
-    /* 品牌行紧凑 */
-    .brand-row {
-        padding-bottom: 10px !important; margin-bottom: 12px !important;
-        border-bottom-width: 2px !important;
+    /* 标题：压到极小 */
+    .quotation-title {
+        margin-bottom: 6px !important;
+        padding-bottom: 5px !important;
+        border-bottom-width: 1.5px !important;
     }
-    .brand-name { font-size: 22px !important; }
-    .brand-name small { font-size: 12px !important; }
-    .brand-tagline { font-size: 11px !important; padding: 1px 10px !important; }
-    .invoice-meta { padding: 8px 14px !important; }
-    .invoice-meta div { font-size: 12px !important; line-height: 1.5 !important; }
+    .quotation-title h1 { font-size: 18px !important; letter-spacing: 3px !important; margin-bottom: 2px !important; }
+    .quotation-title .subtitle { font-size: 10px !important; }
 
-    /* 买卖双方：紧凑 + 不分页 */
+    /* 品牌行：一行搞定 */
+    .brand-row {
+        padding-bottom: 5px !important;
+        margin-bottom: 6px !important;
+        border-bottom-width: 2px !important;
+        align-items: center !important;
+    }
+    .brand-name { font-size: 18px !important; letter-spacing: 0.5px !important; }
+    .brand-name small { font-size: 10px !important; margin-left: 6px !important; }
+    .brand-tagline { font-size: 9.5px !important; padding: 0 8px !important; margin-top: 2px !important; }
+    .invoice-meta { padding: 5px 10px !important; border-radius: 8px !important; }
+    .invoice-meta div { font-size: 10px !important; line-height: 1.4 !important; }
+    .invoice-meta strong { font-size: 10px !important; }
+
+    /* 卖家买家：极小 */
     .address-panel {
-        gap: 12px 20px !important;
-        padding: 10px 16px !important;
-        margin-bottom: 8px !important;
+        gap: 6px 16px !important;
+        padding: 6px 12px !important;
+        margin-bottom: 4px !important;
+        border-radius: 8px !important;
         page-break-inside: avoid !important;
         page-break-after: avoid !important;
         break-inside: avoid !important;
         break-after: avoid !important;
     }
-    .address-box .label { font-size: 11px !important; margin-bottom: 3px !important; }
-    .address-box .content { font-size: 11.5px !important; line-height: 1.45 !important; }
+    .address-box .label { font-size: 9.5px !important; margin-bottom: 2px !important; letter-spacing: 0.3px !important; }
+    .address-box .content { font-size: 10px !important; line-height: 1.35 !important; }
+    .address-box .content strong { font-size: 10.5px !important; }
 
-    /* 产品列表：紧凑 */
+    /* 产品列表：极致压缩 */
     .product-list {
-        margin: 4px 0 10px !important;
-        gap: 8px !important;
+        margin: 2px 0 4px !important;
+        gap: 4px !important;
     }
     .product-item {
-        padding: 10px 12px !important;
-        gap: 14px !important;
+        padding: 6px 10px !important;
+        gap: 10px !important;
+        border-radius: 8px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
-    .product-item .pi-img { width: 240px !important; height: 240px !important; }
-    .product-item .pi-title { font-size: 14px !important; padding-bottom: 5px !important; }
-    .product-item .pi-title .pi-no { font-size: 11px !important; padding: 1px 7px !important; }
-    .product-item .pi-title .pi-type { font-size: 11px !important; }
-    .product-item .pi-grid { gap: 4px 20px !important; font-size: 12px !important; line-height: 1.5 !important; }
-    .product-item .pi-grid .pi-field .v.money { font-size: 13px !important; }
-    .product-item .pi-grid .pi-field .v.amount { font-size: 14px !important; }
+    .product-item .pi-img { width: 180px !important; height: 180px !important; border-radius: 6px !important; }
+    .product-item .pi-info { gap: 4px !important; }
+    .product-item .pi-title {
+        font-size: 12.5px !important;
+        padding-bottom: 3px !important;
+        line-height: 1.35 !important;
+    }
+    .product-item .pi-title .pi-no { font-size: 10px !important; padding: 1px 6px !important; margin-right: 5px !important; }
+    .product-item .pi-title .pi-type { font-size: 10px !important; margin-top: 1px !important; }
+    .product-item .pi-grid {
+        gap: 2px 16px !important;
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+    }
+    .product-item .pi-grid .pi-field { gap: 4px !important; }
+    .product-item .pi-grid .pi-field .v.money { font-size: 11.5px !important; }
+    .product-item .pi-grid .pi-field .v.amount { font-size: 12.5px !important; }
+    .product-item .pi-grid .pi-note { font-size: 10px !important; }
 
-    /* 汇总表紧凑 */
-    .summary-wrap { margin: 6px 0 10px !important; }
-    .summary-wrap td { padding: 7px 14px !important; font-size: 12px !important; }
-    .summary-wrap .row-total td { font-size: 14px !important; }
-    .summary-wrap .row-total td:last-child { font-size: 16px !important; }
+    /* 汇总表：极小 */
+    .summary-wrap { margin: 3px 0 5px !important; border-radius: 8px !important; }
+    .summary-wrap td { padding: 4px 12px !important; font-size: 11px !important; line-height: 1.4 !important; }
+    .summary-wrap td:last-child { width: 160px !important; }
+    .summary-wrap .row-total td { font-size: 12.5px !important; }
+    .summary-wrap .row-total td:last-child { font-size: 15px !important; }
 
-    /* 币种块紧凑 */
-    .currency-box { padding: 12px 18px !important; margin: 10px 0 !important; }
-    .currency-box .title { font-size: 13px !important; margin-bottom: 8px !important; }
-    .currency-grid { gap: 8px 16px !important; }
-    .currency-item { padding: 8px 10px !important; }
-    .currency-item .c-label { font-size: 10.5px !important; }
-    .currency-item .c-value { font-size: 15px !important; }
-    .currency-item.main .c-value { font-size: 17px !important; }
-    .currency-note { font-size: 10.5px !important; padding: 8px 12px !important; margin-top: 8px !important; }
+    /* 币种块：极小 */
+    .currency-box { padding: 8px 12px !important; margin: 5px 0 !important; border-radius: 8px !important; border-width: 1.5px !important; }
+    .currency-box .title { font-size: 11px !important; margin-bottom: 5px !important; }
+    .currency-grid { gap: 5px 10px !important; }
+    .currency-item { padding: 5px 8px !important; border-radius: 6px !important; }
+    .currency-item .c-label { font-size: 9.5px !important; margin-bottom: 2px !important; }
+    .currency-item .c-value { font-size: 13px !important; }
+    .currency-item.main .c-value { font-size: 15px !important; }
+    .currency-note {
+        font-size: 9.5px !important; padding: 5px 10px !important;
+        margin-top: 5px !important; border-radius: 6px !important; line-height: 1.4 !important;
+    }
+    .currency-note .en-term { font-size: 9.5px !important; }
 
-    /* 条款框紧凑 */
-    .terms-box { padding: 10px 16px !important; margin: 10px 0 8px !important; font-size: 11.5px !important; line-height: 1.6 !important; }
-    .terms-box .en-term { font-size: 10.5px !important; }
-    .compliance-box { padding: 10px 14px !important; margin: 10px 0 8px !important; font-size: 11px !important; line-height: 1.6 !important; }
-    .compliance-box .box-title { font-size: 12px !important; margin-bottom: 6px !important; }
-    .compliance-box .box-note { font-size: 10.5px !important; padding: 6px 10px !important; margin-bottom: 8px !important; }
+    /* 条款框：极小 */
+    .terms-box {
+        padding: 6px 12px !important;
+        margin: 5px 0 4px !important;
+        font-size: 10px !important;
+        line-height: 1.45 !important;
+        border-radius: 8px !important;
+        border-left-width: 3px !important;
+    }
+    .terms-box strong { font-size: 10.5px !important; }
+    .terms-box .en-term { font-size: 9.5px !important; margin-top: 1px !important; }
+    .terms-box p { margin-bottom: 3px !important; }
 
-    /* 信息网格紧凑 */
-    .info-grid { gap: 8px 20px !important; padding: 10px 16px !important; margin: 10px 0 !important; }
-    .info-item { font-size: 11.5px !important; line-height: 1.5 !important; }
-    .info-item .tag { min-width: 110px !important; font-size: 11.5px !important; }
+    /* 合规框 */
+    .compliance-box {
+        padding: 6px 12px !important;
+        margin: 5px 0 4px !important;
+        font-size: 9.5px !important;
+        line-height: 1.45 !important;
+        border-radius: 8px !important;
+        border-width: 1.5px !important;
+    }
+    .compliance-box .box-title { font-size: 10.5px !important; margin-bottom: 4px !important; }
+    .compliance-box .box-note { font-size: 9.5px !important; padding: 4px 8px !important; margin-bottom: 4px !important; line-height: 1.4 !important; }
+    .compliance-box p { margin-bottom: 2px !important; }
 
-    /* 支付方式紧凑 */
-    .payment-account-box { padding: 12px 16px !important; margin: 10px 0 6px !important; font-size: 11.5px !important; }
-    .payment-account-box .box-title { font-size: 13px !important; margin-bottom: 4px !important; }
-    .payment-account-box .box-sub { font-size: 11px !important; margin-bottom: 10px !important; }
-    .channel-badges { gap: 8px !important; }
-    .badge { padding: 8px 12px !important; min-width: 180px !important; }
-    .badge svg { width: 18px !important; height: 18px !important; }
-    .badge .badge-title { font-size: 11.5px !important; }
-    .badge .badge-note { font-size: 10px !important; }
+    /* 信息网格 */
+    .info-grid {
+        gap: 3px 16px !important;
+        padding: 6px 12px !important;
+        margin: 5px 0 !important;
+        border-radius: 8px !important;
+    }
+    .info-item { font-size: 10px !important; line-height: 1.4 !important; gap: 2px 6px !important; }
+    .info-item .tag { min-width: 90px !important; font-size: 10px !important; }
 
-    /* 签名行紧凑 + 不跨页 */
+    /* 支付方式 */
+    .payment-account-box {
+        padding: 6px 12px !important;
+        margin: 5px 0 3px !important;
+        font-size: 10px !important;
+        border-radius: 8px !important;
+        line-height: 1.4 !important;
+    }
+    .payment-account-box .box-title { font-size: 11px !important; margin-bottom: 2px !important; }
+    .payment-account-box .box-sub { font-size: 9.5px !important; margin-bottom: 5px !important; }
+    .channel-badges { gap: 5px !important; }
+    .badge { padding: 4px 8px !important; min-width: 150px !important; gap: 6px !important; border-radius: 6px !important; }
+    .badge svg { width: 14px !important; height: 14px !important; }
+    .badge .badge-title { font-size: 10px !important; }
+    .badge .badge-note { font-size: 8.5px !important; margin-top: 1px !important; }
+
+    /* 签名行：极小 + 不跨页 */
     .sign-row {
         display: flex !important; flex-wrap: nowrap !important;
         justify-content: space-between !important;
-        gap: 40px !important; margin: 14px 0 6px !important;
-        padding-top: 10px !important;
-        page-break-inside: avoid !important; break-inside: avoid !important;
+        gap: 30px !important;
+        margin: 6px 0 3px !important;
+        padding-top: 6px !important;
+        border-top-width: 1.5px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
     }
-    .sign-box { flex: 1 1 45% !important; }
-    .sign-box .label { font-size: 11px !important; }
-    .sign-box .name { font-size: 15px !important; padding-bottom: 5px !important; }
-    .sign-box .date { font-size: 11.5px !important; margin-top: 5px !important; }
+    .sign-box { flex: 1 1 45% !important; padding: 2px 0 !important; min-width: 0 !important; }
+    .sign-box .label { font-size: 9.5px !important; }
+    .sign-box .name { font-size: 13px !important; padding-bottom: 3px !important; margin-top: 2px !important; }
+    .sign-box .date { font-size: 9.5px !important; margin-top: 2px !important; }
 
-    /* 页脚紧凑 */
-    .footer-note { font-size: 11px !important; margin-top: 10px !important; padding-top: 10px !important; }
+    /* 页脚 */
+    .footer-note { font-size: 9.5px !important; margin-top: 5px !important; padding-top: 5px !important; line-height: 1.4 !important; }
+    .footer-note span { font-size: 9px !important; }
+
+    /* 备注 / 汇款备注 */
+    [style*="background:#fff8e1"], [style*="background:#fff3cd"] {
+        padding: 5px 10px !important;
+        margin: 4px 0 3px !important;
+        font-size: 10px !important;
+        border-radius: 6px !important;
+        line-height: 1.4 !important;
+    }
 
     /* 全局防跨页 */
     .brand-row, .terms-box, .compliance-box, .payment-account-box,
@@ -466,7 +526,7 @@ body {
     tr { page-break-inside: avoid; }
 
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    @page { margin: 6mm; size: A4 landscape; }
+    @page { margin: 5mm; size: A4 landscape; }
 }
 @media (max-width: 420px) {
     .form-panel { padding: 14px 12px; }

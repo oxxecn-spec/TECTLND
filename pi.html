@@ -334,7 +334,7 @@ body {
     .product-card .row { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ===== 打印：极致紧凑 ===== */
+/* ===== 打印：紧凑 + 产品卡片均分页面 ===== */
 @media print {
     body { background: #fff; padding: 0; }
     .form-panel { display: none !important; }
@@ -383,11 +383,17 @@ body {
     .address-box .content { font-size: 10px !important; line-height: 1.35 !important; }
     .address-box .content strong { font-size: 10.5px !important; }
 
-    /* 产品列表：极致压缩 */
+    /* ===== 核心：产品列表均分页面剩余空间 ===== */
     .product-list {
-        margin: 2px 0 4px !important;
-        gap: 4px !important;
+        margin: 2px 0 6px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        gap: 6px !important;
+        /* 让产品列表尽量占满剩余高度 */
+        min-height: 150mm !important;
     }
+
     .product-item {
         padding: 6px 10px !important;
         gap: 10px !important;

@@ -406,18 +406,6 @@
             padding-top: 16px;
         }
 
-        .mobile-pdf-hint {
-            display: none;
-            background: #e3f2fd;
-            border: 1px solid #90caf9;
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin: 12px 0;
-            font-size: 13px;
-            color: #0d47a1;
-            line-height: 1.7;
-        }
-
         .payment-account-box {
             background: #f0f7ff;
             border: 1px solid #b8d4e8;
@@ -522,7 +510,6 @@
             .sign-row { flex-direction: column; gap: 14px; }
             .sign-box { width: 100%; }
             .sign-box .name { font-size: 16px; }
-            .mobile-pdf-hint { display: block; }
             .payment-account-box { padding: 14px 16px; }
             .channel-badges { flex-direction: column; gap: 8px; }
             .badge { min-width: 100%; }
@@ -536,7 +523,6 @@
         @media print {
             body { background: white; padding: 0; }
             .form-panel { display: none !important; }
-            .mobile-pdf-hint { display: none !important; }
             .quote-output.active,
             .quotation-output.active {
                 display: block !important;
@@ -581,6 +567,48 @@
             .brand-name { font-size: 20px; }
             .info-item .tag { min-width: 80px; }
         }
+
+        /* ===== 图片功能：上传预览 + 报价单图集 ===== */
+        .p-image-preview { margin-top: 8px; }
+        .p-image-preview .thumb {
+            position: relative;
+            display: inline-block;
+            width: 90px;
+            height: 90px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #dce5ec;
+            background: #fff;
+        }
+        .p-image-preview .thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+        }
+        .p-image-preview .thumb .del {
+            position: absolute;
+            top: 3px; right: 3px;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: rgba(231,76,60,0.9);
+            color: #fff;
+            font-size: 13px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+        }
+        .product-gallery-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #e3e9f2;
+            background: #fff;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        /* ===== 图片功能结束 ===== */
     </style>
 </head>
 <body>
@@ -721,12 +749,6 @@
             <button class="btn btn-primary" onclick="generateQuote('both')">📄 生成正式 PI（繁體 + English）</button>
             <button class="btn btn-outline" onclick="window.print()" id="printBtn" style="display:none;">🖨️ 列印 / 另存為 PDF</button>
         </div>
-
-        <div class="mobile-pdf-hint" id="mobilePdfHint">
-            📱 <strong>手機生成 PDF 提示：</strong><br>
-            • <strong>Android / Chrome</strong>：點擊「列印」，在「目標印表機」選「另存為 PDF」即可。<br>
-            • <strong>iPhone / Safari</strong>：點擊「列印」，在預覽頁面用雙指放大，再點右上角「分享」→「儲存到檔案」。
-        </div>
     </div>
 
     <div class="quote-output" id="quoteOutput"></div>
@@ -736,6 +758,9 @@
 
 <script>
     let productIndex = 0;
+
+    // ===== 图片功能：每个产品的图片存储 =====
+    const productImages = {};   // { idx: base64 }
 
     const COLOR_OPTIONS = [
         '白色 / White',
@@ -873,6 +898,17 @@
                     <input type="text" class="p-remark">
                 </div>
             </div>
+
+            <!-- ===== 图片功能：产品图片上传 ===== -->
+            <div class="row">
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>產品圖片 / Product Image（單張，可重新選擇替換）</label>
+                    <input type="file" class="p-image-input" accept="image/*"
+                           onchange="handleImageUpload(${idx}, this)">
+                    <div class="p-image-preview" id="preview-${idx}"></div>
+                </div>
+            </div>
+            <!-- ===== 图片功能结束 ===== -->
         `;
         container.appendChild(card);
     }
@@ -880,6 +916,9 @@
     function removeProductCard(idx) {
         const card = document.getElementById('product-card-' + idx);
         if (card) card.remove();
+        // ===== 图片功能：同步清理该产品图片 =====
+        delete productImages[idx];
+        // ===== 图片功能结束 =====
     }
 
     function calcCard(idx) {
@@ -895,6 +934,67 @@
         const amount = billedAreaPerPc * qty * unit;
         card.querySelector('.p-amount').value = amount ? amount.toFixed(2) : '';
     }
+
+    // ===== 图片功能：上传 / 压缩 / 预览 / 删除 =====
+    function handleImageUpload(idx, input) {
+        const file = input.files && input.files[0];
+        if (!file) return;
+
+        compressImage(file, 800, 0.8).then(base64 => {
+            productImages[idx] = base64;
+            renderImagePreview(idx);
+            input.value = '';   // 允许重复选择同一文件
+        }).catch(err => {
+            console.warn('图片处理失败', err);
+            alert('圖片處理失敗，請改用 JPG / PNG 格式的圖片。');
+            input.value = '';
+        });
+    }
+
+    function compressImage(file, maxSize, quality) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = e => {
+                const img = new Image();
+                img.onload = () => {
+                    let { width, height } = img;
+                    if (width > maxSize || height > maxSize) {
+                        const ratio = Math.min(maxSize / width, maxSize / height);
+                        width = Math.round(width * ratio);
+                        height = Math.round(height * ratio);
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = reject;
+                img.src = e.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function renderImagePreview(idx) {
+        const box = document.getElementById('preview-' + idx);
+        if (!box) return;
+        const src = productImages[idx];
+        if (!src) { box.innerHTML = ''; return; }
+        box.innerHTML = `
+            <div class="thumb">
+                <img src="${src}" alt="">
+                <button type="button" class="del" onclick="removeImage(${idx})">×</button>
+            </div>
+        `;
+    }
+
+    function removeImage(idx) {
+        delete productImages[idx];
+        renderImagePreview(idx);
+    }
+    // ===== 图片功能结束 =====
 
     function collectFormData() {
         const orderNo = document.getElementById('orderNo').value || '';
@@ -926,6 +1026,9 @@
         let productTotal = 0;
 
         cards.forEach(card => {
+            // ===== 图片功能：取得该卡片的 idx，用于取图片 =====
+            const idx = parseInt(card.id.replace('product-card-', ''), 10);
+            // ===== 图片功能结束 =====
             const type = card.querySelector('.p-type').value;
             const name = card.querySelector('.p-name').value.trim();
             const color = card.querySelector('.p-color').value;
@@ -948,7 +1051,10 @@
                 type, name, color, opening, h, w, qty,
                 area: areaPerPc,
                 billedArea: billedAreaPerPc,
-                unit, amount, mesh, pRemark
+                unit, amount, mesh, pRemark,
+                // ===== 图片功能：带上图片 =====
+                image: productImages[idx] || ''
+                // ===== 图片功能结束 =====
             });
         });
 
@@ -961,6 +1067,28 @@
             rateHKD, rateUSD, rateGBP, products, productTotal, grandTotal
         };
     }
+
+    // ===== 图片功能：产品图集 HTML 生成（复用同一个函数）=====
+    function buildGalleryHtml(products) {
+        const hasAny = products.some(p => p.image);
+        if (!hasAny) return '';
+        return `
+            <div class="terms-box" style="background:#f8fafd; border-left-color:#1e5a8a;">
+                <p style="margin-bottom:12px;"><strong>📷 產品實拍圖 / Product Photos</strong></p>
+                <div style="display:flex; flex-wrap:wrap; gap:16px;">
+                    ${products.map((p, i) => p.image ? `
+                        <div style="text-align:center; max-width:110px;">
+                            <img src="${p.image}" alt="" class="product-gallery-img">
+                            <div style="font-size:11px; color:#5d708b; margin-top:5px; line-height:1.4;">
+                                #${i + 1} ${p.name.length > 12 ? p.name.slice(0, 12) + '…' : p.name}
+                            </div>
+                        </div>
+                    ` : '').join('')}
+                </div>
+            </div>
+        `;
+    }
+    // ===== 图片功能结束 =====
 
     function generateQuotation() {
         const d = collectFormData();
@@ -1081,7 +1209,13 @@
                 </tbody>
             </table>
         </div>
+        `;
 
+        // ===== 图片功能：报价单加产品图集 =====
+        html += buildGalleryHtml(d.products);
+        // ===== 图片功能结束 =====
+
+        html += `
         <div class="currency-box">
             <div class="title">💱 多幣種參考報價</div>
             <div class="currency-grid">
@@ -1364,7 +1498,13 @@
                 </tbody>
             </table>
         </div>
+        `;
 
+        // ===== 图片功能：PI 加产品图集 =====
+        html += buildGalleryHtml(d.products);
+        // ===== 图片功能结束 =====
+
+        html += `
         <div class="currency-box">
             <div class="title">💱 多幣種參考報價 / Multi-Currency Reference</div>
             <div class="currency-grid">

@@ -113,17 +113,21 @@ body {
 .invoice-meta { text-align: right; background: #f4f7fc; padding: 10px 18px; border-radius: 16px; }
 .invoice-meta div { font-size: 14px; color: #1f2a3f; line-height: 1.6; }
 .invoice-meta strong { font-weight: 600; color: #0b1a33; }
+
+/* ===== 买卖双方：紧凑版 ===== */
 .address-panel {
-    display: flex; flex-wrap: wrap; gap: 30px 40px;
-    background: #f9fafc; padding: 18px 22px; border-radius: 18px;
-    margin-bottom: 24px; border: 1px solid #e9edf4;
+    display: flex; flex-wrap: wrap;
+    gap: 16px 24px;
+    background: #f9fafc; padding: 14px 20px; border-radius: 18px;
+    margin-bottom: 14px;
+    border: 1px solid #e9edf4;
 }
-.address-box { flex: 1 1 200px; }
+.address-box { flex: 1 1 0; min-width: 0; }
 .address-box .label {
     font-size: 12px; font-weight: 600; letter-spacing: 0.8px;
     color: #5d708b; margin-bottom: 5px;
 }
-.address-box .content { font-size: 15px; line-height: 1.6; color: #1b293b; }
+.address-box .content { font-size: 14px; line-height: 1.55; color: #1b293b; }
 .address-box .content .phone { font-weight: 500; color: #0f2b4f; }
 .web-link { color: #0059b3; text-decoration: none; border-bottom: 1px dotted #b3c9e0; }
 
@@ -141,15 +145,15 @@ body {
     cursor: pointer; border: none; padding: 0;
 }
 
-/* 卡片式产品区 */
+/* ===== 卡片式产品区 ===== */
 .product-list {
-    margin: 18px 0 20px;
-    display: flex; flex-direction: column; gap: 16px;
+    margin: 10px 0 14px;
+    display: flex; flex-direction: column; gap: 12px;
 }
 .product-item {
-    display: flex; gap: 20px;
+    display: flex; gap: 18px;
     background: #f8fafd; border: 1px solid #e3e9f2;
-    border-radius: 14px; padding: 18px 20px;
+    border-radius: 14px; padding: 14px 18px;
     page-break-inside: avoid; break-inside: avoid;
 }
 .product-item .pi-img {
@@ -166,11 +170,11 @@ body {
 }
 .product-item .pi-info {
     flex: 1 1 auto; min-width: 0;
-    display: flex; flex-direction: column; gap: 10px;
+    display: flex; flex-direction: column; gap: 8px;
 }
 .product-item .pi-title {
     font-size: 16px; font-weight: 700; color: #0b1a33;
-    padding-bottom: 8px; border-bottom: 1px dashed #dbe4f0; line-height: 1.5;
+    padding-bottom: 6px; border-bottom: 1px dashed #dbe4f0; line-height: 1.5;
 }
 .product-item .pi-title .pi-no {
     display: inline-block; background: #1a2b4c; color: #fff;
@@ -182,7 +186,7 @@ body {
 }
 .product-item .pi-grid {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 8px 24px; font-size: 13.5px; line-height: 1.65; color: #1b293b;
+    gap: 6px 24px; font-size: 13.5px; line-height: 1.6; color: #1b293b;
 }
 .product-item .pi-grid .pi-field { display: flex; gap: 6px; align-items: baseline; }
 .product-item .pi-grid .pi-field .k { color: #5d708b; flex: 0 0 auto; font-weight: 500; }
@@ -194,7 +198,7 @@ body {
 
 /* 汇总表 */
 .summary-wrap {
-    margin: 8px 0 20px; border-radius: 16px;
+    margin: 8px 0 14px; border-radius: 16px;
     border: 1px solid #e3e9f2; overflow: hidden;
 }
 .summary-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; }
@@ -209,18 +213,18 @@ body {
 .summary-wrap .row-sub.gold td:last-child { color: #b8860b; }
 
 .info-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px 30px;
-    background: #f8fafd; padding: 18px 22px; border-radius: 18px;
-    margin: 18px 0 16px; border: 1px solid #e6ecf5;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px 30px;
+    background: #f8fafd; padding: 16px 22px; border-radius: 18px;
+    margin: 14px 0 14px; border: 1px solid #e6ecf5;
 }
 .info-item { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 14px; line-height: 1.6; }
 .info-item .tag { font-weight: 600; color: #26436a; min-width: 140px; }
 .currency-box {
     background: #f0f7ff; border: 2px solid #b8d4e8;
-    border-radius: 16px; padding: 20px 24px; margin: 18px 0;
+    border-radius: 16px; padding: 18px 24px; margin: 14px 0;
 }
-.currency-box .title { font-size: 15px; font-weight: 700; color: #003d7a; margin-bottom: 14px; letter-spacing: 0.5px; }
-.currency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px 24px; }
+.currency-box .title { font-size: 15px; font-weight: 700; color: #003d7a; margin-bottom: 12px; letter-spacing: 0.5px; }
+.currency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px 24px; }
 .currency-item {
     background: #fff; border: 1px solid #dce9f5;
     border-radius: 12px; padding: 12px 16px; text-align: center;
@@ -235,15 +239,15 @@ body {
 }
 .terms-box {
     background: #f2f6fe; border-left: 5px solid #1a2b4c;
-    padding: 16px 22px; border-radius: 14px;
-    margin: 20px 0 16px; font-size: 14px; line-height: 1.8; color: #0f263f;
+    padding: 14px 22px; border-radius: 14px;
+    margin: 14px 0 12px; font-size: 14px; line-height: 1.75; color: #0f263f;
 }
 .terms-box strong { color: #002856; }
 .terms-box .en-term { font-size: 12.5px; color: #4f6a8a; display: block; margin-top: 3px; font-weight: 400; }
 .compliance-box {
     background: #fff5f5; border: 2px solid #e74c3c;
-    border-radius: 14px; padding: 14px 20px; margin: 18px 0 14px;
-    font-size: 12.5px; line-height: 1.8; color: #7a1f1f;
+    border-radius: 14px; padding: 14px 20px; margin: 14px 0 12px;
+    font-size: 12.5px; line-height: 1.75; color: #7a1f1f;
 }
 .compliance-box .box-title { font-size: 14px; font-weight: 700; color: #c0392b; margin-bottom: 8px; letter-spacing: 0.3px; }
 .compliance-box .box-note {
@@ -253,7 +257,7 @@ body {
 .compliance-box p { margin-bottom: 6px; }
 .sign-row {
     display: flex; flex-wrap: wrap; justify-content: space-between;
-    margin: 28px 0 10px; padding-top: 12px;
+    margin: 24px 0 10px; padding-top: 12px;
     border-top: 2px solid #dfe7f2; gap: 16px;
 }
 .sign-box { min-width: 180px; padding: 6px 0; flex: 1 1 200px; }
@@ -266,11 +270,11 @@ body {
 .sign-box .date { font-size: 14px; color: #2e4a6b; margin-top: 8px; }
 .footer-note {
     text-align: center; font-size: 13px; color: #4f688b;
-    margin-top: 18px; border-top: 1px solid #e2eaf5; padding-top: 16px;
+    margin-top: 14px; border-top: 1px solid #e2eaf5; padding-top: 14px;
 }
 .payment-account-box {
     background: #f0f7ff; border: 1px solid #b8d4e8;
-    border-radius: 12px; padding: 18px 22px; margin: 12px 0 8px;
+    border-radius: 12px; padding: 16px 22px; margin: 12px 0 8px;
     font-size: 13.5px; color: #1a3c62; line-height: 1.7;
 }
 .payment-account-box .box-title { font-size: 15px; font-weight: 700; color: #003d7a; margin-bottom: 6px; }
@@ -310,7 +314,7 @@ body {
     .brand-row { flex-direction: column; align-items: stretch; gap: 10px; }
     .brand-name { font-size: 22px; }
     .invoice-meta { text-align: left; width: 100%; }
-    .address-panel { flex-direction: column; gap: 16px; padding: 14px 16px; }
+    .address-panel { flex-direction: column; gap: 14px; padding: 14px 16px; }
     .address-box .content { font-size: 14px; }
     .info-grid { grid-template-columns: 1fr; gap: 10px; padding: 14px 16px; }
     .info-item { font-size: 13px; }
@@ -338,25 +342,131 @@ body {
     .form-row { grid-template-columns: repeat(2, 1fr); }
     .product-card .row { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ===== 打印：紧凑排版 ===== */
 @media print {
     body { background: #fff; padding: 0; }
     .form-panel { display: none !important; }
     .quote-output.active, .quotation-output.active {
         display: block !important; box-shadow: none;
-        padding: 15px 20px; border: none; border-radius: 0;
+        padding: 10px 14px; border: none; border-radius: 0;
         margin: 0; width: 100%; max-width: 100%;
     }
     .quote-output:not(.active), .quotation-output:not(.active) { display: none !important; }
-    .product-item {
-        page-break-inside: avoid; break-inside: avoid; box-shadow: none;
+
+    /* 标题紧凑 */
+    .quotation-title { margin-bottom: 12px !important; padding-bottom: 10px !important; }
+    .quotation-title h1 { font-size: 22px !important; letter-spacing: 3px !important; }
+    .quotation-title .subtitle { font-size: 12px !important; }
+
+    /* 品牌行紧凑 */
+    .brand-row {
+        padding-bottom: 10px !important; margin-bottom: 12px !important;
+        border-bottom-width: 2px !important;
     }
-    .product-item .pi-img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .brand-row, .address-panel, .terms-box, .compliance-box, .sign-row,
-    .payment-account-box, .quotation-title { page-break-inside: avoid; }
+    .brand-name { font-size: 22px !important; }
+    .brand-name small { font-size: 12px !important; }
+    .brand-tagline { font-size: 11px !important; padding: 1px 10px !important; }
+    .invoice-meta { padding: 8px 14px !important; }
+    .invoice-meta div { font-size: 12px !important; line-height: 1.5 !important; }
+
+    /* 买卖双方：紧凑 + 不分页 */
+    .address-panel {
+        gap: 12px 20px !important;
+        padding: 10px 16px !important;
+        margin-bottom: 8px !important;
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+        break-inside: avoid !important;
+        break-after: avoid !important;
+    }
+    .address-box .label { font-size: 11px !important; margin-bottom: 3px !important; }
+    .address-box .content { font-size: 11.5px !important; line-height: 1.45 !important; }
+
+    /* 产品列表：紧凑 */
+    .product-list {
+        margin: 4px 0 10px !important;
+        gap: 8px !important;
+    }
+    .product-item {
+        padding: 10px 12px !important;
+        gap: 14px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    .product-item .pi-img { width: 240px !important; height: 240px !important; }
+    .product-item .pi-title { font-size: 14px !important; padding-bottom: 5px !important; }
+    .product-item .pi-title .pi-no { font-size: 11px !important; padding: 1px 7px !important; }
+    .product-item .pi-title .pi-type { font-size: 11px !important; }
+    .product-item .pi-grid { gap: 4px 20px !important; font-size: 12px !important; line-height: 1.5 !important; }
+    .product-item .pi-grid .pi-field .v.money { font-size: 13px !important; }
+    .product-item .pi-grid .pi-field .v.amount { font-size: 14px !important; }
+
+    /* 汇总表紧凑 */
+    .summary-wrap { margin: 6px 0 10px !important; }
+    .summary-wrap td { padding: 7px 14px !important; font-size: 12px !important; }
+    .summary-wrap .row-total td { font-size: 14px !important; }
+    .summary-wrap .row-total td:last-child { font-size: 16px !important; }
+
+    /* 币种块紧凑 */
+    .currency-box { padding: 12px 18px !important; margin: 10px 0 !important; }
+    .currency-box .title { font-size: 13px !important; margin-bottom: 8px !important; }
+    .currency-grid { gap: 8px 16px !important; }
+    .currency-item { padding: 8px 10px !important; }
+    .currency-item .c-label { font-size: 10.5px !important; }
+    .currency-item .c-value { font-size: 15px !important; }
+    .currency-item.main .c-value { font-size: 17px !important; }
+    .currency-note { font-size: 10.5px !important; padding: 8px 12px !important; margin-top: 8px !important; }
+
+    /* 条款框紧凑 */
+    .terms-box { padding: 10px 16px !important; margin: 10px 0 8px !important; font-size: 11.5px !important; line-height: 1.6 !important; }
+    .terms-box .en-term { font-size: 10.5px !important; }
+    .compliance-box { padding: 10px 14px !important; margin: 10px 0 8px !important; font-size: 11px !important; line-height: 1.6 !important; }
+    .compliance-box .box-title { font-size: 12px !important; margin-bottom: 6px !important; }
+    .compliance-box .box-note { font-size: 10.5px !important; padding: 6px 10px !important; margin-bottom: 8px !important; }
+
+    /* 信息网格紧凑 */
+    .info-grid { gap: 8px 20px !important; padding: 10px 16px !important; margin: 10px 0 !important; }
+    .info-item { font-size: 11.5px !important; line-height: 1.5 !important; }
+    .info-item .tag { min-width: 110px !important; font-size: 11.5px !important; }
+
+    /* 支付方式紧凑 */
+    .payment-account-box { padding: 12px 16px !important; margin: 10px 0 6px !important; font-size: 11.5px !important; }
+    .payment-account-box .box-title { font-size: 13px !important; margin-bottom: 4px !important; }
+    .payment-account-box .box-sub { font-size: 11px !important; margin-bottom: 10px !important; }
+    .channel-badges { gap: 8px !important; }
+    .badge { padding: 8px 12px !important; min-width: 180px !important; }
+    .badge svg { width: 18px !important; height: 18px !important; }
+    .badge .badge-title { font-size: 11.5px !important; }
+    .badge .badge-note { font-size: 10px !important; }
+
+    /* 签名行紧凑 + 不跨页 */
+    .sign-row {
+        display: flex !important; flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        gap: 40px !important; margin: 14px 0 6px !important;
+        padding-top: 10px !important;
+        page-break-inside: avoid !important; break-inside: avoid !important;
+    }
+    .sign-box { flex: 1 1 45% !important; }
+    .sign-box .label { font-size: 11px !important; }
+    .sign-box .name { font-size: 15px !important; padding-bottom: 5px !important; }
+    .sign-box .date { font-size: 11.5px !important; margin-top: 5px !important; }
+
+    /* 页脚紧凑 */
+    .footer-note { font-size: 11px !important; margin-top: 10px !important; padding-top: 10px !important; }
+
+    /* 全局防跨页 */
+    .brand-row, .terms-box, .compliance-box, .payment-account-box,
+    .quotation-title, .currency-box, .info-grid, .summary-wrap {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+    table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; }
+
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    @page { margin: 8mm; size: A4 landscape; }
-    .sign-row { display: flex; flex-wrap: nowrap; justify-content: space-between; gap: 40px; }
-    .sign-box { flex: 1 1 45%; }
+    @page { margin: 6mm; size: A4 landscape; }
 }
 @media (max-width: 420px) {
     .form-panel { padding: 14px 12px; }
@@ -916,7 +1026,7 @@ function generateQuotation() {
     }
 
     html += `
-    <div class="footer-note" style="background:#f9fafc; padding:16px 20px; border-radius:12px; border:1px solid #e6ecf5; margin-top:20px;">
+    <div class="footer-note" style="background:#f9fafc; padding:14px 20px; border-radius:12px; border:1px solid #e6ecf5; margin-top:14px;">
         <strong>📋 本報價單僅供參考，最終交易以雙方簽署的正式 PI 為準。</strong><br>
         <span style="font-size:12px; color:#6b7a8d;">This quotation is for reference only. The final transaction shall be subject to the signed Proforma Invoice.</span>
         <br><br>
